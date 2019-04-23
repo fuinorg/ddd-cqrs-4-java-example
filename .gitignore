@@ -1,0 +1,6 @@
+.*
+!.gitignore
+!.gitkeep
+!.mvn
+target
+*.log
