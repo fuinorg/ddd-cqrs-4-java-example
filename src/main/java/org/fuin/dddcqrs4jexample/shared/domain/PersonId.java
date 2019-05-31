@@ -55,17 +55,33 @@ public final class PersonId extends AggregateRootUuid {
     /**
      * Constructor with all data.
      *
-     * @param value Persistent value.
+     * @param value
+     *            Persistent value.
      */
     public PersonId(@NotNull final UUID value) {
         super(PersonId.TYPE, value);
     }
 
     /**
+     * Verifies if the given string can be converted into a Person ID.
+     * 
+     * @param value
+     *            String with valid UUID string. A <code>null</code> value ris also valid.
+     * 
+     * @return {@literal true} if the string is a valid UUID.
+     */
+    public static boolean isValid(final String value) {
+        if (value == null) {
+            return true;
+        }
+        return AggregateRootUuid.isValid(value);
+    }
+
+    /**
      * Parses a given string and returns a new instance of PersonId.
      * 
-     * @param value String with valid UUID to convert. A <code>null</code> value
-     *              returns <code>null</code>.
+     * @param value
+     *            String with valid UUID to convert. A <code>null</code> value returns <code>null</code>.
      * 
      * @return Converted value.
      */
