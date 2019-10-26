@@ -47,6 +47,9 @@ There are three DDD domain model related classes
 ### Package 'qry'
 Code for the 'query' or 'read' side of the application.
 
+#### Overview
+![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/doc/ddd-cqrs-4-java-example.png)
+
 #### Sub package 'app'
 There are several configuration classes used for CDI in the [app](src/main/java/org/fuin/dddcqrs4jexample/qry/app) package and the main query application.
 
