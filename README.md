@@ -3,12 +3,15 @@ Example applications that use [ddd-4-java](https://github.com/fuinorg/ddd-4-java
 
 ## Java SE + CDI
 Two standalone applications (Command & Query) using [Weld](https://weld.cdi-spec.org/) for dependency injection.
+
 [More...](java-se-cdi)
 
 ## Quarkus
 Two web applications (Command & Query) based on [Quarkus](https://quarkus.io/).
-[More...](spring-boot)
+
+More... TBD
 
 ## Spring Boot
 Two web applications (Command & Query) based on [Spring Boot](https://spring.io/projects/spring-boot/).
-[More...](quarkus)
+
+More.. TBD
