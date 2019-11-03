@@ -109,7 +109,29 @@ public final class SharedUtils {
         return registry;
     }
 
-    /**
+	/**
+	 * Creates a registry that connects the type with the appropriate serializer and
+	 * de-serializer.
+	 * 
+	 * @return New instance.
+	 */
+	public static SerDeserializerRegistry createRegistry() {
+
+		// Knows about all types for usage with JSON-B
+		final SerializedDataTypeRegistry typeRegistry = SharedUtils.createTypeRegistry();
+
+		// Does the actual marshalling/unmarshalling
+		final JsonbDeSerializer jsonbDeSer = SharedUtils.createJsonbDeSerializer();
+
+		// Registry connects the type with the appropriate serializer and de-serializer
+		final SerDeserializerRegistry serDeserRegistry = SharedUtils.createSerDeserializerRegistry(typeRegistry,
+				jsonbDeSer);
+
+		return serDeserRegistry;
+
+	}
+
+	/**
      * Creates an instance of the JSON-B serializer/deserializer.
      * 
      * @return New instance that is fully initialized with al necessary settings.
