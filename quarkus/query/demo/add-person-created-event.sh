@@ -1,0 +1,1 @@
+curl -i -H 'Authorization:Basic admin:changeit' -d "@person-created-event.json" "http://127.0.0.1:2113/streams/PERSON-f645969a-402d-41a9-882b-d2d8000d0f43" -H "Content-Type:application/vnd.eventstore.events+json"
