@@ -28,17 +28,14 @@ Then execute the following steps:
    ```
    git clone https://github.com/fuinorg/ddd-cqrs-4-java-example.git
    ```
-3. Change into the new directory 
+3. Change into the new directory and start Event Store and PostgreSQL using Docker Compose
    ```
    cd ddd-cqrs-4-java-example/quarkus
-   ```
-4. Start Event Store and PostgreSQL using Docker Compose
-   ```
    docker-compose up
    ```
    (Wait until everything is started) 
-5. Open another console (Ubuntu shortcut = ctrl alt t)
-6. Change into the quarkus directory and build the project
+4. Open another console (Ubuntu shortcut = ctrl alt t)
+5. Change into the quarkus directory and build the project
    ```
    cd ddd-cqrs-4-java-example/quarkus
    ./mvnw install
