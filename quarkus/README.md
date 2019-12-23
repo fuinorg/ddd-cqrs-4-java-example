@@ -10,7 +10,7 @@ Make sure you have the following tools installed:
 
 Or simply use the [lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm) that has already everything installed.
 Then execute the following steps:
-1. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
+1. Open a console (Ubuntu shortcut = ctrl alt t)
 2. Install GraalVM: 
    ```
    sdk install java 19.2.1-grl
@@ -37,7 +37,7 @@ Then execute the following steps:
    docker-compose up
    ```
    (Wait until everything is started) 
-5. Open another console (Ubuntu shortcut = <ctrl><alt><t>)
+5. Open another console (Ubuntu shortcut = ctrl alt t)
 6. Change into the quarkus directory and build the project
    ```
    cd ddd-cqrs-4-java-example/quarkus
@@ -51,7 +51,7 @@ Then execute the following steps:
    ./mvnw quarkus:dev
    ```
 2. Opening [http://localhost:8080/persons](http://localhost:8080/persons) should show an empty JSON array
-3. Open another console (Ubuntu shortcut = <ctrl><alt><t>)
+3. Open another console (Ubuntu shortcut = ctrl alt t)
 4. Change into the demo directory and add an event using cURL 
    ```
    cd ddd-cqrs-4-java-example/quarkus/query/demo
