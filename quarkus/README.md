@@ -42,19 +42,35 @@ Then execute the following steps:
    ```
 
 ## Run the query microservice in development mode
-1. Start the query microservice:   
+1. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
+2. Start the query microservice:   
    ```
-   cd query
+   cd ddd-cqrs-4-java-example/quarkus/query
    ./mvnw quarkus:dev
    ```
+   
+## Build and run the query microservice in native mode
+1. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
+2. Build the native executable 
+   ```
+   cd query
+   ./mvnw verify -Pnative
+   ```
+3. Run the microservice
+   ```
+    ./target/cqrs4j-quarkus-example-query-1.0-SNAPSHOT-runner -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
+   ```
+    
+## Test
+1. Open [http://localhost:2113/](http://localhost:2113/) to access the event store UI (User: admin / Password: changeit)
 2. Opening [http://localhost:8080/persons](http://localhost:8080/persons) should show an empty JSON array
 3. Open another console (Ubuntu shortcut = ctrl alt t)
-4. Change into the demo directory and add an event using cURL 
+4. Change into the demo directory and add an event using cURL (in the shell script) 
    ```
    cd ddd-cqrs-4-java-example/quarkus/query/demo
    ./add-person-created-event.sh
    ```
-5. Refreshing [http://localhost:8080/persons](http://localhost:8080/persons) should show something like this:
+4. Refreshing [http://localhost:8080/persons](http://localhost:8080/persons) should show something like this:
     ```json
     [{"id":"f645969a-402d-41a9-882b-d2d8000d0f43","name":"Peter Parker"}]
     ```
