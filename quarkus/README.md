@@ -21,6 +21,7 @@ Then execute the following steps:
    source source ~/.profile
    $GRAALVM_HOME/bin/gu install native-image
    ``` 
+4. OPTIONAL: Change memory of virtual machine to 8 GB (instead of 4 GB default) if you want to create a native image with GraalVM 
 
 ## Getting started
 1. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
@@ -50,13 +51,14 @@ Then execute the following steps:
    ```
    
 ## Build and run the query microservice in native mode
-1. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
-2. Build the native executable 
+1. Make sure you have enough memory (~6-8 GB) on your PC or VM
+2. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
+3. Build the native executable 
    ```
    cd query
    ./mvnw verify -Pnative
    ```
-3. Run the microservice
+4. Run the microservice
    ```
     ./target/cqrs4j-quarkus-example-query-1.0-SNAPSHOT-runner -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
    ```
