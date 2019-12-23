@@ -140,7 +140,7 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
-            <snaps"pom.xml"hots>
+            <snapshots>
                 <updatePolicy>always</updatePolicy>
                 <enabled>true</enabled>
             </snapshots>
