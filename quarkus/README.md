@@ -22,12 +22,25 @@ Then execute the following steps:
 ## Getting started
 
 1. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
-2. Clone the git repository: ```git clone https://github.com/fuinorg/ddd-cqrs-4-java-example.git```
-3. Change into the new directory: ```cd ddd-cqrs-4-java-example/quarkus```
-4. Start Event Store and PostgreSQL using Docker Compose: ```docker-compose up``` (Wait until everything is started) 
+2. Clone the git repository
+   ```
+   git clone https://github.com/fuinorg/ddd-cqrs-4-java-example.git
+   ```
+3. Change into the new directory 
+   ```
+   cd ddd-cqrs-4-java-example/quarkus
+   ```
+4. Start Event Store and PostgreSQL using Docker Compose
+   ```
+   docker-compose up
+   ```
+   (Wait until everything is started) 
 5. Open another console (Ubuntu shortcut = <ctrl><alt><t>)
-6. Change into the new directory: ```cd ddd-cqrs-4-java-example/quarkus```
-7. Build the Quarkus project: ```./mvnw install```
+6. Change into the quarkus directory and build the project
+   ```
+   cd ddd-cqrs-4-java-example/quarkus
+   ./mvnw install
+   ```
 
 ## Run the query microservice in development mode
 
@@ -38,9 +51,12 @@ Then execute the following steps:
    ```
 2. Opening [http://localhost:8080/persons](http://localhost:8080/persons) should show an empty JSON array
 3. Open another console (Ubuntu shortcut = <ctrl><alt><t>)
-4. Change into the demo directory: ```cd ddd-cqrs-4-java-example/quarkus/query/demo```
-5. Add an event using CURL: ```./add-person-created-event.sh```
-6. Refreshing [http://localhost:8080/persons](http://localhost:8080/persons) should show something like this:
+4. Change into the demo directory and add an event using cURL 
+   ```
+   cd ddd-cqrs-4-java-example/quarkus/query/demo
+   ./add-person-created-event.sh
+   ```
+5. Refreshing [http://localhost:8080/persons](http://localhost:8080/persons) should show something like this:
     ```json
     [{"id":"f645969a-402d-41a9-882b-d2d8000d0f43","name":"Peter Parker"}]
     ```
