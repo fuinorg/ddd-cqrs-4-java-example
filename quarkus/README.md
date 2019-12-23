@@ -11,7 +11,10 @@ Make sure you have the following tools installed:
 Or simply use the [lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm) that has already everything installed.
 Then execute the following steps:
 1. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
-2. Install GraalVM: ```sdk install java 19.2.1-grl```
+2. Install GraalVM: 
+   ```
+   sdk install java 19.2.1-grl
+   ```
 3. Finalize GraalVM settings    
    ```
    echo "GRAALVM_HOME=\"/home/developer/.sdkman/candidates/java/19.2.1-grl\"" >> ~/.profile
@@ -20,7 +23,6 @@ Then execute the following steps:
    ``` 
 
 ## Getting started
-
 1. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
 2. Clone the git repository
    ```
@@ -43,7 +45,6 @@ Then execute the following steps:
    ```
 
 ## Run the query microservice in development mode
-
 1. Start the query microservice:   
    ```
    cd query
