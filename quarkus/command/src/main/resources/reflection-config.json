@@ -1,0 +1,11 @@
+[
+  {
+    "name" : "org.fuin.cqrs4j.SimpleResult",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]
