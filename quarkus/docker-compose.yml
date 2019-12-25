@@ -10,10 +10,6 @@ services:
       - "2113:2113"
     networks:
       - cqrs4j-quarkus-example-net
-    healthcheck:
-      test: ["CMD-SHELL", "curl -sf http://localhost:2113/stats || exit 1"]
-      interval: 5s
-      timeout: 2s
 
 #  jkmq-postgres:
 #    image: postgres:11.0
@@ -26,11 +22,6 @@ services:
 #      - POSTGRES_PASSWORD=abc
 #    networks:
 #      - cqrs4j-quarkus-example-net
-#    healthcheck:
-#      test: ["CMD-SHELL", "pg_isready -U postgres"]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 5
 
   mariadb:
     image: mariadb:10.4
@@ -44,11 +35,6 @@ services:
       - "3306:3306"
     networks:
       - cqrs4j-quarkus-example-net
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      interval: 3s
-      timeout: 1s
-      retries: 5
 
 networks:
   cqrs4j-quarkus-example-net:
