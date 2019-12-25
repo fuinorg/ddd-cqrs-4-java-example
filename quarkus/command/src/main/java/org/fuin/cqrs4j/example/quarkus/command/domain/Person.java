@@ -24,9 +24,12 @@ import org.fuin.ddd4j.ddd.ApplyEvent;
 import org.fuin.ddd4j.ddd.EntityType;
 import org.fuin.objects4j.common.Contract;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 /**
  * A medical practitioner most likely also holder of an accredited academic degree.
  */
+@RegisterForReflection
 public class Person extends AbstractAggregateRoot<PersonId> implements Serializable {
 
     private static final long serialVersionUID = 1000L;
