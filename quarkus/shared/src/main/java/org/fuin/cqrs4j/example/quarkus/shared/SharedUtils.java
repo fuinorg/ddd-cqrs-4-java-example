@@ -22,6 +22,8 @@ import java.nio.charset.Charset;
 import javax.json.bind.adapter.JsonbAdapter;
 
 import org.eclipse.yasson.FieldAccessStrategy;
+import org.fuin.ddd4j.ddd.AggregateVersionConverter;
+import org.fuin.ddd4j.ddd.EntityIdConverter;
 import org.fuin.ddd4j.ddd.EntityIdPathConverter;
 import org.fuin.ddd4j.ddd.EventIdConverter;
 import org.fuin.esc.spi.Base64Data;
@@ -36,7 +38,6 @@ import org.fuin.esc.spi.SerializedDataTypeRegistry;
 import org.fuin.esc.spi.SimpleSerializedDataTypeRegistry;
 import org.fuin.esc.spi.SimpleSerializerDeserializerRegistry;
 
-
 /**
  * Utility code shared between command (write) and query (read) module.
  */
@@ -48,16 +49,15 @@ public final class SharedUtils {
 
     /** All JSON-B adapters from this module. */
     public static JsonbAdapter<?, ?>[] JSONB_ADAPTERS = new JsonbAdapter<?, ?>[] { new EventIdConverter(),
-            new EntityIdPathConverter(new SharedEntityIdFactory()), new PersonId.Converter(),
-            new PersonName.Converter() };
+            new EntityIdPathConverter(new SharedEntityIdFactory()), new EntityIdConverter(new SharedEntityIdFactory()),
+            new AggregateVersionConverter(), new PersonId.Converter(), new PersonName.Converter() };
 
     private SharedUtils() {
         throw new UnsupportedOperationException("It is not allowed to create an instance of a utiliy class");
     }
 
     /**
-     * Create a registry that allows finding types (classes) based on their unique
-     * type name.
+     * Create a registry that allows finding types (classes) based on their unique type name.
      * 
      * @return New instance.
      */
@@ -81,11 +81,12 @@ public final class SharedUtils {
     }
 
     /**
-     * Creates a registry that connects the type with the appropriate serializer and
-     * de-serializer.
+     * Creates a registry that connects the type with the appropriate serializer and de-serializer.
      * 
-     * @param typeRegistry Type registry (Mapping from type name to class).
-     * @param jsonbDeSer   JSON-B serializer/deserializer to use.
+     * @param typeRegistry
+     *            Type registry (Mapping from type name to class).
+     * @param jsonbDeSer
+     *            JSON-B serializer/deserializer to use.
      * 
      * @return New instance.
      */
@@ -109,29 +110,27 @@ public final class SharedUtils {
         return registry;
     }
 
-	/**
-	 * Creates a registry that connects the type with the appropriate serializer and
-	 * de-serializer.
-	 * 
-	 * @return New instance.
-	 */
-	public static SerDeserializerRegistry createRegistry() {
+    /**
+     * Creates a registry that connects the type with the appropriate serializer and de-serializer.
+     * 
+     * @return New instance.
+     */
+    public static SerDeserializerRegistry createRegistry() {
 
-		// Knows about all types for usage with JSON-B
-		final SerializedDataTypeRegistry typeRegistry = SharedUtils.createTypeRegistry();
+        // Knows about all types for usage with JSON-B
+        final SerializedDataTypeRegistry typeRegistry = SharedUtils.createTypeRegistry();
 
-		// Does the actual marshalling/unmarshalling
-		final JsonbDeSerializer jsonbDeSer = SharedUtils.createJsonbDeSerializer();
+        // Does the actual marshalling/unmarshalling
+        final JsonbDeSerializer jsonbDeSer = SharedUtils.createJsonbDeSerializer();
 
-		// Registry connects the type with the appropriate serializer and de-serializer
-		final SerDeserializerRegistry serDeserRegistry = SharedUtils.createSerDeserializerRegistry(typeRegistry,
-				jsonbDeSer);
+        // Registry connects the type with the appropriate serializer and de-serializer
+        final SerDeserializerRegistry serDeserRegistry = SharedUtils.createSerDeserializerRegistry(typeRegistry, jsonbDeSer);
 
-		return serDeserRegistry;
+        return serDeserRegistry;
 
-	}
+    }
 
-	/**
+    /**
      * Creates an instance of the JSON-B serializer/deserializer.
      * 
      * @return New instance that is fully initialized with al necessary settings.
@@ -139,9 +138,8 @@ public final class SharedUtils {
     public static JsonbDeSerializer createJsonbDeSerializer() {
 
         return JsonbDeSerializer.builder().withSerializers(EscSpiUtils.createEscJsonbSerializers())
-                .withDeserializers(EscSpiUtils.createEscJsonbDeserializers())
-                .withAdapters(JSONB_ADAPTERS).withPropertyVisibilityStrategy(new FieldAccessStrategy())
-                .withEncoding(Charset.forName("utf-8")).build();
+                .withDeserializers(EscSpiUtils.createEscJsonbDeserializers()).withAdapters(JSONB_ADAPTERS)
+                .withPropertyVisibilityStrategy(new FieldAccessStrategy()).withEncoding(Charset.forName("utf-8")).build();
 
     }
 
@@ -157,8 +155,10 @@ public final class SharedUtils {
         /**
          * Constructor with all data.
          * 
-         * @param type  Type.
-         * @param clasz Class.
+         * @param type
+         *            Type.
+         * @param clasz
+         *            Class.
          */
         public TypeClass(final SerializedDataType type, final Class<?> clasz) {
             super();
