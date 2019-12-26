@@ -132,4 +132,9 @@ Then execute the following steps:
         -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 \
         -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
    ```
-    
+
+**Issues**
+- [Quarkus native query microservice does not execute updates](https://github.com/fuinorg/ddd-cqrs-4-java-example/issues/1)
+
+
+
