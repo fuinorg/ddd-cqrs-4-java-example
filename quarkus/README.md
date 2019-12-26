@@ -88,7 +88,7 @@ Then execute the following steps:
     ```
 
 ## Stop Event Store and Maria DB and clean up
-1. Stop Docker Compse (Ubuntu shortcut = ctrl c)
+1. Stop Docker Compose (Ubuntu shortcut = ctrl c)
 2. Remove Docker Compose container
    ```   
    docker-compose rm
