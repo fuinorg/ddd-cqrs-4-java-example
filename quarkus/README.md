@@ -69,7 +69,15 @@ Then execute the following steps:
    ```
    cd ddd-cqrs-4-java-example/quarkus/demo
    ./create-person-command.sh
+   ```   
+   Command console should show something like
    ```
+   Update aggregate: id=PERSON 84565d62-115e-4502-b7c9-38ad69c64b05, version=-1, nextVersion=0
+   ```   
+   Query console should show something like
+   ```
+   PersonCreatedEventHandler ... Handle PersonCreatedEvent: Person 'Peter Parker' was created
+   ```    
 4. Refreshing [http://localhost:8080/persons](http://localhost:8080/persons) should show
     ```json
     [{"id":"84565d62-115e-4502-b7c9-38ad69c64b05","name":"Peter Parker"}]
