@@ -17,7 +17,7 @@ Then execute the following steps:
    ```
 3. Finalize GraalVM settings    
    ```
-   echo "GRAALVM_HOME=\"/home/developer/.sdkman/candidates/java/19.2.1-grl\"" >> ~/.profile
+   echo "export GRAALVM_HOME=\"/home/developer/.sdkman/candidates/java/19.2.1-grl\"" >> ~/.profile
    source source ~/.profile
    $GRAALVM_HOME/bin/gu install native-image
    ``` 
