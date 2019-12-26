@@ -50,6 +50,7 @@ Then execute the following steps:
    cd ddd-cqrs-4-java-example/quarkus/command
    ./mvnw quarkus:dev
    ```
+3. Opening [http://localhost:8081/](http://localhost:8081/) should show the command welcome page
    
 ## Run the query microservice in development mode
 1. Open a console (Ubuntu shortcut = ctrl alt t)
@@ -58,6 +59,7 @@ Then execute the following steps:
    cd ddd-cqrs-4-java-example/quarkus/query
    ./mvnw quarkus:dev
    ```
+3. Opening [http://localhost:8080/](http://localhost:8080/) should show the query welcome page
    
 ## Test
 1. Open [http://localhost:2113/](http://localhost:2113/) to access the event store UI (User: admin / Password: changeit)
