@@ -107,7 +107,9 @@ Then execute the following steps:
    ```
 4. Run the microservice
    ```
-    ./target/cqrs4j-quarkus-example-command-1.0-SNAPSHOT-runner -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
+    ./target/cqrs4j-quarkus-example-command-1.0-SNAPSHOT-runner \
+        -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 \
+        -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
    ```
 
 ## *OPTIONAL* Build and run the query microservice in native mode
@@ -120,6 +122,8 @@ Then execute the following steps:
    ```
 4. Run the microservice
    ```
-    ./target/cqrs4j-quarkus-example-query-1.0-SNAPSHOT-runner -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
+    ./target/cqrs4j-quarkus-example-query-1.0-SNAPSHOT-runner \
+        -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 \
+        -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
    ```
     
