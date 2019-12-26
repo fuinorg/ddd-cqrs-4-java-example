@@ -139,4 +139,4 @@ Then execute the following steps:
 
 **Issues**
 - [Quarkus native query microservice does not execute updates](https://github.com/fuinorg/ddd-cqrs-4-java-example/issues/1)
-
+- [Building native query microservice fails with PostgreSQL (MariaDB works fine)](https://github.com/fuinorg/ddd-cqrs-4-java-example/issues/3)
