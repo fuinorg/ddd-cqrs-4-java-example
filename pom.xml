@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>shared</module>
         <module>java-se-cdi</module>
         <module>quarkus</module>
        <!-- <module>sprint-boot</module> -->
