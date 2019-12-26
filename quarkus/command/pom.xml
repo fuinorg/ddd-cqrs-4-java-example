@@ -22,6 +22,7 @@
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>1.0.1.Final</quarkus.platform.version>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
+        <failsafe-plugin.version>2.22.2</failsafe-plugin.version>
         <esc.version>0.3.1-SNAPSHOT</esc.version>
     </properties>
 
@@ -158,74 +159,79 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${failsafe-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <systemProperties>
+                                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                            </systemProperties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.31.0</version>
+                <configuration>
+
+                    <images>
+                        <image>
+                            <name>eventstore/eventstore:release-4.1.3</name>
+                            <run>
+                                <network>
+                                    <mode>bridge</mode>
+                                </network>
+                                <ports>
+                                    <port>1113:1113</port>
+                                    <port>2113:2113</port>
+                                </ports>
+                                <log>
+                                    <enabled>false</enabled>
+                                </log>
+                                <wait>
+                                    <http>
+                                        <url>http://localhost:2113/web/index.html#/</url>
+                                        <method>GET</method>
+                                    </http>
+                                    <time>20000</time>
+                                </wait>
+                            </run>
+                        </image>
+
+                    </images>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>start-images</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-images</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+
         </plugins>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.jboss.jandex</groupId>
-                                        <artifactId>jandex-maven-plugin</artifactId>
-                                        <versionRange>[1.0.7,)</versionRange>
-                                        <goals>
-                                            <goal>jandex</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute></execute>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
-
-    <profiles>
-
-        <profile>
-            <id>native</id>
-            <activation>
-                <property>
-                    <name>native</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${surefire-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <systemProperties>
-                                        <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                                    </systemProperties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <properties>
-                <quarkus.package.type>native</quarkus.package.type>
-            </properties>
-        </profile>
-
-    </profiles>
 
     <repositories>
 
