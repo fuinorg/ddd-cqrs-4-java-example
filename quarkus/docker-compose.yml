@@ -31,6 +31,7 @@ services:
       MYSQL_DATABASE: querydb
       MYSQL_USER: mary
       MYSQL_PASSWORD: abc
+      MYSQL_INITDB_SKIP_TZINFO: 1
     ports:
       - "3306:3306"
     networks:
