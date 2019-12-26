@@ -23,7 +23,11 @@ Then execute the following steps:
    source source ~/.profile
    $GRAALVM_HOME/bin/gu install native-image
    ``` 
-4. OPTIONAL: Change memory of virtual machine to 6 GB (instead of 4 GB default) if you want to create a native image with GraalVM 
+4. Install zlib 
+   ```
+   sudo apt-get install libz-dev
+   ```
+5. OPTIONAL: Change memory of virtual machine to 6 GB (instead of 4 GB default) if you want to create a native image with GraalVM 
 
 ## Getting started
 1. Open a console (Ubuntu shortcut = ctrl alt t)
