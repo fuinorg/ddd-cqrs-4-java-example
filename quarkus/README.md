@@ -8,6 +8,8 @@ Make sure you have the following tools installed:
 * [Docker Compose](https://docs.docker.com/compose/)
 * *OPTIONAL* [GraalVM](https://www.graalvm.org/)
 
+Hostname should be set in /etc/hosts (See [Find and Change Your Hostname in Ubuntu](https://helpdeskgeek.com/linux-tips/find-and-change-your-hostname-in-ubuntu/) for more information)
+
 Or simply use the [lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm) that has already everything installed.
 Then execute the following steps:
 1. Open a console (Ubuntu shortcut = ctrl alt t)
