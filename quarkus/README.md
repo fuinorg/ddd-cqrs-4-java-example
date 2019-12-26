@@ -118,6 +118,10 @@ Then execute the following steps:
         -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
    ```
 
+**Issues**
+- [Quarkus native command microservice fails with Yasson NullPointerException](https://github.com/fuinorg/ddd-cqrs-4-java-example/issues/2)
+
+
 ## *OPTIONAL* Build and run the query microservice in native mode
 1. Make sure you have enough memory (~6-8 GB) on your PC or VM
 2. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
@@ -135,6 +139,4 @@ Then execute the following steps:
 
 **Issues**
 - [Quarkus native query microservice does not execute updates](https://github.com/fuinorg/ddd-cqrs-4-java-example/issues/1)
-
-
 
