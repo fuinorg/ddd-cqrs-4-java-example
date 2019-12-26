@@ -52,7 +52,7 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/create")
-    public Response hello(final CreatePersonCommand cmd)
+    public Response create(final CreatePersonCommand cmd)
             throws AggregateAlreadyExistsException, AggregateDeletedException, CommandExecutionFailedException {
 
         // Verify preconditions
