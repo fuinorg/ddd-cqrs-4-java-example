@@ -24,7 +24,6 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.fuin.esc.api.EventStore;
 import org.fuin.esc.eshttp.ESEnvelopeType;
 import org.fuin.esc.eshttp.ESHttpEventStore;
 import org.fuin.esc.eshttp.IESHttpEventStore;
