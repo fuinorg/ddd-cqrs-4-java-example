@@ -70,7 +70,7 @@ public class QryEventStoreFactory {
      * @param es
      *            Event store to close.
      */
-    public void closeEventStore(@Disposes final EventStore es) {
+    public void closeEventStore(@Disposes final IESHttpEventStore es) {
         es.close();
     }
 
