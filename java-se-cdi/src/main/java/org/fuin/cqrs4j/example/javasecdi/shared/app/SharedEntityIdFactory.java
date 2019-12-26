@@ -21,9 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.ddd4j.ddd.EntityId;
 import org.fuin.ddd4j.ddd.EntityIdFactory;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonId;
 
 /**
  * Factory that creates entity identifier instances based on the type.

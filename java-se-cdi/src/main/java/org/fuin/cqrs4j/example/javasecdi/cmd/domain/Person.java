@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
+import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.ddd4j.ddd.AbstractAggregateRoot;
 import org.fuin.ddd4j.ddd.ApplyEvent;
 import org.fuin.ddd4j.ddd.EntityType;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonId;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonName;
 import org.fuin.objects4j.common.Contract;
 
 /**

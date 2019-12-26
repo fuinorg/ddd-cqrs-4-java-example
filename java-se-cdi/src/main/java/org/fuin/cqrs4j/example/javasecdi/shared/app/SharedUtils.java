@@ -22,11 +22,11 @@ import java.nio.charset.Charset;
 import javax.json.bind.adapter.JsonbAdapter;
 
 import org.eclipse.yasson.FieldAccessStrategy;
+import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.ddd4j.ddd.EntityIdPathConverter;
 import org.fuin.ddd4j.ddd.EventIdConverter;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonId;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonName;
 import org.fuin.esc.spi.Base64Data;
 import org.fuin.esc.spi.EscEvent;
 import org.fuin.esc.spi.EscEvents;

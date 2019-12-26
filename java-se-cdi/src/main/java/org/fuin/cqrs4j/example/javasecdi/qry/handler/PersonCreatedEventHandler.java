@@ -5,11 +5,11 @@ import javax.inject.Inject;
 
 import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.fuin.cqrs4j.EventHandler;
-import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.cqrs4j.example.javasecdi.qry.domain.QryPerson;
 import org.fuin.cqrs4j.example.javasecdi.qry.domain.QryPersonRepository;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.ddd4j.ddd.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -2,8 +2,8 @@ package org.fuin.cqrs4j.example.javasecdi.cmd.domain;
 
 import javax.validation.constraints.NotNull;
 
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonId;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonName;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.objects4j.common.Contract;
 
 /**

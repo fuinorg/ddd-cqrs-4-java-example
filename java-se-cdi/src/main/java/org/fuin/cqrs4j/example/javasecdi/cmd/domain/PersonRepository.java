@@ -3,9 +3,9 @@ package org.fuin.cqrs4j.example.javasecdi.cmd.domain;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.validation.constraints.NotNull;
 
+import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.ddd4j.ddd.EntityType;
 import org.fuin.ddd4j.esrepo.EventStoreRepository;
-import org.fuin.cqrs4j.example.javasecdi.shared.domain.PersonId;
 import org.fuin.esc.api.EventStore;
 
 /**
