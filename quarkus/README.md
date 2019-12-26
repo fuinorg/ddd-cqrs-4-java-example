@@ -13,9 +13,9 @@ Hostname should be set in /etc/hosts (See [Find and Change Your Hostname in Ubun
 Or simply use the [lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm) that has already everything installed.
 Then execute the following steps:
 1. Open a console (Ubuntu shortcut = ctrl alt t)
-2. Install GraalVM: 
+2. Install GraalVM and zlib: 
    ```
-   sdk install java 19.2.1-grl
+   sdk install java 19.2.1-grl libz-dev
    ```
 3. Finalize GraalVM settings    
    ```
@@ -23,11 +23,7 @@ Then execute the following steps:
    source source ~/.profile
    $GRAALVM_HOME/bin/gu install native-image
    ``` 
-4. Install zlib 
-   ```
-   sudo apt-get install libz-dev
-   ```
-5. OPTIONAL: Change memory of virtual machine to 6 GB (instead of 4 GB default) if you want to create a native image with GraalVM 
+4. OPTIONAL: Change memory of virtual machine to 6 GB (instead of 4 GB default) if you want to create a native image with GraalVM 
 
 ## Getting started
 1. Open a console (Ubuntu shortcut = ctrl alt t)
