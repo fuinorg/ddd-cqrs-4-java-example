@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.quarkus.query;
+package org.fuin.cqrs4j.example.quarkus.query.api;
 
 import static io.restassured.RestAssured.given;
 import static java.util.concurrent.TimeUnit.SECONDS;
