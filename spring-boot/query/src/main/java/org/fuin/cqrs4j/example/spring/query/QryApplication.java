@@ -34,7 +34,7 @@ public class QryApplication {
 	 * @return New event store instance.
 	 */	
 	@Bean(destroyMethod = "close")
-	public IESHttpEventStore getESHttpEventStore(final QryConfig config) {
+	public IESHttpEventStore getESHttpEventStore(final Config config) {
 		final String url = config.getEventStoreProtocol() + "://" + config.getEventStoreHost() + ":"
 				+ config.getEventStoreHttpPort();
 		try {
