@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QryConfig {
+public class Config {
 
     private static final String EVENT_STORE_PROTOCOL = "http";
     
@@ -39,7 +39,7 @@ public class QryConfig {
     /**
      * Constructor using default values internally.
      */
-    public QryConfig() {
+    public Config() {
         super();
         this.eventStoreProtocol = EVENT_STORE_PROTOCOL;
         this.eventStoreHost = EVENT_STORE_HOST;
@@ -59,7 +59,7 @@ public class QryConfig {
      * @param eventStoreUser     User.
      * @param eventStorePassword Password.
      */
-    public QryConfig(final String eventStoreProtocol, final String eventStoreHost, final int eventStoreHttpPort, final int eventStoreTcpPort,
+    public Config(final String eventStoreProtocol, final String eventStoreHost, final int eventStoreHttpPort, final int eventStoreTcpPort,
             final String eventStoreUser, final String eventStorePassword) {
         super();
         this.eventStoreProtocol = eventStoreProtocol;
