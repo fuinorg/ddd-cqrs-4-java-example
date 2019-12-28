@@ -12,10 +12,18 @@
  */
 package org.fuin.cqrs4j.example.spring.query.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+
 import org.fuin.cqrs4j.SimpleResult;
+import org.fuin.objects4j.common.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,20 +37,42 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-	private static final String RESOURCE_NOT_FOUND = "RESOURCE_NOT_FOUND";
+    private static final String CONSTRAINT_VIOLATION = "CONSTRAINT_VIOLATION";
 
-	private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-	@ExceptionHandler(value = ResourceNotFoundException.class)
-	public ResponseEntity<SimpleResult> exception(final ResourceNotFoundException ex) {
+	@ExceptionHandler(value = PersonNotFoundException.class)
+	public ResponseEntity<SimpleResult> exception(final PersonNotFoundException ex) {
 
-		LOG.info("{} {}", RESOURCE_NOT_FOUND, ex.getMessage());
+		LOG.info("{} {}", ex.getShortId(), ex.getMessage());
 
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		return new ResponseEntity<>(SimpleResult.error(RESOURCE_NOT_FOUND, ex.getMessage()), headers,
+		return new ResponseEntity<>(SimpleResult.error(ex.getShortId(), ex.getMessage()), headers,
 				HttpStatus.NOT_FOUND);
 
 	}
 
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    public ResponseEntity<SimpleResult> exception(final ConstraintViolationException ex) {
+
+        LOG.info("{} {}", CONSTRAINT_VIOLATION, "ConstraintViolationException");
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(SimpleResult.error(CONSTRAINT_VIOLATION, asString(ex.getConstraintViolations())), headers, HttpStatus.BAD_REQUEST);
+
+    }
+    
+    private static String asString(@Nullable final Set<ConstraintViolation<?>> constraintViolations) {
+        if (constraintViolations == null || constraintViolations.size() == 0) {
+            return "";
+        }
+        final List<String> list = new ArrayList<>();
+        for (final ConstraintViolation<?> constraintViolation : constraintViolations) {
+            list.add(Contract.asString(constraintViolation));
+        }
+        return list.toString();
+    }
+	
 }

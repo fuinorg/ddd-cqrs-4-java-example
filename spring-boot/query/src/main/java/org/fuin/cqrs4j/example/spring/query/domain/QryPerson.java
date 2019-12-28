@@ -15,6 +15,7 @@ package org.fuin.cqrs4j.example.spring.query.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -26,8 +27,11 @@ import org.fuin.objects4j.common.Contract;
  * Represents a person that will be stored in the database.
  */
 @Entity
+@NamedQuery(name = QryPerson.FIND_ALL, query = "SELECT p FROM QryPerson p")
 @Table(name = "QRY_PERSON")
-public class Person {
+public class QryPerson {
+
+    public static final String FIND_ALL = "QryPerson.findAll";
 
     @Id
     @Column(name = "ID", nullable = false, length = 36, updatable = false)
@@ -41,7 +45,7 @@ public class Person {
     /**
      * Deserialization constructor.
      */
-    protected Person() {
+    protected QryPerson() {
         super();
     }
 
@@ -53,7 +57,7 @@ public class Person {
      * @param name
      *            Name of the created person
      */
-    public Person(@NotNull final PersonId id, @NotNull final PersonName name) {
+    public QryPerson(@NotNull final PersonId id, @NotNull final PersonName name) {
         super();
         Contract.requireArgNotNull("id", id);
         Contract.requireArgNotNull("name", name);

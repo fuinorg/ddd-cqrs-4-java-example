@@ -13,32 +13,44 @@
 package org.fuin.cqrs4j.example.spring.query.controller;
 
 import java.util.List;
+import java.util.UUID;
 
-import org.fuin.cqrs4j.example.spring.query.domain.Person;
+import javax.persistence.EntityManager;
+
+import org.fuin.cqrs4j.example.spring.query.domain.QryPerson;
+import org.fuin.cqrs4j.example.spring.shared.PersonId;
+import org.fuin.objects4j.vo.UUIDStr;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/persons")
+@Transactional(readOnly = true)
 public class PersonController {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(PersonController.class);
 
-	@Autowired
-	private PersonRepository personRepository;
+    @Autowired
+    private EntityManager em;
 
 	/**
 	 * Get all persons list.
 	 *
 	 * @return the list
 	 */
-	@GetMapping(path = "/persons", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Person> getAllQueryPersons() {
-		return personRepository.findAll();
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<QryPerson> getAllPersons() {
+        final List<QryPerson> persons = em.createNamedQuery(QryPerson.FIND_ALL, QryPerson.class).getResultList();
+        LOG.info("getAllPersons() = {}", persons.size());
+		return persons;
 	}
 
 	/**
@@ -48,13 +60,18 @@ public class PersonController {
 	 * 
 	 * @return Person from database.
 	 * 
-	 * @throws ResourceNotFoundException A person with the given UUID is unknown.
+	 * @throws PersonNotFoundException A person with the given identifier is
+	 *                                 unknown.
 	 */
-	@GetMapping(path = "/persons/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Person> getQueryPersonsById(@PathVariable(value = "id") String personId)
-			throws ResourceNotFoundException {
-		final Person person = personRepository.findById(personId)
-				.orElseThrow(() -> new ResourceNotFoundException("A person with id '" + personId + "' was not found"));
+	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<QryPerson> getPersonsById(@PathVariable(value = "id") @UUIDStr String personId)
+			throws PersonNotFoundException {
+		
+        final QryPerson person = em.find(QryPerson.class, personId);
+        if (person == null) {
+        	throw new PersonNotFoundException(new PersonId(UUID.fromString(personId)));
+        }
+        LOG.info("getPersonsById({}) = {}", personId, person);
 		return ResponseEntity.ok().body(person);
 	}
 

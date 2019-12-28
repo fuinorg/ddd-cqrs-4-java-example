@@ -8,14 +8,14 @@ import javax.validation.constraints.NotNull;
 
 import org.fuin.cqrs4j.EventDispatcher;
 import org.fuin.cqrs4j.SimpleEventDispatcher;
-import org.fuin.cqrs4j.example.spring.query.domain.Person;
+import org.fuin.cqrs4j.example.spring.query.domain.QryPerson;
 import org.fuin.ddd4j.ddd.Event;
 import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.api.CommonEvent;
 import org.springframework.stereotype.Component;
 
 /**
- * Dispatches events that relate to the {@link Person} entity to the appropriate
+ * Dispatches events that relate to the {@link QryPerson} entity to the appropriate
  * event handers.
  */
 @NotThreadSafe

@@ -35,7 +35,6 @@ public class PersonEventChunkHandler {
 	 * 
 	 * @return Number of the next event to read.
 	 */
-	@Transactional(readOnly = true)
 	public Long readNextEventNumber() {
 		return projectionService.readProjectionPosition(PROJECTION_STREAM_ID);
 	}

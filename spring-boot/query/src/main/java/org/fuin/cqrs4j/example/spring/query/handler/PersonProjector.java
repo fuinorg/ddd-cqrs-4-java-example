@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -17,6 +18,8 @@ import org.fuin.esc.api.TypeName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -35,6 +38,8 @@ public class PersonProjector {
 	/** Prevents more than one projector thread running at a time. */
 	private static final Semaphore LOCK = new Semaphore(1);
 
+	private static AtomicBoolean APP_STARTED = new AtomicBoolean(false); 
+	
 	// The following beans are NOT thread safe!
 	// Above LOCK prevents multithreaded access
 
@@ -58,6 +63,10 @@ public class PersonProjector {
 	@Scheduled(fixedRate = 100)
 	@Async("personProjectorExecutor")
 	public void execute() {
+		if (!APP_STARTED.get()) {
+			// Do nothing until application started
+			return;
+		}
 		tryLocked(LOCK, () -> {
 			try {
 				readStreamEvents();
@@ -65,6 +74,12 @@ public class PersonProjector {
 				LOG.error("Error reading events from stream", ex);
 			}
 		});
+	}
+	
+	@EventListener(ApplicationReadyEvent.class)
+	public void onAppStart() {
+		LOG.info("Application started");
+		APP_STARTED.set(true);
 	}
 
 	private void readStreamEvents() {
