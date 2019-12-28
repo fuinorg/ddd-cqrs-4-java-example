@@ -14,7 +14,6 @@ package org.fuin.cqrs4j.example.spring.command.controller;
 
 import java.util.Set;
 
-import javax.servlet.ServletContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
