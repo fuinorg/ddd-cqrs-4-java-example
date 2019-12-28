@@ -15,9 +15,11 @@ package org.fuin.cqrs4j.example.spring.query;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +35,7 @@ public class PersonController {
 	 *
 	 * @return the list
 	 */
-	@GetMapping("/persons")
+	@GetMapping(path = "/persons", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Person> getAllQueryPersons() {
 		return personRepository.findAll();
 	}
@@ -47,7 +49,7 @@ public class PersonController {
 	 * 
 	 * @throws ResourceNotFoundException A person with the given UUID is unknown.
 	 */
-	@GetMapping("/persons/{id}")
+	@GetMapping(path = "/persons/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> getQueryPersonsById(@PathVariable(value = "id") String personId)
 			throws ResourceNotFoundException {
 		Person person = personRepository.findById(personId).orElseThrow(
