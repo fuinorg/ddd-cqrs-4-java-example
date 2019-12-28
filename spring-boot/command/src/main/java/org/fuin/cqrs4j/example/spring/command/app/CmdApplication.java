@@ -46,7 +46,7 @@ public class CmdApplication {
 	 * @return New event store instance.
 	 */	
 	@Bean(destroyMethod = "shutdown")
-	public com.github.msemys.esjc.EventStore getESHttpEventStore(final Config config) {
+	public com.github.msemys.esjc.EventStore getESHttpEventStore(final CmdConfig config) {
         return EventStoreBuilder.newBuilder().singleNodeAddress(config.getEventStoreHost(), config.getEventStoreTcpPort())
                 .executor(Executors.newFixedThreadPool(10)).userCredentials(config.getEventStoreUser(), config.getEventStorePassword())
                 .build();

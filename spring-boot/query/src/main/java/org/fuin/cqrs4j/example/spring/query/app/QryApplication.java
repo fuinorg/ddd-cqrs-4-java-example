@@ -32,7 +32,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 		"org.fuin.cqrs4j.example.spring.query.controller", "org.fuin.cqrs4j.example.spring.query.domain",
 		"org.fuin.cqrs4j.example.spring.query.handler" })
 @EnableJpaRepositories("org.fuin.cqrs4j.example.spring.query.domain")
-@EntityScan({"org.fuin.cqrs4j.example.spring.query.domain", "org.fuin.cqrs4j.example.spring.query.handler"}) 
+@EntityScan({ "org.fuin.cqrs4j.example.spring.query.domain", "org.fuin.cqrs4j.example.spring.query.handler" })
 @EnableScheduling
 @EnableAsync
 public class QryApplication {
@@ -43,14 +43,13 @@ public class QryApplication {
 	 * @return Fully configured instance.
 	 */
 	@Bean
-    public Jsonb createJsonb() {
-        final JsonbConfig config = new JsonbConfig()
-                .withAdapters(SharedUtils.JSONB_ADAPTERS)
-                .withPropertyVisibilityStrategy(new FieldAccessStrategy());
-        final Jsonb jsonb = JsonbBuilder.create(config);
-        return jsonb;
-    }
-	
+	public Jsonb createJsonb() {
+		final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.JSONB_ADAPTERS)
+				.withPropertyVisibilityStrategy(new FieldAccessStrategy());
+		final Jsonb jsonb = JsonbBuilder.create(config);
+		return jsonb;
+	}
+
 	/**
 	 * Creates a HTTP based event store connection.
 	 * 
@@ -59,7 +58,7 @@ public class QryApplication {
 	 * @return New event store instance.
 	 */
 	@Bean(destroyMethod = "close")
-	public IESHttpEventStore getESHttpEventStore(final Config config) {
+	public IESHttpEventStore getESHttpEventStore(final QryConfig config) {
 		final String url = config.getEventStoreProtocol() + "://" + config.getEventStoreHost() + ":"
 				+ config.getEventStoreHttpPort();
 		try {

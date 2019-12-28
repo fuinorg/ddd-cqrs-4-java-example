@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.annotation.PreDestroy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.fuin.ddd4j.ddd.EventType;
@@ -82,6 +83,12 @@ public class PersonProjector {
 		APP_STARTED.set(true);
 	}
 
+	@PreDestroy
+    public void destroy() {
+		APP_STARTED.set(false);
+		LOG.info("Application stopped");
+    }
+	
 	private void readStreamEvents() {
 
 		// TODO Make sure a projection with the correct events exists

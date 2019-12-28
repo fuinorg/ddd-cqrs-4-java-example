@@ -1,10 +1,10 @@
-package org.fuin.cqrs4j.example.spring.command.app;
+package org.fuin.cqrs4j.example.spring.query.app;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Config {
+public class QryConfig {
 
 	private static final String EVENT_STORE_PROTOCOL = "http";
 
@@ -39,7 +39,7 @@ public class Config {
 	/**
 	 * Constructor using default values internally.
 	 */
-	public Config() {
+	public QryConfig() {
 		super();
 		this.eventStoreProtocol = EVENT_STORE_PROTOCOL;
 		this.eventStoreHost = EVENT_STORE_HOST;
@@ -59,7 +59,7 @@ public class Config {
 	 * @param eventStoreUser     User.
 	 * @param eventStorePassword Password.
 	 */
-	public Config(final String eventStoreProtocol, final String eventStoreHost, final int eventStoreHttpPort,
+	public QryConfig(final String eventStoreProtocol, final String eventStoreHost, final int eventStoreHttpPort,
 			final int eventStoreTcpPort, final String eventStoreUser, final String eventStorePassword) {
 		super();
 		this.eventStoreProtocol = eventStoreProtocol;
@@ -122,6 +122,13 @@ public class Config {
 	 */
 	public String getEventStorePassword() {
 		return eventStorePassword;
+	}
+
+	@Override
+	public String toString() {
+		return "QryConfig [eventStoreProtocol=" + eventStoreProtocol + ", eventStoreHost=" + eventStoreHost
+				+ ", eventStoreHttpPort=" + eventStoreHttpPort + ", eventStoreTcpPort=" + eventStoreTcpPort
+				+ ", eventStoreUser=" + eventStoreUser + "]";
 	}
 
 }
