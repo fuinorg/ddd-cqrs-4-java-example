@@ -10,8 +10,9 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.spring.query;
+package org.fuin.cqrs4j.example.spring.query.controller;
 
+import org.fuin.cqrs4j.example.spring.query.domain.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

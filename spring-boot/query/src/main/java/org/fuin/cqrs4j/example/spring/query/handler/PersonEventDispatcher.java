@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.spring.query;
+package org.fuin.cqrs4j.example.spring.query.handler;
 
 import java.util.List;
 import java.util.Set;
@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import org.fuin.cqrs4j.EventDispatcher;
 import org.fuin.cqrs4j.SimpleEventDispatcher;
+import org.fuin.cqrs4j.example.spring.query.domain.Person;
 import org.fuin.ddd4j.ddd.Event;
 import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.api.CommonEvent;

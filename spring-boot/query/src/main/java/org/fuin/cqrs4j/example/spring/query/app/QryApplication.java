@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.spring.query;
+package org.fuin.cqrs4j.example.spring.query.app;
 
 import java.net.MalformedURLException;
 import java.net.URL;

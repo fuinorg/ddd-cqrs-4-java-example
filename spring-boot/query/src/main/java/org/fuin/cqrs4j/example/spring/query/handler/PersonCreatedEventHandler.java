@@ -1,6 +1,8 @@
-package org.fuin.cqrs4j.example.spring.query;
+package org.fuin.cqrs4j.example.spring.query.handler;
 
 import org.fuin.cqrs4j.EventHandler;
+import org.fuin.cqrs4j.example.spring.query.controller.PersonRepository;
+import org.fuin.cqrs4j.example.spring.query.domain.Person;
 import org.fuin.cqrs4j.example.spring.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.spring.shared.PersonId;
 import org.fuin.ddd4j.ddd.EventType;

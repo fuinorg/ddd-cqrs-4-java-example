@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.spring.query;
+package org.fuin.cqrs4j.example.spring.query.handler;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

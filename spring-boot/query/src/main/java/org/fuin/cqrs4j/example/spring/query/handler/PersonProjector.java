@@ -1,7 +1,7 @@
-package org.fuin.cqrs4j.example.spring.query;
+package org.fuin.cqrs4j.example.spring.query.handler;
 
 import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
-import static org.fuin.cqrs4j.example.spring.query.PersonEventChunkHandler.PROJECTION_STREAM_ID;
+import static org.fuin.cqrs4j.example.spring.query.handler.PersonEventChunkHandler.PROJECTION_STREAM_ID;
 
 import java.util.ArrayList;
 import java.util.List;

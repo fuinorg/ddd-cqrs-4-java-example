@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.spring.query;
+package org.fuin.cqrs4j.example.spring.query.handler;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

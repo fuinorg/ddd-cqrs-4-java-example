@@ -10,11 +10,13 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.spring.query;
+package org.fuin.cqrs4j.example.spring.query.controller;
 
 import java.util.List;
 
+import org.fuin.cqrs4j.example.spring.query.domain.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,8 +53,8 @@ public class PersonController {
 	@GetMapping(path = "/persons/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> getQueryPersonsById(@PathVariable(value = "id") String personId)
 			throws ResourceNotFoundException {
-		Person person = personRepository.findById(personId).orElseThrow(
-				() -> new ResourceNotFoundException("A person with id '" + personId + "' was not found"));
+		final Person person = personRepository.findById(personId)
+				.orElseThrow(() -> new ResourceNotFoundException("A person with id '" + personId + "' was not found"));
 		return ResponseEntity.ok().body(person);
 	}
 
