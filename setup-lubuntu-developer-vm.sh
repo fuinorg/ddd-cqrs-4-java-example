@@ -1,5 +1,14 @@
 #!/bin/bash
 
+## Make sure hostname is set
+MY_HOSTNAME=$(hostname)
+if [ $(cat /etc/hosts | grep -c "$MY_HOSTNAME") -eq 0 ]; then
+  echo "Adding $MY_HOSTNAME to /etc/hosts"
+  sudo -- sh -c -e "echo '127.0.0.1   $MY_HOSTNAME' >> /etc/hosts"
+else
+  echo "Host '$MY_HOSTNAME' already found in /etc/hosts"
+fi
+
 ## Make sure ZLIB is in place
 if [ $(dpkg-query -W -f='${Status}' zlib1g-dev 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
   sudo apt-get install zlib1g-dev
