@@ -1,12 +1,12 @@
 # ddd-cqrs-4-java-example
-Example applications that use [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libraries and an [EventStore](https://eventstore.org/) to store the events (Event Sourcing).
+Example applications and microservices that use [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libraries and an [EventStore](https://eventstore.org/) to store the events (Event Sourcing).
 
 ## Components
 - **[Shared](shared)** - Common code for all demo applications (commands, events, value objects and utilities).
 - **[Aggregates](aggregates)** - DDD related code for all demo applications (aggregates, entities and business exceptions).
+- **[Quarkus](quarkus)** - Two microservices (Command & Query) based on [Quarkus](https://quarkus.io/).
+- **[Spring Boot](spring-boot)** - Two microservices (Command & Query) based on [Spring Boot](https://spring.io/projects/spring-boot/).
 - **[Java SE + CDI](java-se-cdi)** - Two standalone applications (Command & Query) using CDI for dependency injection.
-- **[Quarkus](quarkus)** - Two web applications (Command & Query) based on [Quarkus](https://quarkus.io/).
-- **[Spring Boot](spring-boot)** - Two web applications (Command & Query) based on [Spring Boot](https://spring.io/projects/spring-boot/).
 
 ## Getting started
 
