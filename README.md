@@ -57,7 +57,7 @@ The **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** 
    ```
 
 ### Start command / query implementations
-Start one command and one query microservice. 
+Start one command microservice and one query microservice - You can mix Quarkus & Spring Boot!  
 
 - Quarkus Microservices
   - [Command](quarkus/command)
