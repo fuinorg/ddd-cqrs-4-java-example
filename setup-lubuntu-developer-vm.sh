@@ -19,6 +19,7 @@ fi
 ## Install GraalVM 19.2.x (Based on OpenJDK 1.8.x)
 . $SDKMAN_DIR/bin/sdkman-init.sh
 if [ $(sdk list java | grep -c "installed  | 19.2.1-grl") -eq 0 ]; then
+  sdk update
   sdk install java 19.2.1-grl
 else
   echo "GraalVM 19.2.x already installed"
