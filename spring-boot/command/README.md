@@ -2,7 +2,7 @@
 Command microservice that uses [Spring Boot](https://spring.io/projects/spring-boot/), [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libraries. Events are stored in an [EventStore](https://eventstore.org/).
 
 ## Prerequisites
-Make sure you installed everything as described [here](../../).
+Make sure you installed everything as described [here](../../../../).
 
 ## Run the command microservice in development mode
 1. Open a console (Ubuntu shortcut = ctrl alt t)
