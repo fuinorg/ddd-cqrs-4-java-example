@@ -18,7 +18,8 @@ Make sure you have the following tools installed/configured:
 * *OPTIONAL* [GraalVM](https://www.graalvm.org/)
 * Hostname should be set in /etc/hosts (See [Find and Change Your Hostname in Ubuntu](https://helpdeskgeek.com/linux-tips/find-and-change-your-hostname-in-ubuntu/) for more information)
 
-:white_check_mark: Or simply use the **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** that has already everything installed. Then execute the following steps:
+#### lubuntu-developer-vm
+Or simply use the **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** that has already everything installed. Then execute the following steps:
 1. Download and install the developer VM as described
 2. OPTIONAL: Change memory of VM to 6 GB (instead of 4 GB default) if you want to create a native image with GraalVM 
 3. Start the VM and login (developer / developer)
