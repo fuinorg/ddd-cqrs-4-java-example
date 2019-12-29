@@ -28,7 +28,11 @@ The **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** 
 5. Run a script that finalizes the setup of the developer virtual machine
    ```
    bash <(curl \
-   -s https://raw.githubusercontent.com/fuinorg/ddd-cqrs-4-java-example/master/setup-lubuntu-developer-vm.sh)
+   -s https://raw.githubusercontent.com/fuinorg/ddd-cqrs-4-java-example/master/setup-lubuntu-developer-vm.sh)   
+   ```
+6. Reboot
+   ```
+   reboot
    ```
 
 ### Clone and install project 
