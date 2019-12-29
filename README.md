@@ -20,12 +20,12 @@ Make sure you have the following tools installed/configured:
 * Hostname should be set in /etc/hosts (See [Find and Change Your Hostname in Ubuntu](https://helpdeskgeek.com/linux-tips/find-and-change-your-hostname-in-ubuntu/) for more information)
 
 #### Use lubuntu-developer-vm (Option 2)
-Simply use the **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** that has already everything installed. Then execute the following steps:
-1. Download and install the developer VM as described
+The **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** has already (almost) everything installed. You only need to  execute the following steps:
+1. Download and install the [lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm) as described
 2. OPTIONAL: Change memory of VM to 6 GB (instead of 4 GB default) if you want to create a native image with GraalVM 
 3. Start the VM and login (developer / developer)
 4. Open a console (Shortcut = ctrl alt t)
-5. Run a small script that finalizes the setup of the developer virtual machine
+5. Run a script that finalizes the setup of the developer virtual machine
    ```
    bash <(curl \
    -s https://raw.githubusercontent.com/fuinorg/ddd-cqrs-4-java-example/master/setup-lubuntu-developer-vm.sh)
