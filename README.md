@@ -46,7 +46,7 @@ The **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** 
    cd ddd-cqrs-4-java-example
    ./mvnw install
    ```
-   (Be patient - This may take a while as all Maven dependencies and some Docker images must be downloaded)
+   Be patient - This may take a while (~5 minutes) as all dependencies and some Docker images must be downloaded and also some integration tests will be executed.
    
 ### Start Event Store and Maria DB
 1. Open a console (Ubuntu shortcut = ctrl alt t)
