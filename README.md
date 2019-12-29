@@ -92,6 +92,8 @@ Start one command and one query microservice.
 5. Opening [http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05) should show
     ```json
     {"id":"84565d62-115e-4502-b7c9-38ad69c64b05","name":"Peter Parker"}
+6. The event sourced data of the person aggregate could be found in a stream named [PERSON-84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:2113/web/index.html#/streams/PERSON-84565d62-115e-4502-b7c9-38ad69c64b05)
+
 
 ### Stop Event Store and Maria DB and clean up
 1. Stop Docker Compose (Ubuntu shortcut = ctrl c)
