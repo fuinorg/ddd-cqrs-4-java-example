@@ -69,6 +69,7 @@ Start one command and one query microservice.
 
 ### Test
 1. Open [http://localhost:2113/](http://localhost:2113/) to access the event store UI (User: admin / Password: changeit)
+   You should see a projection named "qry-person-stream" when you click on "Projections" in the top menu.
 2. Opening [http://localhost:8080/persons](http://localhost:8080/persons) should show an empty JSON array
 3. Open a console (Ubuntu shortcut = ctrl alt t)
 4. Change into the demo directory and execute a command using cURL (See [shell script](demo/create-person-command.sh) and [command](demo/create-person-command.json)) 
