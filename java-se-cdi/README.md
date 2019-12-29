@@ -23,14 +23,7 @@ The application is splitted into three packages: 'shared', 'cmd' and 'qry'.
 Has code shared between both modules 'cmd' and 'qry'.
 
 #### Sub package 'app'
-There are several configuration classes used for CDI in the [app](src/main/java/org/fuin/cqrs4j/example/javasecdi/shared/app) package
-
-#### Sub package 'domain'
-There are three DDD domain model related classes
-* The [PersonId](src/main/java/org/fuin/cqrs4j/example/javasecdi/shared/domain/PersonId.java) that is the unique identifier for the [Person](src/main/java/org/fuin/cqrs4j/example/javasecdi/cmd/domain/Person.java) aggregate (Value Object)
-* The [PersonName](src/main/java/org/fuin/cqrs4j/example/javasecdi/shared/domain/PersonName.java) that is the name for the [Person](src/main/java/org/fuin/cqrs4j/example/javasecdi/cmd/domain/Person.java) aggregate (Value Object)
-* The [PersonCreatedEvent](src/main/java/org/fuin/cqrs4j/example/javasecdi/shared/domain/PersonCreatedEvent.java) that is fired if a new [Person](src/main/java/org/fuin/cqrs4j/example/javasecdi/cmd/domain/Person.java) aggregate was created (Event / Value Object)
- 
+There are several configuration classes used for CDI in the [app](src/main/java/org/fuin/cqrs4j/example/javasecdi/shared/app) package 
 
 ### cmd
 Code for the 'command' or 'write' side of the application.
