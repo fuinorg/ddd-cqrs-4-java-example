@@ -2,11 +2,11 @@
 Example applications that use [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libraries and an [EventStore](https://eventstore.org/) to store the events (Event Sourcing).
 
 ## Components
-- **Shared** - Common code for all demo applications (commands, events, value objects and utilities). [More...](shared)
-- **Aggregates** - DDD related code for all demo applications (aggregates, entities and business exceptions). [More...](aggregates)
-- **Java SE + CDI** - Two standalone applications (Command & Query) using CDI for dependency injection. [More...](java-se-cdi)
-- **Quarkus** - Two web applications (Command & Query) based on [Quarkus](https://quarkus.io/). [More...](quarkus)
-- **Spring Boot** - Two web applications (Command & Query) based on [Spring Boot](https://spring.io/projects/spring-boot/). [More...](spring-boot)
+- **[Shared](shared)** - Common code for all demo applications (commands, events, value objects and utilities).
+- **[Aggregates](aggregates)** - DDD related code for all demo applications (aggregates, entities and business exceptions).
+- **[Java SE + CDI](java-se-cdi)** - Two standalone applications (Command & Query) using CDI for dependency injection.
+- **[Quarkus](quarkus)** - Two web applications (Command & Query) based on [Quarkus](https://quarkus.io/).
+- **[Spring Boot](spring-boot)** - Two web applications (Command & Query) based on [Spring Boot](https://spring.io/projects/spring-boot/).
 
 ## Getting started
 
