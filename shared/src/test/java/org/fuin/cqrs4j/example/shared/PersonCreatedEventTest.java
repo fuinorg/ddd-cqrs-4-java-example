@@ -95,8 +95,9 @@ public final class PersonCreatedEventTest {
 
     @Test
     public final void testToString() {
-        assertThat(createTestee().toString())
-                .isEqualTo("Person 'Peter Parker' was created");
+        final PersonCreatedEvent testee = createTestee();
+        assertThat(testee.toString())
+                .isEqualTo("Person 'Peter Parker' (" + testee.getEntityId() + ") was created [Event " + testee.getEventId() + "]");
     }
 
     private PersonCreatedEvent createTestee() {
