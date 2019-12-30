@@ -1,10 +1,5 @@
 package org.fuin.cqrs4j.example.quarkus.command.api;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.http.ContentType;
-
-import org.junit.jupiter.api.Test;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
@@ -21,21 +16,25 @@ import javax.json.bind.Jsonb;
 
 import org.fuin.cqrs4j.ResultType;
 import org.fuin.cqrs4j.SimpleResult;
-import org.fuin.cqrs4j.example.quarkus.shared.CreatePersonCommand;
-import org.fuin.cqrs4j.example.quarkus.shared.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.quarkus.shared.PersonId;
-import org.fuin.cqrs4j.example.quarkus.shared.PersonName;
+import org.fuin.cqrs4j.example.shared.CreatePersonCommand;
+import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.esc.api.CommonEvent;
-import org.fuin.esc.api.EventStore;
 import org.fuin.esc.api.SimpleStreamId;
 import org.fuin.esc.api.StreamEventsSlice;
 import org.fuin.esc.api.TypeName;
+import org.fuin.esc.esjc.IESJCEventStore;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
 
 @QuarkusTest
 public class PersonResourceIT {
 
     @Inject
-    EventStore eventStore;
+    IESJCEventStore eventStore;
     
     @Inject
     Jsonb jsonb;

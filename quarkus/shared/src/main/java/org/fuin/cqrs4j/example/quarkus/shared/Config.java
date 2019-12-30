@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.query.app;
+package org.fuin.cqrs4j.example.quarkus.shared;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,7 +24,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
  * Application configuration.
  */
 @ApplicationScoped
-public class QryConfig {
+public class Config {
 
     private static final String EVENT_STORE_HOST = "127.0.0.1";
 
@@ -59,7 +59,7 @@ public class QryConfig {
     /**
      * Constructor using default values internally.
      */
-    public QryConfig() {
+    public Config() {
         super();
         this.eventStoreHost = EVENT_STORE_HOST;
         this.eventStoreHttpPort = EVENT_STORE_HTTP_PORT;
@@ -77,7 +77,7 @@ public class QryConfig {
      * @param eventStoreUser     User.
      * @param eventStorePassword Password.
      */
-    public QryConfig(final String eventStoreHost, final int eventStoreHttpPort, final int eventStoreTcpPort,
+    public Config(final String eventStoreHost, final int eventStoreHttpPort, final int eventStoreTcpPort,
             final String eventStoreUser, final String eventStorePassword) {
         super();
         this.eventStoreHost = eventStoreHost;

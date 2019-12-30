@@ -25,7 +25,7 @@ import org.fuin.cqrs4j.example.javasecdi.cmd.domain.PersonRepository;
 import org.fuin.cqrs4j.example.javasecdi.cmd.domain.PersonRepositoryFactory;
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
-import org.fuin.esc.api.EventStore;
+import org.fuin.esc.esjc.IESJCEventStore;
 import org.fuin.ext4logback.LogbackStandalone;
 import org.fuin.ext4logback.NewLogConfigFileParams;
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ public class CmdExampleApp {
     private static final Logger LOG = LoggerFactory.getLogger(CmdExampleApp.class);
     
     @Inject
-    private Instance<EventStore> eventStoreInstance;
+    private Instance<IESJCEventStore> eventStoreInstance;
 
     /**
      * Executes the application.
@@ -49,7 +49,7 @@ public class CmdExampleApp {
 
         LOG.info("Executing...");
         
-        try (final EventStore eventStore = eventStoreInstance.get()) {
+        try (final IESJCEventStore eventStore = eventStoreInstance.get()) {
 
             final PersonId id = new PersonId(UUID.fromString("f645969a-402d-41a9-882b-d2d8000d0f43"));
             final PersonName name = new PersonName("Peter Parker Inc.");

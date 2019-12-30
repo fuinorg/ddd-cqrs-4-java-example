@@ -16,25 +16,25 @@ import javax.enterprise.context.control.ActivateRequestContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.fuin.cqrs4j.example.quarkus.query.domain.QryPerson;
-import org.fuin.cqrs4j.example.quarkus.shared.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.quarkus.shared.PersonId;
-import org.fuin.cqrs4j.example.quarkus.shared.PersonName;
+import org.fuin.cqrs4j.example.quarkus.query.views.personlist.PersonListEntry;
+import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.esc.api.CommonEvent;
 import org.fuin.esc.api.EventId;
-import org.fuin.esc.api.EventStore;
 import org.fuin.esc.api.SimpleCommonEvent;
 import org.fuin.esc.api.SimpleStreamId;
 import org.fuin.esc.api.TypeName;
+import org.fuin.esc.eshttp.IESHttpEventStore;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-public class PersonResourceIT {
+public class QryPersonResourceIT {
     
     @Inject
-    EventStore eventStore;
+    IESHttpEventStore eventStore;
     
     @Inject
     EntityManager em;
@@ -51,7 +51,7 @@ public class PersonResourceIT {
 
     @ActivateRequestContext
     public boolean findPerson(final PersonId personId) {
-        return em.find(QryPerson.class, personId.asString()) != null;
+        return em.find(PersonListEntry.class, personId.asString()) != null;
     }
     
     @Test
@@ -70,7 +70,7 @@ public class PersonResourceIT {
         
         // TEST & VERIFY
         
-        final QryPerson person =
+        final PersonListEntry person =
             given()
                .pathParam("id", personId.asString())
             .when()
@@ -78,21 +78,21 @@ public class PersonResourceIT {
             .then()
                .statusCode(200)
                .extract()
-               .as(QryPerson.class);
+               .as(PersonListEntry.class);
         assertThat(person.getId(), is(equalTo(personId)));
         assertThat(person.getName(), is(equalTo(personName)));
 
-        final QryPerson[] persons = 
+        final PersonListEntry[] persons = 
             given()
             .when()
                .get("/persons")
             .then()
                .statusCode(200)
                .extract()
-               .as(QryPerson[].class);
+               .as(PersonListEntry[].class);
 
         assertThat(Arrays.asList(persons), is(not(empty())));
-        final QryPerson person0 = persons[0];
+        final PersonListEntry person0 = persons[0];
         assertThat(person0.getId(), is(equalTo(personId)));
         assertThat(person0.getName(), is(equalTo(personName)));
 

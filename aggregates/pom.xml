@@ -15,7 +15,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
-        <esc.version>0.3.1-SNAPSHOT</esc.version>
+        <esc.version>0.3.1</esc.version>
     </properties>
 
     <dependencies>

@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.query.domain;
+package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,8 +23,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.fuin.cqrs4j.example.quarkus.shared.PersonId;
-import org.fuin.cqrs4j.example.quarkus.shared.PersonName;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.objects4j.common.Contract;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
@@ -33,14 +33,14 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
  * Represents a person that will be stored in the database.
  */
 @Entity
-@Table(name = "QRY_PERSON")
+@Table(name = "PERSON_LIST")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "qry-person")
-@NamedQuery(name = QryPerson.FIND_ALL, query = "SELECT p FROM QryPerson p")
+@XmlRootElement(name = "person")
+@NamedQuery(name = PersonListEntry.FIND_ALL, query = "SELECT p FROM PersonListEntry p")
 @RegisterForReflection
-public class QryPerson {
+public class PersonListEntry {
 
-    public static final String FIND_ALL = "QryPerson.findAll";
+    public static final String FIND_ALL = "PersonListEntry.findAll";
 
     @Id
     @Column(name = "ID", nullable = false, length = 36, updatable = false)
@@ -56,7 +56,7 @@ public class QryPerson {
     /**
      * JAX-B constructor.
      */
-    protected QryPerson() {
+    protected PersonListEntry() {
         super();
     }
 
@@ -68,7 +68,7 @@ public class QryPerson {
      * @param name
      *            Name of the created person
      */
-    public QryPerson(@NotNull final PersonId id, @NotNull final PersonName name) {
+    public PersonListEntry(@NotNull final PersonId id, @NotNull final PersonName name) {
         super();
         Contract.requireArgNotNull("id", id);
         Contract.requireArgNotNull("name", name);
@@ -109,7 +109,7 @@ public class QryPerson {
 
     @Override
     public String toString() {
-        return "QryPerson [id=" + id + ", name=" + name + "]";
+        return "PersonListEntry [id=" + id + ", name=" + name + "]";
     }
 
 }

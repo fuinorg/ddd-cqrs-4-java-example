@@ -10,24 +10,28 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.query.handler;
+package org.fuin.cqrs4j.example.quarkus.shared;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
-import org.fuin.cqrs4j.EventDispatcher;
-import org.fuin.cqrs4j.SimpleEventDispatcher;
+import org.eclipse.microprofile.context.ManagedExecutor;
+
+import com.github.msemys.esjc.EventStore;
+import com.github.msemys.esjc.EventStoreBuilder;
 
 /**
- * Create an {@link EventDispatcher}.
+ * CDI producer that creates a {@link EventStore}.
  */
 @ApplicationScoped
-public class QryEventDispatcherFactory {
+public class EsjcEventStoreFactory {
 
     @Produces
     @ApplicationScoped
-    public EventDispatcher createDispatcher(final PersonCreatedEventHandler createdHandler) {
-        return new SimpleEventDispatcher(createdHandler);
+    public EventStore createESJC(final ManagedExecutor executor, final Config config) {
+        return EventStoreBuilder.newBuilder().singleNodeAddress(config.getEventStoreHost(), config.getEventStoreTcpPort())
+                .executor(executor).userCredentials(config.getEventStoreUser(), config.getEventStorePassword())
+                .build();
     }
 
 }

@@ -23,11 +23,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.fuin.cqrs4j.example.quarkus.query.domain.QryPerson;
+import org.fuin.cqrs4j.example.quarkus.query.views.personlist.PersonListEntry;
 import org.fuin.objects4j.vo.UUIDStrValidator;
 
 @Path("/persons")
-public class PersonResource {
+public class QryPersonResource {
 
     @Inject
     EntityManager em;
@@ -35,7 +35,7 @@ public class PersonResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
-        final List<QryPerson> persons = em.createNamedQuery(QryPerson.FIND_ALL, QryPerson.class).getResultList();
+        final List<PersonListEntry> persons = em.createNamedQuery(PersonListEntry.FIND_ALL, PersonListEntry.class).getResultList();
         return Response.ok(persons).build();
     }
 
@@ -46,7 +46,7 @@ public class PersonResource {
         if (!UUIDStrValidator.isValid(id)) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Invalid Person UUID").build();
         }
-        final QryPerson person = em.find(QryPerson.class, id);
+        final PersonListEntry person = em.find(PersonListEntry.class, id);
         if (person == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

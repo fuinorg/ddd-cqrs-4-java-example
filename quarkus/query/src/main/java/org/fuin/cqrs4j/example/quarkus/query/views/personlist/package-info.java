@@ -10,8 +10,8 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.query.domain;
+package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
 /**
- * Domain specific code like view objects.
+ * Classes building the 'person list' view.
  */

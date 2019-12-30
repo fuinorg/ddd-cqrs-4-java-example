@@ -11,19 +11,12 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <compiler-plugin.version>3.8.1</compiler-plugin.version>
-        <esc.version>0.3.1-SNAPSHOT</esc.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <quarkus-plugin.version>1.0.1.Final</quarkus-plugin.version>
-        <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>1.0.1.Final</quarkus.platform.version>
-        <surefire-plugin.version>2.22.1</surefire-plugin.version>
-        <failsafe-plugin.version>2.22.2</failsafe-plugin.version>
+        <esc.version>0.3.1</esc.version>
     </properties>
 
     <dependencyManagement>
@@ -31,9 +24,9 @@
         <dependencies>
 
             <dependency>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>${quarkus.platform.artifact-id}</artifactId>
-                <version>${quarkus.platform.version}</version>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-universe-bom</artifactId>
+                <version>1.0.1.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -84,21 +77,27 @@
         </dependency>
 
         <dependency>
+            <groupId>org.fuin.cqrs4j.example</groupId>
+            <artifactId>cqrs4j-example-aggregates</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.fuin.cqrs4j.example.quarkus</groupId>
             <artifactId>cqrs4j-quarkus-example-shared</artifactId>
             <version>0.1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>logback-classic</artifactId>
-                    <groupId>ch.qos.logback</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.fuin.esc</groupId>
             <artifactId>esc-eshttp</artifactId>
             <version>${esc.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- test -->
@@ -130,7 +129,7 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus-plugin.version}</version>
+                <version>1.0.1.Final</version>
                 <executions>
                     <execution>
                         <goals>
@@ -142,12 +141,12 @@
 
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler-plugin.version}</version>
+                <version>3.8.1</version>
             </plugin>
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire-plugin.version}</version>
+                <version>2.22.1</version>
                 <configuration>
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
@@ -157,7 +156,7 @@
 
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${failsafe-plugin.version}</version>
+                <version>2.22.2</version>
                 <executions>
                     <execution>
                         <goals>

@@ -10,35 +10,24 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.command.app;
+package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
 
-import org.eclipse.yasson.FieldAccessStrategy;
-import org.fuin.cqrs4j.example.quarkus.shared.SharedUtils;
+import org.fuin.cqrs4j.EventDispatcher;
+import org.fuin.cqrs4j.SimpleEventDispatcher;
 
 /**
- * CDI factory that creates a JSON-B instance.
+ * Create an {@link EventDispatcher}.
  */
 @ApplicationScoped
-public class JsonbFactory {
+public class PersonListEventDispatcherFactory {
 
-    /**
-     * Creates a JSON-B instance.
-     * 
-     * @return Fully configured instance.
-     */
     @Produces
-    public Jsonb createJsonb() {
-        final JsonbConfig config = new JsonbConfig()
-                .withAdapters(SharedUtils.JSONB_ADAPTERS)
-                .withPropertyVisibilityStrategy(new FieldAccessStrategy());
-        final Jsonb jsonb = JsonbBuilder.create(config);
-        return jsonb;
+    @ApplicationScoped
+    public EventDispatcher createDispatcher(final PersonCreatedEventHandler createdHandler) {
+        return new SimpleEventDispatcher(createdHandler);
     }
 
 }

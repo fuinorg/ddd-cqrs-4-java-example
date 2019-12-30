@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.query.handler;
+package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -18,9 +18,8 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.fuin.cqrs4j.EventHandler;
-import org.fuin.cqrs4j.example.quarkus.query.domain.QryPerson;
-import org.fuin.cqrs4j.example.quarkus.shared.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.quarkus.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.ddd4j.ddd.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +45,8 @@ public class PersonCreatedEventHandler implements EventHandler<PersonCreatedEven
     public void handle(final PersonCreatedEvent event) {
         LOG.info("Handle " + event.getClass().getSimpleName() + ": " + event);
         final PersonId personId = event.getEntityId();
-        if (em.find(QryPerson.class, personId.asString()) == null) {
-            em.persist(new QryPerson(personId, event.getName()));
+        if (em.find(PersonListEntry.class, personId.asString()) == null) {
+            em.persist(new PersonListEntry(personId, event.getName()));
         }
     }
 

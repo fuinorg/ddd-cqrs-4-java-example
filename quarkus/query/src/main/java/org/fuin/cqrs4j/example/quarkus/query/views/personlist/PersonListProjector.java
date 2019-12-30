@@ -10,10 +10,10 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.query.handler;
+package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
 import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
-import static org.fuin.cqrs4j.example.quarkus.query.handler.QryEventChunkHandler.PROJECTION_STREAM_ID;
+import static org.fuin.cqrs4j.example.quarkus.query.views.personlist.PersonListEventChunkHandler.PROJECTION_STREAM_ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +27,8 @@ import javax.inject.Inject;
 import org.fuin.cqrs4j.EventDispatcher;
 import org.fuin.cqrs4j.example.quarkus.query.app.QryCheckForViewUpdatesEvent;
 import org.fuin.ddd4j.ddd.EventType;
-import org.fuin.esc.api.EventStore;
-import org.fuin.esc.api.ProjectionAdminEventStore;
 import org.fuin.esc.api.TypeName;
+import org.fuin.esc.eshttp.IESHttpEventStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +36,9 @@ import org.slf4j.LoggerFactory;
  * Reads incoming events from an attached event store and dispatches them to the appropriate event handlers.
  */
 @ApplicationScoped
-public class QryProjector {
+public class PersonListProjector {
 
-    private static final Logger LOG = LoggerFactory.getLogger(QryProjector.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PersonListProjector.class);
 
     /** Prevents more than one projector thread running at a time. */
     private static final Semaphore LOCK = new Semaphore(1);
@@ -48,13 +47,10 @@ public class QryProjector {
     // Above LOCK prevents multithreaded access
 
     @Inject
-    ProjectionAdminEventStore eventstore;
+    IESHttpEventStore eventstore;
 
     @Inject
-    EventStore eventStore;
-
-    @Inject
-    QryEventChunkHandler chunkHandler;
+    PersonListEventChunkHandler chunkHandler;
 
     @Inject
     EventDispatcher dispatcher;
@@ -92,7 +88,7 @@ public class QryProjector {
 
         // Read and dispatch events
         final Long nextEventNumber = chunkHandler.readNextEventNumber();
-        eventStore.readAllEventsForward(PROJECTION_STREAM_ID, nextEventNumber, 100, (currentSlice) -> {
+        eventstore.readAllEventsForward(PROJECTION_STREAM_ID, nextEventNumber, 100, (currentSlice) -> {
             chunkHandler.handleChunk(currentSlice);
         });
 

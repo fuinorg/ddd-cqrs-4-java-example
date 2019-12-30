@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.query.handler;
+package org.fuin.cqrs4j.example.quarkus.query.views.common;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ import org.fuin.objects4j.common.Contract;
  */
 @Entity
 @Table(name = "QRY_PERSON_PROJECTION_POS")
-public class QryPersonProjectionPosition {
+public class ProjectionPosition {
 
     @Id
     @Column(name = "STREAM_ID", nullable = false, length = 250, updatable = false)
@@ -41,7 +41,7 @@ public class QryPersonProjectionPosition {
     /**
      * JPA constructor.
      */
-    protected QryPersonProjectionPosition() {
+    protected ProjectionPosition() {
         super();
     }
 
@@ -53,7 +53,7 @@ public class QryPersonProjectionPosition {
      * @param nextPos
      *            Next position from the stream to read.
      */
-    public QryPersonProjectionPosition(@NotNull final StreamId streamId, @NotNull final Long nextPos) {
+    public ProjectionPosition(@NotNull final StreamId streamId, @NotNull final Long nextPos) {
         super();
         Contract.requireArgNotNull("streamId", streamId);
         Contract.requireArgNotNull("nextPos", nextPos);

@@ -12,6 +12,7 @@
  */
 package org.fuin.cqrs4j.example.quarkus.command.api;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -29,10 +30,10 @@ import javax.ws.rs.core.UriInfo;
 
 import org.fuin.cqrs4j.CommandExecutionFailedException;
 import org.fuin.cqrs4j.SimpleResult;
-import org.fuin.cqrs4j.example.quarkus.command.domain.DuplicatePersonNameException;
-import org.fuin.cqrs4j.example.quarkus.command.domain.Person;
-import org.fuin.cqrs4j.example.quarkus.command.domain.PersonRepository;
-import org.fuin.cqrs4j.example.quarkus.shared.CreatePersonCommand;
+import org.fuin.cqrs4j.example.aggregates.DuplicatePersonNameException;
+import org.fuin.cqrs4j.example.aggregates.Person;
+import org.fuin.cqrs4j.example.aggregates.PersonRepository;
+import org.fuin.cqrs4j.example.shared.CreatePersonCommand;
 import org.fuin.ddd4j.ddd.AggregateAlreadyExistsException;
 import org.fuin.ddd4j.ddd.AggregateDeletedException;
 
@@ -65,7 +66,7 @@ public class PersonResource {
             // Create aggregate
             final Person person = new Person(cmd.getAggregateRootId(), cmd.getName(), (name) -> {
                 // TODO Execute a call to the query side to verify if the name already exists
-                return null;
+                return Optional.empty();
             });
             repo.add(person);
 

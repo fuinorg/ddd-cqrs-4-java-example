@@ -10,12 +10,12 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.command.app;
+package org.fuin.cqrs4j.example.quarkus.shared;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
-import org.fuin.cqrs4j.example.quarkus.shared.SharedUtils;
+import org.fuin.cqrs4j.example.shared.SharedUtils;
 import org.fuin.esc.spi.JsonbDeSerializer;
 import org.fuin.esc.spi.SerDeserializerRegistry;
 import org.fuin.esc.spi.SerializedDataTypeRegistry;
@@ -37,10 +37,8 @@ public class SerDeserializerRegistryFactory {
         final JsonbDeSerializer jsonbDeSer = SharedUtils.createJsonbDeSerializer();
 
         // Registry connects the type with the appropriate serializer and de-serializer
-        final SerDeserializerRegistry serDeserRegistry = SharedUtils.createSerDeserializerRegistry(typeRegistry,
+        return SharedUtils.createSerDeserializerRegistry(typeRegistry,
                 jsonbDeSer);
-
-        return serDeserRegistry;
 
     }
 

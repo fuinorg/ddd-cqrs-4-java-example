@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.query.handler;
+package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -25,9 +25,9 @@ import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
 @Transactional
-public class QryEventChunkHandler {
+public class PersonListEventChunkHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(QryEventChunkHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PersonListEventChunkHandler.class);
             
     /** Unique name of the event store projection that is used. */
     public static final ProjectionStreamId PROJECTION_STREAM_ID = new ProjectionStreamId("qry-person-stream");

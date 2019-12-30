@@ -16,7 +16,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 
-import org.fuin.esc.api.EventStore;
+import org.fuin.cqrs4j.example.aggregates.PersonRepository;
+import org.fuin.esc.esjc.IESJCEventStore;
 
 /**
  * CDI factory that creates an event store connection and repositories.
@@ -34,7 +35,7 @@ public class PersonRepositoryFactory {
      */
     @Produces
     @Dependent
-    public PersonRepository create(final EventStore eventStore) {
+    public PersonRepository create(final IESJCEventStore eventStore) {
         return new PersonRepository(eventStore);
     }
 

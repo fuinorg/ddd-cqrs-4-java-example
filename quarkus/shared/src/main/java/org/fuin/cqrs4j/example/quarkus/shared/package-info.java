@@ -13,5 +13,5 @@
 package org.fuin.cqrs4j.example.quarkus.shared;
 
 /**
- * Domain specific code to be shared between all modules.
+ * Quarkus specific code to be shared between command / query service.
  */

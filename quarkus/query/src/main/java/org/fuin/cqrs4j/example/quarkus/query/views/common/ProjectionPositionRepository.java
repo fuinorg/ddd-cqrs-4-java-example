@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.quarkus.query.handler;
+package org.fuin.cqrs4j.example.quarkus.query.views.common;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -25,7 +25,7 @@ import org.fuin.objects4j.common.Contract;
  * Repository that contains the position of the stream.
  */
 @ApplicationScoped
-public class QryPersonProjectionPositionRepository implements ProjectionService {
+public class ProjectionPositionRepository implements ProjectionService {
 
     @Inject
     EntityManager em;
@@ -33,7 +33,7 @@ public class QryPersonProjectionPositionRepository implements ProjectionService 
     @Override
     public void resetProjectionPosition(@NotNull final StreamId streamId) {
         Contract.requireArgNotNull("streamId", streamId);
-        final QryPersonProjectionPosition pos = em.find(QryPersonProjectionPosition.class, streamId.asString());
+        final ProjectionPosition pos = em.find(ProjectionPosition.class, streamId.asString());
         if (pos != null) {
             pos.setNextPosition(0L);
         }
@@ -42,7 +42,7 @@ public class QryPersonProjectionPositionRepository implements ProjectionService 
     @Override
     public Long readProjectionPosition(@NotNull StreamId streamId) {
         Contract.requireArgNotNull("streamId", streamId);
-        final QryPersonProjectionPosition pos = em.find(QryPersonProjectionPosition.class, streamId.asString());
+        final ProjectionPosition pos = em.find(ProjectionPosition.class, streamId.asString());
         if (pos == null) {
             return 0L;
         }
@@ -53,9 +53,9 @@ public class QryPersonProjectionPositionRepository implements ProjectionService 
     public void updateProjectionPosition(@NotNull StreamId streamId, @NotNull Long nextEventNumber) {
         Contract.requireArgNotNull("streamId", streamId);
         Contract.requireArgNotNull("nextEventNumber", nextEventNumber);
-        final QryPersonProjectionPosition pos = em.find(QryPersonProjectionPosition.class, streamId.asString());
+        final ProjectionPosition pos = em.find(ProjectionPosition.class, streamId.asString());
         if (pos == null) {
-            em.persist(new QryPersonProjectionPosition(streamId, nextEventNumber));
+            em.persist(new ProjectionPosition(streamId, nextEventNumber));
         } else {
             pos.setNextPosition(nextEventNumber);
             em.merge(pos);
