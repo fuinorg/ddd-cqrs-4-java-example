@@ -17,11 +17,13 @@
  */
 package org.fuin.cqrs4j.example.shared;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 
 import javax.json.bind.adapter.JsonbAdapter;
+import javax.json.bind.config.PropertyVisibilityStrategy;
 
-import org.eclipse.yasson.FieldAccessStrategy;
 import org.fuin.ddd4j.ddd.AggregateVersionConverter;
 import org.fuin.ddd4j.ddd.EntityIdConverter;
 import org.fuin.ddd4j.ddd.EntityIdPathConverter;
@@ -142,7 +144,21 @@ public final class SharedUtils {
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy()).withEncoding(Charset.forName("utf-8")).build();
 
     }
+    
+    private static class FieldAccessStrategy implements PropertyVisibilityStrategy {
+        
+        @Override
+        public boolean isVisible(Field field) {
+            return true;
+        }
 
+        @Override
+        public boolean isVisible(Method method) {
+            return false;
+        }
+        
+    }   
+    
     /**
      * Helper class for type/class combination.
      */
