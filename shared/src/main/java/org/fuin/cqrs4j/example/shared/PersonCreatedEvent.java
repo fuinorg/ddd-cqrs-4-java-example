@@ -81,7 +81,7 @@ public final class PersonCreatedEvent extends AbstractDomainEvent<PersonId> {
 
     @Override
     public final String toString() {
-        return "Person '" + name + "' was created";
+        return "Person '" + name + "' was created (" + getEventId() + ")";
     }
 
 }
