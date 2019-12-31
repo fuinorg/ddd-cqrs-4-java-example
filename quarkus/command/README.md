@@ -13,6 +13,10 @@ Make sure you installed everything as described [here](../../../../).
    ```
 3. Opening [http://localhost:8081/](http://localhost:8081/) should show the command welcome page
    
+## Overview
+![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/quarkus/command/doc/cdi-command.png)
+
+
 # TODO ... (Does currently not work)
 
 ## *OPTIONAL* Build and run the command microservice in native mode
