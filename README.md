@@ -9,6 +9,7 @@ If you are new to this topics, you can use these mindmaps to find out more:
 - [CQRS Mindmap](https://www.mindmeister.com/de/177815383/cqrs)
 
 Here is an overview of how such an application looks like: 
+
 [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/doc/cqrs-overview-small.png)](doc/cqrs-overview.png)
 
 ## Components
