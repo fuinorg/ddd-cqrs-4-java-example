@@ -64,10 +64,12 @@ Start one command microservice and one query microservice - You can mix Quarkus 
   - | [Query](quarkus/query) | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/quarkus/query/doc/cdi-view-small.png)](quarkus/query) |
   
 Spring Boot Microservices
-| Module |     |
-| ------ | --- |
-| [Command](spring-boot/command) | |
-| [Query](spring-boot/query) | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/spring-boot/query/doc/spring-view-small.png)](spring-boot/query) |
+
+| Module  |  |
+| ------------- | ------------- |
+| [Command](spring-boot/command)  | Content Cell  |
+| [Query](spring-boot/query)  | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/spring-boot/query/doc/spring-view-small.png)](spring-boot/query)  |
+
 
 ### Test
 1. Open [http://localhost:2113/](http://localhost:2113/) to access the event store UI (User: admin / Password: changeit)
