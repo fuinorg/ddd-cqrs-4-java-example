@@ -59,15 +59,18 @@ The **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** 
 ### Start command / query implementations
 Start one command microservice and one query microservice - You can mix Quarkus & Spring Boot!  
 
-- Quarkus Microservices
-  - [Command](quarkus/command)
-  - | [Query](quarkus/query) | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/quarkus/query/doc/cdi-view-small.png)](quarkus/query) |
-  
-Spring Boot Microservices
+#### Quarkus Microservices
 
-| Module  |  |
-| ------------- | ------------- |
-| [Command](spring-boot/command)  | Content Cell  |
+| Module        |       |
+| :------------ | :---- |
+| [Command](quarkus/command) | tbd |
+| [Query](quarkus/query) | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/quarkus/query/doc/cdi-view-small.png)](quarkus/query) |
+  
+#### Spring Boot Microservices
+
+| Module        |       |
+| :------------ | :---- |
+| [Command](spring-boot/command)  | tbd  |
 | [Query](spring-boot/query)  | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/spring-boot/query/doc/spring-view-small.png)](spring-boot/query)  |
 
 
