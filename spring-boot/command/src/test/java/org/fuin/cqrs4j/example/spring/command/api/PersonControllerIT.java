@@ -21,10 +21,10 @@ import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.cqrs4j.example.spring.command.app.CmdApplication;
 import org.fuin.esc.api.CommonEvent;
-import org.fuin.esc.api.EventStore;
 import org.fuin.esc.api.SimpleStreamId;
 import org.fuin.esc.api.StreamEventsSlice;
 import org.fuin.esc.api.TypeName;
+import org.fuin.esc.esjc.IESJCEventStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class PersonControllerIT {
 	WebApplicationContext wac;
 	
 	@Autowired
-	EventStore eventStore;
+	IESJCEventStore eventStore;
 
 	@Autowired
     Jsonb jsonb;

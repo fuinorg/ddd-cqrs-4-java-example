@@ -13,9 +13,8 @@ import javax.annotation.PreDestroy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.fuin.ddd4j.ddd.EventType;
-import org.fuin.esc.api.EventStore;
-import org.fuin.esc.api.ProjectionAdminEventStore;
 import org.fuin.esc.api.TypeName;
+import org.fuin.esc.eshttp.IESHttpEventStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +44,7 @@ public class PersonListProjector {
 	// Above LOCK prevents multithreaded access
 
 	@Autowired
-	private ProjectionAdminEventStore eventstore;
-
-	@Autowired
-	private EventStore eventStore;
+	private IESHttpEventStore eventStore;
 
 	@Autowired
 	private PersonListEventChunkHandler chunkHandler;
@@ -93,14 +89,14 @@ public class PersonListProjector {
 
 		// TODO Make sure a projection with the correct events exists
 		// We must update the projection if new events are defined or some are removed!
-		if (!eventstore.projectionExists(PROJECTION_STREAM_ID)) {
+		if (!eventStore.projectionExists(PROJECTION_STREAM_ID)) {
 			final Set<EventType> eventTypes = dispatcher.getAllTypes();
 			final List<TypeName> typeNames = new ArrayList<>();
 			for (final EventType eventType : eventTypes) {
 				typeNames.add(new TypeName(eventType.asBaseType()));
 			}
 			LOG.info("Create projection '{}' with events: {}", PROJECTION_STREAM_ID, typeNames);
-			eventstore.createProjection(PROJECTION_STREAM_ID, true, typeNames);
+			eventStore.createProjection(PROJECTION_STREAM_ID, true, typeNames);
 		}
 
 		// Read and dispatch events

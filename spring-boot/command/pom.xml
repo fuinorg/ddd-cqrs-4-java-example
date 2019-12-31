@@ -74,12 +74,6 @@
 			<version>${esc.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.fuin.esc</groupId>
-			<artifactId>esc-esjc</artifactId>
-			<version>${esc.version}</version>
-		</dependency>
-
 		<!-- runtime -->
 
 		<dependency>

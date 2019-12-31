@@ -23,10 +23,10 @@ import org.fuin.cqrs4j.example.spring.query.views.personlist.PersonListEntry;
 import org.fuin.cqrs4j.example.spring.shared.Config;
 import org.fuin.esc.api.CommonEvent;
 import org.fuin.esc.api.EventId;
-import org.fuin.esc.api.EventStore;
 import org.fuin.esc.api.SimpleCommonEvent;
 import org.fuin.esc.api.SimpleStreamId;
 import org.fuin.esc.api.TypeName;
+import org.fuin.esc.eshttp.IESHttpEventStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class PersonControllerIT {
 	WebApplicationContext wac;
 	
 	@Autowired
-	EventStore eventStore;
+	IESHttpEventStore eventStore;
 
 	@Autowired
 	EntityManager em;

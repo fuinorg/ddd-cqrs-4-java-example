@@ -12,6 +12,7 @@
  */
 package org.fuin.cqrs4j.example.spring.command.controller;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -59,7 +60,7 @@ public class PersonController {
 		// Create aggregate
 		final Person person = new Person(cmd.getAggregateRootId(), cmd.getName(), (name) -> {
 			// TODO Execute a call to the query side to verify if the name already exists
-			return null;
+			return Optional.empty();
 		});
 		repo.add(person);
 
