@@ -63,7 +63,7 @@ Start one command microservice and one query microservice - You can mix Quarkus 
 
 | Module        |       |
 | :------------ | :---- |
-| **[Command](quarkus/command)** | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/quarkus/command/doc/cdi-view-small.png)](quarkus/command) |
+| **[Command](quarkus/command)** | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/quarkus/command/doc/cdi-command-small.png)](quarkus/command) |
 | **[Query](quarkus/query)** | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/quarkus/query/doc/cdi-view-small.png)](quarkus/query) |
   
 #### Spring Boot Microservices
