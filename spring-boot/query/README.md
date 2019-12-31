@@ -13,6 +13,8 @@ Make sure you installed everything as described [here](../../../../).
    ```
 3. Opening [http://localhost:8080/](http://localhost:8080/) should show the query welcome page
 
+## Overview
+![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/spring-boot/query/doc/spring-view.png)
 
 # TODO ...
 
