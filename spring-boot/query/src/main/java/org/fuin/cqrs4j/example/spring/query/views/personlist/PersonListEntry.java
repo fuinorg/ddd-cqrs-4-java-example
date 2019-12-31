@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.spring.query.domain;
+package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,19 +19,19 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.fuin.cqrs4j.example.spring.shared.PersonId;
-import org.fuin.cqrs4j.example.spring.shared.PersonName;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.objects4j.common.Contract;
 
 /**
  * Represents a person that will be stored in the database.
  */
 @Entity
-@NamedQuery(name = QryPerson.FIND_ALL, query = "SELECT p FROM QryPerson p")
-@Table(name = "QRY_PERSON")
-public class QryPerson {
+@NamedQuery(name = PersonListEntry.FIND_ALL, query = "SELECT p FROM PersonListEntry p")
+@Table(name = "SPRING_PERSON_LIST")
+public class PersonListEntry {
 
-    public static final String FIND_ALL = "QryPerson.findAll";
+    public static final String FIND_ALL = "PersonListEntry.findAll";
 
     @Id
     @Column(name = "ID", nullable = false, length = 36, updatable = false)
@@ -45,7 +45,7 @@ public class QryPerson {
     /**
      * Deserialization constructor.
      */
-    protected QryPerson() {
+    protected PersonListEntry() {
         super();
     }
 
@@ -57,7 +57,7 @@ public class QryPerson {
      * @param name
      *            Name of the created person
      */
-    public QryPerson(@NotNull final PersonId id, @NotNull final PersonName name) {
+    public PersonListEntry(@NotNull final PersonId id, @NotNull final PersonName name) {
         super();
         Contract.requireArgNotNull("id", id);
         Contract.requireArgNotNull("name", name);
@@ -98,7 +98,7 @@ public class QryPerson {
 
     @Override
     public String toString() {
-        return "QryPerson [id=" + id + ", name=" + name + "]";
+        return "PersonListEntry [id=" + id + ", name=" + name + "]";
     }
 
 }

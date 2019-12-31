@@ -10,7 +10,7 @@
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
-package org.fuin.cqrs4j.example.spring.command.controller;
+package org.fuin.cqrs4j.example.spring.shared;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,6 @@ import javax.validation.ConstraintViolationException;
 
 import org.fuin.cqrs4j.CommandExecutionFailedException;
 import org.fuin.cqrs4j.SimpleResult;
-import org.fuin.cqrs4j.example.spring.command.domain.DuplicatePersonNameException;
 import org.fuin.ddd4j.ddd.AggregateAlreadyExistsException;
 import org.fuin.ddd4j.ddd.AggregateDeletedException;
 import org.fuin.ddd4j.ddd.AggregateNotFoundException;
@@ -123,18 +122,6 @@ public class GlobalExceptionHandler {
 
     }
 
-    @ExceptionHandler(value = DuplicatePersonNameException.class)
-    public ResponseEntity<SimpleResult> exception(final DuplicatePersonNameException ex) {
-
-        LOG.info("{} {}", ex.getShortId(), ex.getMessage());
-
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(SimpleResult.error(ex.getShortId(), ex.getMessage()), headers, HttpStatus.CONFLICT);
-
-    }
-
-    
     @ExceptionHandler(value = ConstraintViolationException.class)
     public ResponseEntity<SimpleResult> exception(final ConstraintViolationException ex) {
 

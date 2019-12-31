@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.spring.query.handler;
+package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import java.util.List;
 import java.util.Set;
@@ -8,26 +8,25 @@ import javax.validation.constraints.NotNull;
 
 import org.fuin.cqrs4j.EventDispatcher;
 import org.fuin.cqrs4j.SimpleEventDispatcher;
-import org.fuin.cqrs4j.example.spring.query.domain.QryPerson;
 import org.fuin.ddd4j.ddd.Event;
 import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.api.CommonEvent;
 import org.springframework.stereotype.Component;
 
 /**
- * Dispatches events that relate to the {@link QryPerson} entity to the appropriate
+ * Dispatches events that relate to the {@link PersonListEntry} entity to the appropriate
  * event handers.
  */
 @NotThreadSafe
 @Component
-public class PersonEventDispatcher implements EventDispatcher {
+public class PersonListEventDispatcher implements EventDispatcher {
 
 	private SimpleEventDispatcher delegate;
 
 	/**
 	 * Default constructor.
 	 */
-	public PersonEventDispatcher(final PersonCreatedEventHandler createdHandler) {
+	public PersonListEventDispatcher(final PersonCreatedEventHandler createdHandler) {
 		super();
 		delegate = new SimpleEventDispatcher(createdHandler);
 	}

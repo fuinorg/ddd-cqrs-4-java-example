@@ -14,13 +14,13 @@ import java.util.UUID;
 
 import javax.persistence.EntityManager;
 
+import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.cqrs4j.example.spring.query.app.QryApplication;
-import org.fuin.cqrs4j.example.spring.query.app.QryConfig;
 import org.fuin.cqrs4j.example.spring.query.controller.PersonController;
-import org.fuin.cqrs4j.example.spring.query.domain.QryPerson;
-import org.fuin.cqrs4j.example.spring.shared.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.spring.shared.PersonId;
-import org.fuin.cqrs4j.example.spring.shared.PersonName;
+import org.fuin.cqrs4j.example.spring.query.views.personlist.PersonListEntry;
+import org.fuin.cqrs4j.example.spring.shared.Config;
 import org.fuin.esc.api.CommonEvent;
 import org.fuin.esc.api.EventId;
 import org.fuin.esc.api.EventStore;
@@ -58,7 +58,7 @@ public class PersonControllerIT {
 	PersonController testee;
 
 	@Autowired
-	QryConfig config;
+	Config config;
 
 	@BeforeEach
 	public void initRestAssuredMockMvcStandalone() {
@@ -72,7 +72,7 @@ public class PersonControllerIT {
 	}
 
 	public boolean findPerson(final PersonId personId) {
-		return em.find(QryPerson.class, personId.asString()) != null;
+		return em.find(PersonListEntry.class, personId.asString()) != null;
 	}
 
 	@Test
@@ -91,16 +91,16 @@ public class PersonControllerIT {
 
 		// TEST & VERIFY
 
-		final QryPerson person = given().pathParam("id", personId.asString()).when().get("/persons/{id}").then()
-				.statusCode(200).extract().as(QryPerson.class);
+		final PersonListEntry person = given().pathParam("id", personId.asString()).when().get("/persons/{id}").then()
+				.statusCode(200).extract().as(PersonListEntry.class);
 		assertThat(person.getId(), is(equalTo(personId)));
 		assertThat(person.getName(), is(equalTo(personName)));
 
-		final QryPerson[] persons = given().when().get("/persons").then().statusCode(200).extract()
-				.as(QryPerson[].class);
+		final PersonListEntry[] persons = given().when().get("/persons").then().statusCode(200).extract()
+				.as(PersonListEntry[].class);
 
 		assertThat(Arrays.asList(persons), is(not(empty())));
-		final QryPerson person0 = persons[0];
+		final PersonListEntry person0 = persons[0];
 		assertThat(person0.getId(), is(equalTo(personId)));
 		assertThat(person0.getName(), is(equalTo(personName)));
 

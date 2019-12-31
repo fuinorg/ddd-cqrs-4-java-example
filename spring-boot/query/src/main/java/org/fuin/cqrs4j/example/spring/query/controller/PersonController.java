@@ -17,8 +17,9 @@ import java.util.UUID;
 
 import javax.persistence.EntityManager;
 
-import org.fuin.cqrs4j.example.spring.query.domain.QryPerson;
-import org.fuin.cqrs4j.example.spring.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.spring.query.views.personlist.PersonListEntry;
+import org.fuin.ddd4j.ddd.AggregateNotFoundException;
 import org.fuin.objects4j.vo.UUIDStr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +48,8 @@ public class PersonController {
 	 * @return the list
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<QryPerson> getAllPersons() {
-        final List<QryPerson> persons = em.createNamedQuery(QryPerson.FIND_ALL, QryPerson.class).getResultList();
+	public List<PersonListEntry> getAllPersons() {
+        final List<PersonListEntry> persons = em.createNamedQuery(PersonListEntry.FIND_ALL, PersonListEntry.class).getResultList();
         LOG.info("getAllPersons() = {}", persons.size());
 		return persons;
 	}
@@ -60,16 +61,16 @@ public class PersonController {
 	 * 
 	 * @return Person from database.
 	 * 
-	 * @throws PersonNotFoundException A person with the given identifier is
+	 * @throws AggregateNotFoundException A person with the given identifier is
 	 *                                 unknown.
 	 */
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<QryPerson> getPersonsById(@PathVariable(value = "id") @UUIDStr String personId)
-			throws PersonNotFoundException {
+	public ResponseEntity<PersonListEntry> getPersonsById(@PathVariable(value = "id") @UUIDStr String personId)
+			throws AggregateNotFoundException {
 		
-        final QryPerson person = em.find(QryPerson.class, personId);
+        final PersonListEntry person = em.find(PersonListEntry.class, personId);
         if (person == null) {
-        	throw new PersonNotFoundException(new PersonId(UUID.fromString(personId)));
+        	throw new AggregateNotFoundException(PersonId.TYPE, new PersonId(UUID.fromString(personId)));
         }
         LOG.info("getPersonsById({}) = {}", personId, person);
 		return ResponseEntity.ok().body(person);

@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.spring.query.handler;
+package org.fuin.cqrs4j.example.spring.query.views.common;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import org.fuin.objects4j.common.Contract;
  * Stores the next position to read from a projection in the event store.
  */
 @Entity
-@Table(name = "QRY_PROJECTION_POS")
+@Table(name = "SPRING_QRY_PROJECTION_POS")
 public class QryProjectionPosition {
 
     @Id

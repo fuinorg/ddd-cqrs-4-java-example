@@ -4,6 +4,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.0.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
 	<groupId>org.fuin.cqrs4j.example.spring</groupId>
 	<artifactId>cqrs4j-spring-example-shared</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
@@ -15,7 +22,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<java.version>1.8</java.version>
-		<esc.version>0.3.1-SNAPSHOT</esc.version>
+		<esc.version>0.3.1</esc.version>
 	</properties>
 
 	<dependencies>
@@ -23,21 +30,37 @@
 		<!-- Compile -->
 
 		<dependency>
+			<groupId>org.fuin.cqrs4j.example</groupId>
+			<artifactId>cqrs4j-example-shared</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>ddd-4-java</artifactId>
-			<version>0.2.1-SNAPSHOT</version>
+			<version>0.2.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>cqrs-4-java</artifactId>
-			<version>0.2.1-SNAPSHOT</version>
+			<version>0.2.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>objects4j</artifactId>
-			<version>0.6.9-SNAPSHOT</version>
+			<version>0.6.9</version>
 		</dependency>
 
 		<dependency>
@@ -53,25 +76,19 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-eshttp</artifactId>
+			<version>${esc.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.25</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>6.0.10.Final</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jaxb-impl</artifactId>
-					<groupId>com.sun.xml.bind</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jaxb-api</artifactId>
-					<groupId>javax.xml.bind</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -89,7 +106,6 @@
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
-			<version>2.2.3</version>
 		</dependency>
 
 		<!-- Test -->
@@ -97,21 +113,19 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.10.0</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>units4j</artifactId>
-			<version>0.8.3</version>
+			<version>0.8.4</version>
 			<scope>test</scope>
 		</dependency>
 

@@ -15,11 +15,11 @@ import javax.json.bind.Jsonb;
 
 import org.fuin.cqrs4j.ResultType;
 import org.fuin.cqrs4j.SimpleResult;
+import org.fuin.cqrs4j.example.shared.CreatePersonCommand;
+import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.cqrs4j.example.spring.command.app.CmdApplication;
-import org.fuin.cqrs4j.example.spring.shared.CreatePersonCommand;
-import org.fuin.cqrs4j.example.spring.shared.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.spring.shared.PersonId;
-import org.fuin.cqrs4j.example.spring.shared.PersonName;
 import org.fuin.esc.api.CommonEvent;
 import org.fuin.esc.api.EventStore;
 import org.fuin.esc.api.SimpleStreamId;

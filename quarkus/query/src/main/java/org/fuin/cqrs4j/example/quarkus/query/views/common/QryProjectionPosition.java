@@ -26,8 +26,8 @@ import org.fuin.objects4j.common.Contract;
  * Stores the next position to read from the projection in the event store.
  */
 @Entity
-@Table(name = "QRY_PERSON_PROJECTION_POS")
-public class ProjectionPosition {
+@Table(name = "QUARKUS_QRY_PROJECTION_POS")
+public class QryProjectionPosition {
 
     @Id
     @Column(name = "STREAM_ID", nullable = false, length = 250, updatable = false)
@@ -41,7 +41,7 @@ public class ProjectionPosition {
     /**
      * JPA constructor.
      */
-    protected ProjectionPosition() {
+    protected QryProjectionPosition() {
         super();
     }
 
@@ -53,7 +53,7 @@ public class ProjectionPosition {
      * @param nextPos
      *            Next position from the stream to read.
      */
-    public ProjectionPosition(@NotNull final StreamId streamId, @NotNull final Long nextPos) {
+    public QryProjectionPosition(@NotNull final StreamId streamId, @NotNull final Long nextPos) {
         super();
         Contract.requireArgNotNull("streamId", streamId);
         Contract.requireArgNotNull("nextPos", nextPos);
@@ -94,7 +94,7 @@ public class ProjectionPosition {
 
     @Override
     public String toString() {
-        return "QryPersonHandlerPosition [streamId=" + streamId + ", nextPos=" + nextPos + "]";
+        return "QryProjectionPosition [streamId=" + streamId + ", nextPos=" + nextPos + "]";
     }
 
 }

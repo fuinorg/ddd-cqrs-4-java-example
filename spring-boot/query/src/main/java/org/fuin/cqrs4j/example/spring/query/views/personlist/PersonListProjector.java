@@ -1,7 +1,7 @@
-package org.fuin.cqrs4j.example.spring.query.handler;
+package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
-import static org.fuin.cqrs4j.example.spring.query.handler.PersonEventChunkHandler.PROJECTION_STREAM_ID;
+import static org.fuin.cqrs4j.example.spring.query.views.personlist.PersonListEventChunkHandler.PROJECTION_STREAM_ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +32,9 @@ import org.springframework.stereotype.Component;
  */
 @ThreadSafe
 @Component
-public class PersonProjector {
+public class PersonListProjector {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PersonProjector.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PersonListProjector.class);
 
 	/** Prevents more than one projector thread running at a time. */
 	private static final Semaphore LOCK = new Semaphore(1);
@@ -51,10 +51,10 @@ public class PersonProjector {
 	private EventStore eventStore;
 
 	@Autowired
-	private PersonEventChunkHandler chunkHandler;
+	private PersonListEventChunkHandler chunkHandler;
 
 	@Autowired
-	private PersonEventDispatcher dispatcher;
+	private PersonListEventDispatcher dispatcher;
 
 	/**
 	 * Runs triggered by the timer. If a second timer event occurs while the
@@ -62,7 +62,7 @@ public class PersonProjector {
 	 * skipped.
 	 */
 	@Scheduled(fixedRate = 100)
-	@Async("personProjectorExecutor")
+	@Async("projectorExecutor")
 	public void execute() {
 		if (!APP_STARTED.get()) {
 			// Do nothing until application started

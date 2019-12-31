@@ -30,7 +30,7 @@ public class PersonListEventChunkHandler {
     private static final Logger LOG = LoggerFactory.getLogger(PersonListEventChunkHandler.class);
             
     /** Unique name of the event store projection that is used. */
-    public static final ProjectionStreamId PROJECTION_STREAM_ID = new ProjectionStreamId("qry-person-stream");
+    public static final ProjectionStreamId PROJECTION_STREAM_ID = new ProjectionStreamId("quarkus-qry-person-stream");
 
     @Inject
     EventDispatcher dispatcher;

@@ -1,11 +1,10 @@
-package org.fuin.cqrs4j.example.spring.query.handler;
+package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import javax.persistence.EntityManager;
 
 import org.fuin.cqrs4j.EventHandler;
-import org.fuin.cqrs4j.example.spring.query.domain.QryPerson;
-import org.fuin.cqrs4j.example.spring.shared.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.spring.shared.PersonId;
+import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.ddd4j.ddd.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +31,8 @@ public class PersonCreatedEventHandler implements EventHandler<PersonCreatedEven
     public void handle(final PersonCreatedEvent event) {
         LOG.info("Handle " + event);
         final PersonId personId = event.getEntityId();
-        if (em.find(QryPerson.class, personId.asString()) == null) {
-            em.persist(new QryPerson(personId, event.getName()));
+        if (em.find(PersonListEntry.class, personId.asString()) == null) {
+            em.persist(new PersonListEntry(personId, event.getName()));
         }
     }
 

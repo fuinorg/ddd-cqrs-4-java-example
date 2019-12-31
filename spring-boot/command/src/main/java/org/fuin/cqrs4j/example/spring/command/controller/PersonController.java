@@ -20,10 +20,10 @@ import javax.validation.Validator;
 
 import org.fuin.cqrs4j.CommandExecutionFailedException;
 import org.fuin.cqrs4j.SimpleResult;
-import org.fuin.cqrs4j.example.spring.command.domain.DuplicatePersonNameException;
-import org.fuin.cqrs4j.example.spring.command.domain.Person;
-import org.fuin.cqrs4j.example.spring.command.domain.PersonRepository;
-import org.fuin.cqrs4j.example.spring.shared.CreatePersonCommand;
+import org.fuin.cqrs4j.example.aggregates.DuplicatePersonNameException;
+import org.fuin.cqrs4j.example.aggregates.Person;
+import org.fuin.cqrs4j.example.aggregates.PersonRepository;
+import org.fuin.cqrs4j.example.shared.CreatePersonCommand;
 import org.fuin.ddd4j.ddd.AggregateAlreadyExistsException;
 import org.fuin.ddd4j.ddd.AggregateDeletedException;
 import org.springframework.beans.factory.annotation.Autowired;

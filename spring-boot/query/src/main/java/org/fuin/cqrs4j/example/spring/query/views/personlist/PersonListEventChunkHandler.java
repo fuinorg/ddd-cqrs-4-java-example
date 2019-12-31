@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.spring.query.handler;
+package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -17,15 +17,15 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @NotThreadSafe
 @Component
-public class PersonEventChunkHandler {
+public class PersonListEventChunkHandler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PersonEventChunkHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PersonListEventChunkHandler.class);
 
 	/** Unique name of the event store projection that is used. */
-	public static final ProjectionStreamId PROJECTION_STREAM_ID = new ProjectionStreamId("qry-person-stream");
+	public static final ProjectionStreamId PROJECTION_STREAM_ID = new ProjectionStreamId("spring-qry-person-stream");
 
 	@Autowired
-	private PersonEventDispatcher dispatcher;
+	private PersonListEventDispatcher dispatcher;
 
 	@Autowired
 	private ProjectionService projectionService;

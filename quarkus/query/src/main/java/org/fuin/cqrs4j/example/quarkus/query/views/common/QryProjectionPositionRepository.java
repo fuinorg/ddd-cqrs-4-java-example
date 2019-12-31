@@ -25,7 +25,7 @@ import org.fuin.objects4j.common.Contract;
  * Repository that contains the position of the stream.
  */
 @ApplicationScoped
-public class ProjectionPositionRepository implements ProjectionService {
+public class QryProjectionPositionRepository implements ProjectionService {
 
     @Inject
     EntityManager em;
@@ -33,7 +33,7 @@ public class ProjectionPositionRepository implements ProjectionService {
     @Override
     public void resetProjectionPosition(@NotNull final StreamId streamId) {
         Contract.requireArgNotNull("streamId", streamId);
-        final ProjectionPosition pos = em.find(ProjectionPosition.class, streamId.asString());
+        final QryProjectionPosition pos = em.find(QryProjectionPosition.class, streamId.asString());
         if (pos != null) {
             pos.setNextPosition(0L);
         }
@@ -42,7 +42,7 @@ public class ProjectionPositionRepository implements ProjectionService {
     @Override
     public Long readProjectionPosition(@NotNull StreamId streamId) {
         Contract.requireArgNotNull("streamId", streamId);
-        final ProjectionPosition pos = em.find(ProjectionPosition.class, streamId.asString());
+        final QryProjectionPosition pos = em.find(QryProjectionPosition.class, streamId.asString());
         if (pos == null) {
             return 0L;
         }
@@ -53,9 +53,9 @@ public class ProjectionPositionRepository implements ProjectionService {
     public void updateProjectionPosition(@NotNull StreamId streamId, @NotNull Long nextEventNumber) {
         Contract.requireArgNotNull("streamId", streamId);
         Contract.requireArgNotNull("nextEventNumber", nextEventNumber);
-        final ProjectionPosition pos = em.find(ProjectionPosition.class, streamId.asString());
+        final QryProjectionPosition pos = em.find(QryProjectionPosition.class, streamId.asString());
         if (pos == null) {
-            em.persist(new ProjectionPosition(streamId, nextEventNumber));
+            em.persist(new QryProjectionPosition(streamId, nextEventNumber));
         } else {
             pos.setNextPosition(nextEventNumber);
             em.merge(pos);

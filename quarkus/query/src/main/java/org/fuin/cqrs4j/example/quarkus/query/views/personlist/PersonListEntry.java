@@ -33,7 +33,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
  * Represents a person that will be stored in the database.
  */
 @Entity
-@Table(name = "PERSON_LIST")
+@Table(name = "QUARKUS_PERSON_LIST")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "person")
 @NamedQuery(name = PersonListEntry.FIND_ALL, query = "SELECT p FROM PersonListEntry p")
