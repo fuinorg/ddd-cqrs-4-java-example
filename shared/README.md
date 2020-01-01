@@ -1,7 +1,7 @@
 # cqrs4j-example-shared
 Shared code for all demo applications and client &amp; server.
 
-> :information_source: There is often a discussion if exposing a library like this one to the outside world is a good idea. In case of a homogenous environment it can be OK to share commands, events and value objects as library. This will save some time as they are used all over the place. If you don't like this approach, simply copy the content of this library into your microservice projects.
+> :information_source: There is often a discussion if exposing a library like this one to the outside world is a good idea. In case of a homogenous environment it can be OK to share commands, events and value objects as a library. This will save some time as they are used all over the place. If you don't like this approach, simply copy the content of this library into your microservice projects.
 
 ## Commands
 - [CreatePersonCommand](src/main/java/org/fuin/cqrs4j/example/shared/CreatePersonCommand.java) - A new person should be created in the system. (Example: [CreatePersonCommand.json](src/test/resources/commands/CreatePersonCommand.json))
