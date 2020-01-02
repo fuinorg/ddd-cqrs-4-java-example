@@ -15,7 +15,7 @@ Here is an overview of how such an application looks like:
 ## Components
 - **[Shared](shared)** - Common code for all demo applications (commands, events, value objects and utilities).
 - **[Aggregates](aggregates)** - DDD related code for all demo applications (aggregates, entities and business exceptions).
-- **[Quarkus](quarkus)** - Two microservices (Command & Query) based on [Quarkus](https://quarkus.io/) that is the [successor of Wildfly Swarm / Thorntail](https://thorntail.io/posts/thorntail-community-announcement-on-quarkus/) and has CDI, JAX-RS and other standards.
+- **[Quarkus](quarkus)** - Two microservices (Command & Query) based on [Quarkus](https://quarkus.io/) that is the [successor of Wildfly Swarm/Thorntail](https://thorntail.io/posts/thorntail-community-announcement-on-quarkus/) and has CDI, JAX-RS and other standards.
 - **[Spring Boot](spring-boot)** - Two microservices (Command & Query) based on [Spring Boot](https://spring.io/projects/spring-boot/).
 - **[Java SE + CDI](java-se-cdi)** - Two standalone applications (Command & Query) using CDI for dependency injection.
 
