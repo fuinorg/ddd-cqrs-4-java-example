@@ -22,7 +22,7 @@ Here is an overview of how such an application looks like:
 ## Getting started
 
 ### Prerequisites
-#### Install everything yourself (Option 1) 
+#### Option 1: Install everything yourself 
 Make sure you have the following tools installed/configured:
 * [git](https://git-scm.com/) (VCS)
 * [Docker CE](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/)
@@ -30,7 +30,7 @@ Make sure you have the following tools installed/configured:
 * *OPTIONAL* [GraalVM](https://www.graalvm.org/)
 * Hostname should be set in /etc/hosts (See [Find and Change Your Hostname in Ubuntu](https://helpdeskgeek.com/linux-tips/find-and-change-your-hostname-in-ubuntu/) for more information)
 
-#### :star: Use lubuntu-developer-vm (Option 2)
+#### Option 2: Use lubuntu-developer-vm :star:
 The **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** has already (almost) everything installed. You only need to  execute the following steps:
 1. Download and install the [lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm) as described
 2. OPTIONAL: Change memory of VM to 6 GB (instead of 4 GB default) if you want to create a native image with GraalVM 
