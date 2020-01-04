@@ -1,6 +1,11 @@
 # ddd-cqrs-4-java-example
 Example microservices that use [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libraries and an [EventStore](https://eventstore.org/) to store the events (Event Sourcing).
 
+[![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
+
+**Java 11 >= 0.2.0** / Java 8 = 0.1.0
+
+
 ## Background
 This application shows how to implement [DDD](https://en.wikipedia.org/wiki/Domain-driven_design), [CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation) and [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) without a DDD/CQRS framework. It uses just a few small libraries in addition to  standard web application frameworks like [Quarkus](https://quarkus.io/) and [Spring Boot](https://spring.io/projects/spring-boot/).
 
