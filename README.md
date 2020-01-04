@@ -1,5 +1,5 @@
 # ddd-cqrs-4-java-example
-Example applications and microservices that use [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libraries and an [EventStore](https://eventstore.org/) to store the events (Event Sourcing).
+Example microservices that use [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libraries and an [EventStore](https://eventstore.org/) to store the events (Event Sourcing).
 
 ## Background
 This application shows how to implement [DDD](https://en.wikipedia.org/wiki/Domain-driven_design), [CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation) and [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) without a DDD/CQRS framework. It uses just a few small libraries in addition to  standard web application frameworks like [Quarkus](https://quarkus.io/) and [Spring Boot](https://spring.io/projects/spring-boot/).
@@ -15,14 +15,14 @@ Here is an overview of how such an application looks like:
 ## Components
 - **[Shared](shared)** - Common code for all demo applications (commands, events, value objects and utilities).
 - **[Aggregates](aggregates)** - DDD related code for all demo applications (aggregates, entities and business exceptions).
-- **[Quarkus](quarkus)** - Two microservices (Command & Query) based on [Quarkus](https://quarkus.io/).
+- **[Quarkus](quarkus)** - Two microservices (Command & Query) based on [Quarkus](https://quarkus.io/) that is the [successor of Wildfly Swarm/Thorntail](https://thorntail.io/posts/thorntail-community-announcement-on-quarkus/) and has CDI, JAX-RS and [SmallRye](https://smallrye.io/) ([Eclipse MicroProfile](http://microprofile.io/)).
 - **[Spring Boot](spring-boot)** - Two microservices (Command & Query) based on [Spring Boot](https://spring.io/projects/spring-boot/).
 - **[Java SE + CDI](java-se-cdi)** - Two standalone applications (Command & Query) using CDI for dependency injection.
 
 ## Getting started
 
 ### Prerequisites
-#### Install everything yourself (Option 1) 
+#### Option 1: Install everything yourself 
 Make sure you have the following tools installed/configured:
 * [git](https://git-scm.com/) (VCS)
 * [Docker CE](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/)
@@ -30,7 +30,7 @@ Make sure you have the following tools installed/configured:
 * *OPTIONAL* [GraalVM](https://www.graalvm.org/)
 * Hostname should be set in /etc/hosts (See [Find and Change Your Hostname in Ubuntu](https://helpdeskgeek.com/linux-tips/find-and-change-your-hostname-in-ubuntu/) for more information)
 
-#### Use lubuntu-developer-vm (Option 2)
+#### :star: Option 2: Use lubuntu-developer-vm :star:
 The **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** has already (almost) everything installed. You only need to  execute the following steps:
 1. Download and install the [lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm) as described
 2. OPTIONAL: Change memory of VM to 6 GB (instead of 4 GB default) if you want to create a native image with GraalVM 
