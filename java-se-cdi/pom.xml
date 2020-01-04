@@ -13,7 +13,7 @@
 
     <groupId>org.fuin.cqrs4j.example.javasecdi</groupId>
     <artifactId>cqrs4j-javasecdi-example</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <description>Minimal standalone example application that uses the 'ddd-4-java' and 'ddd-cqrs-4-java-example' libraries</description>
 
     <scm>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>org.fuin.cqrs4j.example</groupId>
             <artifactId>cqrs4j-example-shared</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
         
         <dependency>

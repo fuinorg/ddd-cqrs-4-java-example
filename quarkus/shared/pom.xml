@@ -6,7 +6,7 @@
 
     <groupId>org.fuin.cqrs4j.example.quarkus</groupId>
     <artifactId>cqrs4j-quarkus-example-shared</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>cqrs4j-quarkus-example-shared</name>
     <description>Quarkus CQRS Shared Code for Demo Application</description>
 
@@ -41,7 +41,7 @@
         <dependency>
             <groupId>org.fuin.cqrs4j.example</groupId>
             <artifactId>cqrs4j-example-shared</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>0.1.0</version>
         </dependency>
 
         <dependency>
