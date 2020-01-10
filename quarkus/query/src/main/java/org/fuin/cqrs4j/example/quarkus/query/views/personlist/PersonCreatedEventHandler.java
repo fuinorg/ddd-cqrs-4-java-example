@@ -41,7 +41,7 @@ public class PersonCreatedEventHandler implements EventHandler<PersonCreatedEven
 
     @Override
     public void handle(final PersonCreatedEvent event) {
-        LOG.info("Handle " + event.getClass().getSimpleName() + ": " + event);
+        LOG.info("Handle {}: {}", event.getClass().getSimpleName() , event);
         final PersonId personId = event.getEntityId();
         if (em.find(PersonListEntry.class, personId.asString()) == null) {
             em.persist(new PersonListEntry(personId, event.getName()));
