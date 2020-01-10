@@ -15,7 +15,6 @@ package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import org.fuin.cqrs4j.EventHandler;
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
@@ -41,7 +40,6 @@ public class PersonCreatedEventHandler implements EventHandler<PersonCreatedEven
     }
 
     @Override
-    @Transactional
     public void handle(final PersonCreatedEvent event) {
         LOG.info("Handle " + event.getClass().getSimpleName() + ": " + event);
         final PersonId personId = event.getEntityId();

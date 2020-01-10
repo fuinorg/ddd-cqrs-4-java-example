@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 public class PersonListEventChunkHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonListEventChunkHandler.class);
-            
+
     /** Unique name of the event store projection that is used. */
     public static final ProjectionStreamId PROJECTION_STREAM_ID = new ProjectionStreamId("quarkus-qry-person-stream");
 
@@ -53,6 +53,7 @@ public class PersonListEventChunkHandler {
      * @param currentSlice
      *            Slice with events to dispatch.
      */
+    @Transactional
     public void handleChunk(final StreamEventsSlice currentSlice) {
         LOG.debug("Handle chunk: {}", currentSlice);
         dispatcher.dispatchCommonEvents(currentSlice.getEvents());
