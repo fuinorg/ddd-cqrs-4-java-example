@@ -8,7 +8,7 @@
 
     <groupId>org.fuin.cqrs4j.example.quarkus</groupId>
     <artifactId>cqrs4j-quarkus-example-command</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <esc.version>0.3.1</esc.version>
+        <quarkus.version>1.2.0.Final</quarkus.version>
     </properties>
 
     <dependencyManagement>
@@ -26,7 +27,7 @@
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-universe-bom</artifactId>
-                <version>1.0.1.Final</version>
+                <version>${quarkus.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -77,13 +78,13 @@
         <dependency>
             <groupId>org.fuin.cqrs4j.example</groupId>
             <artifactId>cqrs4j-example-aggregates</artifactId>
-            <version>0.1.0</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.fuin.cqrs4j.example.quarkus</groupId>
             <artifactId>cqrs4j-quarkus-example-shared</artifactId>
-            <version>0.1.0</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -133,7 +134,7 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>1.0.1.Final</version>
+                <version>${quarkus.version}</version>
                 <executions>
                     <execution>
                         <goals>

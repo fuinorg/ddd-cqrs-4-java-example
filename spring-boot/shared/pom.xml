@@ -13,7 +13,7 @@
 
 	<groupId>org.fuin.cqrs4j.example.spring</groupId>
 	<artifactId>cqrs4j-spring-example-shared</artifactId>
-	<version>0.1.0</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<name>cqrs4j-spring-example-shared</name>
 	<description>Spring Boot CQRS Shared Code for Demo Application</description>
 
@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>org.fuin.cqrs4j.example</groupId>
 			<artifactId>cqrs4j-example-shared</artifactId>
-			<version>0.1.0</version>
+			<version>0.2.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>

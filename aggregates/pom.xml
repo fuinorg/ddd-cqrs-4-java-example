@@ -6,7 +6,7 @@
 
     <groupId>org.fuin.cqrs4j.example</groupId>
     <artifactId>cqrs4j-example-aggregates</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0-SNAPSHOT</version>
     <name>cqrs4j-example-aggregates</name>
     <description>DDD related code for all demo applications (aggregates, entities and business exceptions)</description>
 
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.fuin.cqrs4j.example</groupId>
             <artifactId>cqrs4j-example-shared</artifactId>
-            <version>0.1.0</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
