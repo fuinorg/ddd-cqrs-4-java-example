@@ -1,8 +1,12 @@
 package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
+import java.util.Set;
+
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.fuin.cqrs4j.ProjectionService;
+import org.fuin.cqrs4j.example.shared.SharedUtils;
+import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.api.ProjectionStreamId;
 import org.fuin.esc.api.StreamEventsSlice;
 import org.slf4j.Logger;
@@ -30,7 +34,23 @@ public class PersonListEventChunkHandler {
 	@Autowired
 	private ProjectionService projectionService;
 
-	/**
+    private ProjectionStreamId streamId;
+
+    /**
+     * Returns the name of the event store projection that is used by this handler.
+     * 
+     * @return Unique projection stream name.
+     */
+    public ProjectionStreamId getProjectionStreamId() {
+        if (streamId == null) {
+            final Set<EventType> eventTypes = dispatcher.getAllTypes();
+            final String name = "spring-qry-person-" + SharedUtils.calculateChecksum(eventTypes);
+            streamId = new ProjectionStreamId(name);
+        }
+        return streamId;
+    }
+
+    /**
 	 * Returns the next event position to read.
 	 * 
 	 * @return Number of the next event to read.
