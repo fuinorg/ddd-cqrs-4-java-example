@@ -20,6 +20,8 @@ package org.fuin.cqrs4j.example.shared;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.zip.Adler32;
 
 import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.config.PropertyVisibilityStrategy;
@@ -28,6 +30,7 @@ import org.fuin.ddd4j.ddd.AggregateVersionConverter;
 import org.fuin.ddd4j.ddd.EntityIdConverter;
 import org.fuin.ddd4j.ddd.EntityIdPathConverter;
 import org.fuin.ddd4j.ddd.EventIdConverter;
+import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.spi.Base64Data;
 import org.fuin.esc.spi.EscEvent;
 import org.fuin.esc.spi.EscEvents;
@@ -144,9 +147,25 @@ public final class SharedUtils {
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy()).withEncoding(Charset.forName("utf-8")).build();
 
     }
-    
+
+    /**
+     * Creates an Adler32 checksum based on on event type names.
+     * 
+     * @param eventTypes
+     *            Types to calculate a checksum for.
+     * 
+     * @return Checksum based on all names.
+     */
+    public static long calculateChecksum(final Collection<EventType> eventTypes) {
+        final Adler32 checksum = new Adler32();
+        for (final EventType eventType : eventTypes) {
+            checksum.update(eventType.asBaseType().getBytes(Charset.forName("ascii")));
+        }
+        return checksum.getValue();
+    }
+
     private static class FieldAccessStrategy implements PropertyVisibilityStrategy {
-        
+
         @Override
         public boolean isVisible(Field field) {
             return true;
@@ -156,9 +175,9 @@ public final class SharedUtils {
         public boolean isVisible(Method method) {
             return false;
         }
-        
-    }   
-    
+
+    }
+
     /**
      * Helper class for type/class combination.
      */

@@ -12,12 +12,15 @@
  */
 package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
+import java.util.Set;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import org.fuin.cqrs4j.EventDispatcher;
 import org.fuin.cqrs4j.ProjectionService;
+import org.fuin.cqrs4j.example.shared.SharedUtils;
+import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.api.ProjectionStreamId;
 import org.fuin.esc.api.StreamEventsSlice;
 import org.slf4j.Logger;
@@ -29,14 +32,27 @@ public class PersonListEventChunkHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonListEventChunkHandler.class);
 
-    /** Unique name of the event store projection that is used. */
-    public static final ProjectionStreamId PROJECTION_STREAM_ID = new ProjectionStreamId("quarkus-qry-person-stream");
-
     @Inject
-    EventDispatcher dispatcher;
+    PersonListEventDispatcher dispatcher;
 
     @Inject
     ProjectionService projectionService;
+
+    private ProjectionStreamId streamId;
+
+    /**
+     * Returns the name of the event store projection that is used by this handler.
+     * 
+     * @return Unique projection stream name.
+     */
+    public ProjectionStreamId getProjectionStreamId() {
+        if (streamId == null) {
+            final Set<EventType> eventTypes = dispatcher.getAllTypes();
+            final String name = "quarkus-qry-person-" + SharedUtils.calculateChecksum(eventTypes);
+            streamId = new ProjectionStreamId(name);
+        }
+        return streamId;
+    }
 
     /**
      * Returns the next event position to read.
@@ -44,7 +60,7 @@ public class PersonListEventChunkHandler {
      * @return Number of the next event to read.
      */
     public Long readNextEventNumber() {
-        return projectionService.readProjectionPosition(PROJECTION_STREAM_ID);
+        return projectionService.readProjectionPosition(getProjectionStreamId());
     }
 
     /**
@@ -57,7 +73,7 @@ public class PersonListEventChunkHandler {
     public void handleChunk(final StreamEventsSlice currentSlice) {
         LOG.debug("Handle chunk: {}", currentSlice);
         dispatcher.dispatchCommonEvents(currentSlice.getEvents());
-        projectionService.updateProjectionPosition(PROJECTION_STREAM_ID, currentSlice.getNextEventNumber());
+        projectionService.updateProjectionPosition(getProjectionStreamId(), currentSlice.getNextEventNumber());
     }
 
 }
