@@ -43,20 +43,22 @@ public class EventStoreFactory {
     /**
      * Creates an ESJC event store.<br>
      * <br>
-     * CAUTION: The returned event store instance is NOT thread safe. 
+     * CAUTION: The returned event store instance is NOT thread safe.
      * 
-     * @param es       Native event store API.
-     * @param registry Serialization registry.
+     * @param es
+     *            Native event store API.
+     * @param registry
+     *            Serialization registry.
      * 
      * @return Dependent scope event store.
-     */    
+     */
     @Produces
     @RequestScoped
-    public IESJCEventStore createEventStore(final com.github.msemys.esjc.EventStore es,
-            final SerDeserializerRegistry registry) {
+    public IESJCEventStore createEventStore(final com.github.msemys.esjc.EventStore es, final SerDeserializerRegistry registry) {
 
-        final IESJCEventStore eventstore = new ESJCEventStore(es, registry, registry,
-                EnhancedMimeType.create("application", "json", Charset.forName("utf-8")));
+        final IESJCEventStore eventstore = new ESJCEventStore.Builder().eventStore(es).serDesRegistry(registry)
+                .targetContentType(EnhancedMimeType.create("application", "json", Charset.forName("utf-8"))).build();
+
         eventstore.open();
         return eventstore;
 
@@ -65,7 +67,8 @@ public class EventStoreFactory {
     /**
      * Closes the ESJC event store when the context is disposed.
      * 
-     * @param es Event store to close.
+     * @param es
+     *            Event store to close.
      */
     public void closeEventStore(@Disposes final IESJCEventStore es) {
         es.close();
@@ -92,8 +95,10 @@ public class EventStoreFactory {
                 config.getEventStorePassword());
         credentialsProvider.setCredentials(AuthScope.ANY, credentials);
         final ThreadFactory threadFactory = Executors.defaultThreadFactory();
-        final IESHttpEventStore eventStore = new ESHttpEventStore(threadFactory, config.getEventStoreURL(), ESEnvelopeType.JSON, registry,
-                registry, credentialsProvider);
+
+        final IESHttpEventStore eventStore = new ESHttpEventStore.Builder().threadFactory(threadFactory).url(config.getEventStoreURL())
+                .envelopeType(ESEnvelopeType.JSON).serDesRegistry(registry).credentialsProvider(credentialsProvider).build();
+
         eventStore.open();
         return eventStore;
 
@@ -108,5 +113,5 @@ public class EventStoreFactory {
     public void closeEventStore(@Disposes final IESHttpEventStore es) {
         es.close();
     }
-    
+
 }

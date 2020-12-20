@@ -40,8 +40,10 @@ public class QryProjectionAdminEventStoreFactory {
                     config.getEventStorePassword());
             credentialsProvider.setCredentials(AuthScope.ANY, credentials);
             final SimpleSerializerDeserializerRegistry registry = new SimpleSerializerDeserializerRegistry();
-            final ProjectionAdminEventStore es = new ESHttpEventStore(threadFactory, new URL(url), ESEnvelopeType.JSON, registry, registry,
-                    credentialsProvider);
+
+            final ProjectionAdminEventStore es = new ESHttpEventStore.Builder().threadFactory(threadFactory).url(new URL(url))
+                    .envelopeType(ESEnvelopeType.JSON).serDesRegistry(registry).credentialsProvider(credentialsProvider).build();
+
             es.open();
             return es;
         } catch (final MalformedURLException ex) {

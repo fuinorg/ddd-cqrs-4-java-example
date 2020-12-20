@@ -17,7 +17,6 @@
  */
 package org.fuin.cqrs4j.example.shared;
 
-import javax.annotation.concurrent.Immutable;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.constraints.NotNull;
 
@@ -26,6 +25,7 @@ import org.fuin.ddd4j.ddd.DomainEventExpectedEntityIdPath;
 import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.spi.SerializedDataType;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.Immutable;
 
 /**
  * A new person should be created in the system.

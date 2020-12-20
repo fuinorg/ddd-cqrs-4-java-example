@@ -4,7 +4,7 @@ Minimal standalone example application that uses the [ddd-4-java](https://github
 ## Starting the demo
 
 1. Start an EventStore locally on your PC
-    * You can use the [EventStore Docker Image](https://hub.docker.com/r/eventstore/eventstore/): ```docker run --name eventstore-node -p 2113:2113 -p 1113:1113 --rm eventstore/eventstore:release-4.1.3```
+    * You can use the [EventStore Docker Image](https://hub.docker.com/r/eventstore/eventstore/): ```docker run --name eventstore-node -p 2113:2113 -p 1113:1113 --rm eventstore/eventstore:release-5.0.9```
     * Or simply start an instance (See [Install and run Event Store](https://eventstore.org/docs/server/index.html?tabs=tabid-1) for more information)
 2. Run the [QryExampleApp](src/main/java/org/fuin/cqrs4j/example/javasecdi/qry/app/QryExampleApp.java) to make the view/read part listen to new events
      * You should see something like this on the console: ```INFO  o.f.d.qry.handler.QryProjector - Create projection 'qry-person-stream' with events: [PersonCreatedEvent]```
@@ -12,7 +12,8 @@ Minimal standalone example application that uses the [ddd-4-java](https://github
 3. Run the [CmdExampleApp](src/main/java/org/fuin/cqrs4j/example/javasecdi/cmd/app/CmdExampleApp.java) to create a [PersonCreatedEvent](src/main/java/org/fuin/cqrs4j/example/javasecdi/shared/domain/PersonCreatedEvent.java)
       * You should see something like this on the console: ```INFO  o.f.d.cmd.app.CmdExampleApp - Updated event store...```
       * There should also be an update on the 'QryExampleApp' console: ```INFO  o.f.d.q.h.PersonCreatedEventHandler - Handle Person 'Peter Parker Inc.' was created``` 
-     * If you open the [Event Store UI](http://localhost:2113/web/index.html#/projections) (User 'admin' / Password 'changeit') and open the projection details for 'qry-person-stream' it should show 'Events processed = 1'
+      * If you open the [Event Store UI](http://localhost:2113/web/index.html#/projections) (User 'admin' / Password 'changeit') and open the projection details for 'qry-person-stream' it should show 'Events processed = 1'
+      * Look at the person's aggregate event stream: ```http://localhost:2113/web/index.html#/streams/PERSON-00000000-0000-0000-0000-000000000000`` - Replace the zero UUID with the one shown in the event handler message 'Person 'Peter Parker Inc.' (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) was created'
 4. Kill the [QryExampleApp](src/main/java/org/fuin/cqrs4j/example/javasecdi/qry/app/QryExampleApp.java)
 5. Stop the event store
 

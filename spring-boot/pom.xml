@@ -3,10 +3,160 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.12.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
 	<groupId>org.fuin.cqrs4j.example.spring</groupId>
 	<artifactId>cqrs4j-spring-example-root</artifactId>
 	<version>0.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+
+	<properties>
+		<java.version>11</java.version>
+		<maven.compiler.release>${java.version}</maven.compiler.release>
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<esc.version>0.4.0</esc.version>
+		<eventstore.version>5.0.9</eventstore.version>
+	</properties>
+	
+	<dependencyManagement>
+
+		<dependencies>
+
+			<dependency>
+				<groupId>org.fuin</groupId>
+				<artifactId>ddd-4-java</artifactId>
+				<version>0.3.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin</groupId>
+				<artifactId>cqrs-4-java</artifactId>
+				<version>0.3.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin</groupId>
+				<artifactId>objects4j</artifactId>
+				<version>0.7.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-api</artifactId>
+				<version>${esc.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-spi</artifactId>
+				<version>${esc.version}</version>
+			</dependency>
+
+	        <dependency>
+	            <groupId>org.fuin.esc</groupId>
+	            <artifactId>esc-esjc</artifactId>
+	            <version>${esc.version}</version>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.fuin.esc</groupId>
+	            <artifactId>esc-eshttp</artifactId>
+	            <version>${esc.version}</version>
+	        </dependency>
+
+	        <dependency>
+	            <groupId>org.fuin.esc</groupId>
+	            <artifactId>esc-mem</artifactId>
+	            <version>${esc.version}</version>
+	        </dependency>
+
+			<dependency>
+	            <groupId>org.glassfish</groupId>
+	            <artifactId>jakarta.json</artifactId>
+	            <version>1.1.6</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.eclipse</groupId>
+				<artifactId>yasson</artifactId>
+				<version>1.0.8</version>
+			</dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.13.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>3.18.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin</groupId>
+				<artifactId>units4j</artifactId>
+				<version>0.9.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>nl.jqno.equalsverifier</groupId>
+				<artifactId>equalsverifier</artifactId>
+				<version>3.5</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.8.0</version>
+			</dependency>
+
+		</dependencies>
+		
+	</dependencyManagement>	
+
+	<build>
+	
+		<pluginManagement>
+	
+			<plugins>
+			
+	            <plugin>
+	                <groupId>io.fabric8</groupId>
+	                <artifactId>docker-maven-plugin</artifactId>
+	                <version>0.34.1</version>
+				</plugin>
+			
+			</plugins>
+			
+		</pluginManagement>
+	
+	</build>
+
+	<repositories>
+
+		<repository>
+			<id>sonatype.oss.snapshots</id>
+			<name>Sonatype OSS Snapshot Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<updatePolicy>always</updatePolicy>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
+	</repositories>
 
 	<modules>
 		<module>shared</module>

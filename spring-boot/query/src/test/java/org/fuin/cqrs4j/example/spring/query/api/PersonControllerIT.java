@@ -91,6 +91,8 @@ public class PersonControllerIT {
 
 		// TEST & VERIFY
 
+		// given().pathParam("id", personId.asString()).when().get("/persons/{id}").then().log().all(true);
+		
 		final PersonListEntry person = given().pathParam("id", personId.asString()).when().get("/persons/{id}").then()
 				.statusCode(200).extract().as(PersonListEntry.class);
 		assertThat(person.getId(), is(equalTo(personId)));

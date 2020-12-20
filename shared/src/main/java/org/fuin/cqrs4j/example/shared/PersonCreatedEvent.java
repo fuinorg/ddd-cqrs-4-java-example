@@ -17,7 +17,7 @@
  */
 package org.fuin.cqrs4j.example.shared;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.constraints.NotNull;
 

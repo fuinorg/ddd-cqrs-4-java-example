@@ -4,36 +4,16 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.fuin.cqrs4j.example.quarkus</groupId>
+	<parent>
+	    <groupId>org.fuin.cqrs4j.example.quarkus</groupId>
+	    <artifactId>cqrs4j-quarkus-example-root</artifactId>
+		<version>0.2.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
     <artifactId>cqrs4j-quarkus-example-shared</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
     <name>cqrs4j-quarkus-example-shared</name>
     <description>Quarkus CQRS Shared Code for Demo Application</description>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <java.version>1.8</java.version>
-        <esc.version>0.3.1</esc.version>
-        <quarkus.version>1.2.0.Final</quarkus.version>
-    </properties>
-
-    <dependencyManagement>
-
-        <dependencies>
-
-            <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-universe-bom</artifactId>
-                <version>${quarkus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-        </dependencies>
-
-    </dependencyManagement>
 
     <dependencies>
 
@@ -48,31 +28,26 @@
         <dependency>
             <groupId>org.fuin</groupId>
             <artifactId>ddd-4-java</artifactId>
-            <version>0.2.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.fuin</groupId>
             <artifactId>cqrs-4-java</artifactId>
-            <version>0.2.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.fuin</groupId>
             <artifactId>objects4j</artifactId>
-            <version>0.6.9</version>
         </dependency>
 
         <dependency>
             <groupId>org.fuin.esc</groupId>
             <artifactId>esc-esjc</artifactId>
-            <version>${esc.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.fuin.esc</groupId>
             <artifactId>esc-eshttp</artifactId>
-            <version>${esc.version}</version>
         </dependency>
 
         <dependency>
@@ -98,22 +73,11 @@
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jaxb-impl</artifactId>
-                    <groupId>com.sun.xml.bind</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jaxb-api</artifactId>
-                    <groupId>javax.xml.bind</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.glassfish</groupId>
-            <artifactId>javax.json</artifactId>
-            <version>1.1.4</version>
+            <artifactId>jakarta.json</artifactId>
         </dependency>
 
         <dependency>
@@ -143,14 +107,12 @@
         <dependency>
             <groupId>org.fuin</groupId>
             <artifactId>units4j</artifactId>
-            <version>0.8.3</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>2.4.6</version>
             <scope>test</scope>
         </dependency>
 
@@ -162,21 +124,82 @@
 
     </dependencies>
 
-    <repositories>
+	<build>
 
-        <repository>
-            <id>sonatype.oss.snapshots</id>
-            <name>Sonatype OSS Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
+		<plugins>
 
-    </repositories>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<archive>
+						<manifestEntries>
+							<Automatic-Module-Name>org.fuin.cqrs4j.example.shared</Automatic-Module-Name>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jdeps-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+
+		<pluginManagement>
+			
+			<plugins>
+			
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-jdeps-plugin</artifactId>
+										<versionRange>[3.1.2,)</versionRange>
+										<goals>
+											<goal>jdkinternals</goal>
+											<goal>test-jdkinternals</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+
+			</plugins>
+			
+		</pluginManagement>
+
+	</build>
 
 </project>

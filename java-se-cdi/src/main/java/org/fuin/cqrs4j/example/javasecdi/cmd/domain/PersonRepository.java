@@ -1,6 +1,6 @@
 package org.fuin.cqrs4j.example.javasecdi.cmd.domain;
 
-import javax.annotation.concurrent.NotThreadSafe;
+import org.fuin.objects4j.common.NotThreadSafe;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.cqrs4j.example.shared.PersonId;

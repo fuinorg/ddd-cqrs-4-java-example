@@ -1,20 +1,371 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.fuin.cqrs4j.example</groupId>
-    <artifactId>cqrs4j-example-root</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+	<groupId>org.fuin.cqrs4j.example</groupId>
+	<artifactId>cqrs4j-example-root</artifactId>
+	<version>0.2.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
-    <modules>
-        <module>shared</module>
-        <module>aggregates</module>
-        <module>java-se-cdi</module>
-        <module>quarkus</module>
-       <module>spring-boot</module>
-    </modules>
+	<properties>
+		<java.version>11</java.version>
+		<maven.compiler.release>${java.version}</maven.compiler.release>
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<esc.version>0.4.0</esc.version>
+	</properties>
+
+	<modules>
+		<module>shared</module>
+		<module>aggregates</module>
+		<module>java-se-cdi</module>
+		<module>quarkus</module>
+		<module>spring-boot</module>
+	</modules>
+	
+	<dependencyManagement>
+
+		<dependencies>
+
+			<dependency>
+				<groupId>org.fuin</groupId>
+				<artifactId>ddd-4-java</artifactId>
+				<version>0.3.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin</groupId>
+				<artifactId>cqrs-4-java</artifactId>
+				<version>0.3.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin</groupId>
+				<artifactId>objects4j</artifactId>
+				<version>0.7.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-api</artifactId>
+				<version>${esc.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-spi</artifactId>
+				<version>${esc.version}</version>
+			</dependency>
+
+	        <dependency>
+	            <groupId>org.fuin.esc</groupId>
+	            <artifactId>esc-esjc</artifactId>
+	            <version>${esc.version}</version>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.fuin.esc</groupId>
+	            <artifactId>esc-eshttp</artifactId>
+	            <version>${esc.version}</version>
+	        </dependency>
+
+	        <dependency>
+	            <groupId>org.fuin.esc</groupId>
+	            <artifactId>esc-mem</artifactId>
+	            <version>${esc.version}</version>
+	        </dependency>
+
+	        <dependency>
+	            <groupId>org.apache.httpcomponents</groupId>
+	            <artifactId>httpasyncclient</artifactId>
+	            <version>4.1.4</version>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.apache.httpcomponents</groupId>
+	            <artifactId>httpclient</artifactId>
+	            <version>4.5.13</version>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.fuin</groupId>
+	            <artifactId>ext4logback</artifactId>
+	            <version>0.2.0</version>
+	        </dependency>
+
+	        <dependency>
+	            <groupId>ch.qos.logback</groupId>
+	            <artifactId>logback-classic</artifactId>
+	            <version>1.2.3</version>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.apache.commons</groupId>
+	            <artifactId>commons-lang3</artifactId>
+	            <version>3.11</version>
+	        </dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.25</version>
+			</dependency>
+
+			<dependency>
+				<groupId>jakarta.validation</groupId>
+				<artifactId>jakarta.validation-api</artifactId>
+				<version>2.0.2</version>
+			</dependency>
+
+			<dependency>
+	            <groupId>jakarta.json.bind</groupId>
+	            <artifactId>jakarta.json.bind-api</artifactId>
+				<version>1.0.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>jakarta.persistence</groupId>
+				<artifactId>jakarta.persistence-api</artifactId>
+				<version>2.2.3</version>
+			</dependency>
+
+	        <dependency>
+	            <groupId>org.eclipse.microprofile.config</groupId>
+	            <artifactId>microprofile-config-api</artifactId>
+	            <version>1.3</version>
+	        </dependency>
+	
+			<dependency>
+			    <groupId>io.smallrye.config</groupId>
+			    <artifactId>smallrye-config</artifactId>
+			    <version>1.10.0</version>
+			</dependency>
+	
+	        <dependency>
+	            <groupId>jakarta.json</groupId>
+	            <artifactId>jakarta.json-api</artifactId>
+	            <version>1.1.6</version>
+	        </dependency>
+
+	        <dependency>
+	            <groupId>org.hibernate</groupId>
+	            <artifactId>hibernate-entitymanager</artifactId>
+	            <version>5.4.26.Final</version>
+	        </dependency>
+	        
+	        <dependency>
+	            <groupId>org.hsqldb</groupId>
+	            <artifactId>hsqldb</artifactId>
+	            <version>2.5.1</version>
+	        </dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.13.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>3.18.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin</groupId>
+				<artifactId>units4j</artifactId>
+				<version>0.9.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>nl.jqno.equalsverifier</groupId>
+				<artifactId>equalsverifier</artifactId>
+				<version>3.5</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.8.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate.validator</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>6.1.7.Final</version>
+			</dependency>
+
+			<dependency>
+	            <groupId>org.glassfish</groupId>
+	            <artifactId>jakarta.json</artifactId>
+	            <version>1.1.6</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse</groupId>
+				<artifactId>yasson</artifactId>
+				<version>1.0.8</version>
+			</dependency>
+
+	        <dependency>
+	            <groupId>jakarta.mail</groupId>
+	            <artifactId>jakarta.mail-api</artifactId>
+	            <version>1.6.4</version>
+	        </dependency>
+
+	        <dependency>
+	            <groupId>com.sun.mail</groupId>
+	            <artifactId>jakarta.mail</artifactId>
+	            <version>1.6.4</version>
+	        </dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+	<build>
+
+		<pluginManagement>
+
+			<plugins>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jdeps-plugin</artifactId>
+					<version>3.1.2</version>
+					<configuration>
+						<multiRelease>base</multiRelease>
+						<failOnWarning>true</failOnWarning>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>jdkinternals</goal>
+								<goal>test-jdkinternals</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.2.0</version>
+					<configuration>
+						<includes>
+							<include>**/*</include>
+						</includes>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.1</version>
+					<configuration>
+						<release>${java.version}</release>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.2.0</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.2.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>3.0.0-M1</version>
+				</plugin>
+
+	            <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-surefire-plugin</artifactId>
+	                <version>2.22.2</version>	                
+				</plugin>
+				
+	            <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-failsafe-plugin</artifactId>
+	                <version>2.22.2</version>
+				</plugin>
+
+	            <plugin>
+	                <groupId>io.fabric8</groupId>
+	                <artifactId>docker-maven-plugin</artifactId>
+	                <version>0.34.1</version>
+				</plugin>
+		
+			</plugins>
+
+		</pluginManagement>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M3</version>
+				<executions>
+					<execution>
+						<id>enforce-java-and-maven-version</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireJavaVersion>
+									<version>${java.version}</version>
+									<message>Java 11 or later is required!</message>
+								</requireJavaVersion>
+								<requireMavenVersion>
+									<version>3.6.0</version>
+									<message>Please use at least Maven	3.6.0 as older versions may	cause problems with Java 11+</message>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+    <repositories>
+
+        <repository>
+            <id>sonatype.oss.snapshots</id>
+            <name>Sonatype OSS Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+
 
 </project>

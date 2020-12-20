@@ -2,7 +2,7 @@ package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import java.util.Set;
 
-import javax.annotation.concurrent.NotThreadSafe;
+import org.fuin.objects4j.common.NotThreadSafe;
 
 import org.fuin.cqrs4j.ProjectionService;
 import org.fuin.cqrs4j.example.shared.SharedUtils;

@@ -92,7 +92,7 @@ public final class CreatePersonCommandTest {
 
 		// VERIFY
 		assertThat(copy.getEventId().asBaseType()).isEqualTo(UUID.fromString("109a77b2-1de2-46fc-aee1-97fa7740a552"));
-		assertThat(copy.getTimestamp()).isEqualTo(ZonedDateTime.parse("2019-11-17T10:27:13.183+01:00[Europe/Berlin]"));
+		assertThat(copy.getEventTimestamp()).isEqualTo(ZonedDateTime.parse("2019-11-17T10:27:13.183+01:00[Europe/Berlin]"));
 		assertThat(copy.getAggregateRootId().asString()).isEqualTo(PERSON_UUID);
 		assertThat(copy.getName().asString()).isEqualTo("Peter Parker");
 

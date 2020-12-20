@@ -4,10 +4,49 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.fuin.cqrs4j.example</groupId>
+		<artifactId>cqrs4j-example-root</artifactId>
+		<version>0.2.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
     <groupId>org.fuin.cqrs4j.example.quarkus</groupId>
     <artifactId>cqrs4j-quarkus-example-root</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <properties>
+        <quarkus.version>1.10.5.Final</quarkus.version>
+		<eventstore.version>5.0.9</eventstore.version>
+    </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-universe-bom</artifactId>
+                <version>${quarkus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+	        <dependency>
+	            <groupId>jakarta.enterprise</groupId>
+	            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+	            <version>2.0.2</version>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.jboss.weld.se</groupId>
+	            <artifactId>weld-se-core</artifactId>
+	            <version>3.1.5.SP1</version>
+	        </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
 
     <modules>
         <module>shared</module>

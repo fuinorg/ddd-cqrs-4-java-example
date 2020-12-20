@@ -21,20 +21,22 @@ public class SharedEventStoreFactory {
     /**
      * Creates an event store.<br>
      * <br>
-     * CAUTION: The returned event store instance is NOT thread safe. 
+     * CAUTION: The returned event store instance is NOT thread safe.
      * 
-     * @param es       Native event store API.
-     * @param registry Serialization registry.
+     * @param es
+     *            Native event store API.
+     * @param registry
+     *            Serialization registry.
      * 
      * @return Dependent scope event store.
-     */    
+     */
     @Produces
     @RequestScoped
-    public EventStore createEventStore(final com.github.msemys.esjc.EventStore es,
-            final SerDeserializerRegistry registry) {
+    public EventStore createEventStore(final com.github.msemys.esjc.EventStore es, final SerDeserializerRegistry registry) {
 
-        final EventStore eventstore = new ESJCEventStore(es, registry, registry,
-                EnhancedMimeType.create("application", "json", Charset.forName("utf-8")));
+        final EventStore eventstore = new ESJCEventStore.Builder().eventStore(es).serDesRegistry(registry)
+                .targetContentType(EnhancedMimeType.create("application", "json", Charset.forName("utf-8"))).build();
+
         eventstore.open();
         return eventstore;
 
@@ -43,7 +45,8 @@ public class SharedEventStoreFactory {
     /**
      * Closes the event store when the context is disposed.
      * 
-     * @param es Event store to close.
+     * @param es
+     *            Event store to close.
      */
     public void closeEventStore(@Disposes final EventStore es) {
         es.close();

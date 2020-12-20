@@ -6,35 +6,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.fuin.cqrs4j.example.quarkus</groupId>
+	<parent>
+	    <groupId>org.fuin.cqrs4j.example.quarkus</groupId>
+	    <artifactId>cqrs4j-quarkus-example-root</artifactId>
+		<version>0.2.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
     <artifactId>cqrs4j-quarkus-example-command</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
-
-    <properties>
-        <maven.compiler.parameters>true</maven.compiler.parameters>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <esc.version>0.3.1</esc.version>
-        <quarkus.version>1.2.0.Final</quarkus.version>
-    </properties>
-
-    <dependencyManagement>
-
-        <dependencies>
-
-            <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-universe-bom</artifactId>
-                <version>${quarkus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-        </dependencies>
-
-    </dependencyManagement>
 
     <dependencies>
 
@@ -90,25 +69,16 @@
         <dependency>
             <groupId>org.fuin.esc</groupId>
             <artifactId>esc-esjc</artifactId>
-            <version>${esc.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.fuin</groupId>
             <artifactId>cqrs-4-java</artifactId>
-            <version>0.2.1</version>
         </dependency>
 
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
         </dependency>
 
         <!-- test -->
@@ -134,7 +104,6 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -145,13 +114,13 @@
             </plugin>
 
             <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
             </plugin>
 
             <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
                 <configuration>
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
@@ -160,8 +129,8 @@
             </plugin>
 
             <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -180,12 +149,11 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.31.0</version>
                 <configuration>
 
                     <images>
                         <image>
-                            <name>eventstore/eventstore:release-4.1.3</name>
+                            <name>eventstore/eventstore:release-${eventstore.version}</name>
                             <run>
                                 <network>
                                     <mode>bridge</mode>
@@ -241,22 +209,5 @@
             </properties>
         </profile>
     </profiles>
-
-    <repositories>
-
-        <repository>
-            <id>sonatype.oss.snapshots</id>
-            <name>Sonatype OSS Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
-    </repositories>
 
 </project>

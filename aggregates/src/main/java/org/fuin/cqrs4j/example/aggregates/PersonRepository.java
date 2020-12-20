@@ -12,7 +12,7 @@
  */
 package org.fuin.cqrs4j.example.aggregates;
 
-import javax.annotation.concurrent.NotThreadSafe;
+import org.fuin.objects4j.common.NotThreadSafe;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.cqrs4j.example.shared.PersonId;

@@ -23,7 +23,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.annotation.concurrent.Immutable;
+import org.fuin.objects4j.common.Immutable;
 import javax.json.bind.adapter.JsonbAdapter;
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;

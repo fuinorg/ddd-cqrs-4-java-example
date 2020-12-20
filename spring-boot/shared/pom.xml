@@ -5,25 +5,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.0.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<groupId>org.fuin.cqrs4j.example.spring</groupId>
+		<artifactId>cqrs4j-spring-example-root</artifactId>
+		<version>0.2.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>org.fuin.cqrs4j.example.spring</groupId>
 	<artifactId>cqrs4j-spring-example-shared</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
 	<name>cqrs4j-spring-example-shared</name>
 	<description>Spring Boot CQRS Shared Code for Demo Application</description>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<java.version>1.8</java.version>
-		<esc.version>0.3.1</esc.version>
-	</properties>
 
 	<dependencies>
 
@@ -48,37 +38,31 @@
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>ddd-4-java</artifactId>
-			<version>0.2.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>cqrs-4-java</artifactId>
-			<version>0.2.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>objects4j</artifactId>
-			<version>0.6.9</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-spi</artifactId>
-			<version>${esc.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-esjc</artifactId>
-			<version>${esc.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-eshttp</artifactId>
-			<version>${esc.version}</version>
 		</dependency>
 
 		<dependency>
@@ -93,14 +77,12 @@
 
 		<dependency>
 			<groupId>org.glassfish</groupId>
-			<artifactId>javax.json</artifactId>
-			<version>1.1.4</version>
+			<artifactId>jakarta.json</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>yasson</artifactId>
-			<version>1.0.3</version>
 		</dependency>
 
 		<dependency>
@@ -125,21 +107,18 @@
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>units4j</artifactId>
-			<version>0.8.4</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>nl.jqno.equalsverifier</groupId>
 			<artifactId>equalsverifier</artifactId>
-			<version>2.4.6</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
 			<scope>test</scope>
 		</dependency>
 

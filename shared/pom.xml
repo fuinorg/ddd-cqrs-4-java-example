@@ -1,166 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.fuin.cqrs4j.example</groupId>
-    <artifactId>cqrs4j-example-shared</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
-    <name>cqrs4j-example-shared</name>
-    <description>Shared code for all demo applications and client &amp; server</description>
+	<parent>
+		<groupId>org.fuin.cqrs4j.example</groupId>
+		<artifactId>cqrs4j-example-root</artifactId>
+		<version>0.2.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <java.version>1.8</java.version>
-        <esc.version>0.3.1</esc.version>
-    </properties>
+	<artifactId>cqrs4j-example-shared</artifactId>
+	<name>cqrs4j-example-shared</name>
+	<description>Shared code for all demo applications and client &amp; server</description>
 
-    <dependencies>
+	<dependencies>
 
-        <!-- Compile -->
+		<!-- Compile -->
 
-        <dependency>
-            <groupId>org.fuin</groupId>
-            <artifactId>ddd-4-java</artifactId>
-            <version>0.2.1</version>
-        </dependency>
+		<dependency>
+			<groupId>org.fuin</groupId>
+			<artifactId>ddd-4-java</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>org.fuin</groupId>
-            <artifactId>cqrs-4-java</artifactId>
-            <version>0.2.1</version>
-        </dependency>
+		<dependency>
+			<groupId>org.fuin</groupId>
+			<artifactId>cqrs-4-java</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>org.fuin</groupId>
-            <artifactId>objects4j</artifactId>
-            <version>0.6.9</version>
-        </dependency>
+		<dependency>
+			<groupId>org.fuin</groupId>
+			<artifactId>objects4j</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>org.fuin.esc</groupId>
-            <artifactId>esc-api</artifactId>
-            <version>${esc.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-api</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>org.fuin.esc</groupId>
-            <artifactId>esc-spi</artifactId>
-            <version>${esc.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-spi</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
-        </dependency>
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>javax.json.bind</groupId>
-            <artifactId>javax.json.bind-api</artifactId>
-            <version>1.0</version>
-        </dependency>
+		<dependency>
+            <groupId>jakarta.json.bind</groupId>
+            <artifactId>jakarta.json.bind-api</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>2.2.3</version>
-        </dependency>
+		<dependency>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
+		</dependency>
 
-        <!-- Test -->
+		<!-- Test -->
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.10.0</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.fuin</groupId>
-            <artifactId>units4j</artifactId>
-            <version>0.8.3</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.fuin</groupId>
+			<artifactId>units4j</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>nl.jqno.equalsverifier</groupId>
-            <artifactId>equalsverifier</artifactId>
-            <version>2.4.6</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>nl.jqno.equalsverifier</groupId>
+			<artifactId>equalsverifier</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.1.0.Final</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jaxb-impl</artifactId>
-                    <groupId>com.sun.xml.bind</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jaxb-api</artifactId>
-                    <groupId>javax.xml.bind</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
+		<dependency>
             <groupId>org.glassfish</groupId>
-            <artifactId>javax.json</artifactId>
-            <version>1.1.4</version>
-            <scope>test</scope>
-        </dependency>
+            <artifactId>jakarta.json</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.eclipse</groupId>
-            <artifactId>yasson</artifactId>
-            <version>1.0.3</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>yasson</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-    </dependencies>
+	</dependencies>
 
-    <repositories>
+	<build>
 
-        <repository>
-            <id>sonatype.oss.snapshots</id>
-            <name>Sonatype OSS Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
+		<plugins>
 
-    </repositories>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<archive>
+						<manifestEntries>
+							<Automatic-Module-Name>org.fuin.cqrs4j.example.shared</Automatic-Module-Name>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jdeps-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+
+		<pluginManagement>
+			
+			<plugins>
+			
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-jdeps-plugin</artifactId>
+										<versionRange>[3.1.2,)</versionRange>
+										<goals>
+											<goal>jdkinternals</goal>
+											<goal>test-jdkinternals</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+
+			</plugins>
+			
+		</pluginManagement>
+
+	</build>
 
 </project>
