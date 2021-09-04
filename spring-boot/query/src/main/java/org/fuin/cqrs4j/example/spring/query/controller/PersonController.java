@@ -65,14 +65,14 @@ public class PersonController {
 	 *                                 unknown.
 	 */
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PersonListEntry> getPersonsById(@PathVariable(value = "id") @UUIDStr String personId)
+	public ResponseEntity<PersonListEntry> getPersonById(@PathVariable(value = "id") @UUIDStr String personId)
 			throws AggregateNotFoundException {
 		
         final PersonListEntry person = em.find(PersonListEntry.class, personId);
         if (person == null) {
         	throw new AggregateNotFoundException(PersonId.TYPE, new PersonId(UUID.fromString(personId)));
         }
-        LOG.info("getPersonsById({}) = {}", personId, person);
+        LOG.info("getPersonById({}) = {}", personId, person);
 		return ResponseEntity.ok().body(person);
 	}
 
