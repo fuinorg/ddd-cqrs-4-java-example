@@ -44,6 +44,12 @@
             <artifactId>jakarta.security.jacc-api</artifactId>
         </dependency>
 
+         <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.9.0</version>
+        </dependency>
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-context-propagation</artifactId>
@@ -80,6 +86,11 @@
             <groupId>jakarta.mail</groupId>
             <artifactId>jakarta.mail-api</artifactId>
         </dependency>
+
+		<dependency>
+		  <groupId>com.sun.mail</groupId>
+		  <artifactId>jakarta.mail</artifactId>
+		</dependency>
 
         <!-- test -->
 

@@ -54,6 +54,12 @@
 			<artifactId>jakarta.security.jacc-api</artifactId>
 		</dependency>
 
+         <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.9.0</version>
+        </dependency>
+
 		<dependency>
 			<groupId>org.fuin.cqrs4j.example</groupId>
 			<artifactId>cqrs4j-example-aggregates</artifactId>
@@ -69,6 +75,11 @@
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-eshttp</artifactId>
+		</dependency>
+
+		<dependency>
+		  <groupId>com.sun.mail</groupId>
+		  <artifactId>jakarta.mail</artifactId>
 		</dependency>
 
 		<!-- test -->
