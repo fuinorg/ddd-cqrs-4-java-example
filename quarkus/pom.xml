@@ -16,7 +16,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <quarkus.version>2.1.0.Final</quarkus.version>
+        <quarkus.version>2.2.1.Final</quarkus.version>
 		<eventstore.version>5.0.9</eventstore.version>
     </properties>
 
