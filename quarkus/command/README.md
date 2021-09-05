@@ -21,7 +21,7 @@ Make sure you installed everything as described [here](../../../../).
 
 ## *OPTIONAL* Build and run the command microservice in native mode
 1. Make sure you have enough memory (~6-8 GB) on your PC or VM
-2. Open a console (Ubuntu shortcut = <ctrl><alt><t>)
+2. Open a console (Ubuntu shortcut = ctrl alt t)
 3. Build the native executable 
    ```
    cd command
