@@ -32,25 +32,23 @@ Make sure you have the following tools installed/configured:
 * Hostname should be set in /etc/hosts (See [Find and Change Your Hostname in Ubuntu](https://helpdeskgeek.com/linux-tips/find-and-change-your-hostname-in-ubuntu/) for more information)
 
 ### Clone and install project 
-1. Open a console (Ubuntu shortcut = ctrl alt t)
-2. Clone the git repository
+1. Clone the git repository
    ```
    git clone https://github.com/fuinorg/ddd-cqrs-4-java-example.git
    ```
-3. Change into the project's directory and run a Maven build
+2. Change into the project's directory and run a Maven build
    ```
    cd ddd-cqrs-4-java-example
    ./mvnw install
    ```
    Be patient - This may take a while (~5 minutes) as all dependencies and some Docker images must be downloaded and also some integration tests will be executed.
    
-### Start Event Store and Maria DB
-1. Open a console (Ubuntu shortcut = ctrl alt t)
-2. Change into the project's directory and run Docker Compose
-   ```
-   cd ddd-cqrs-4-java-example
-   docker-compose up
-   ```
+### Start Event Store and Maria DB (Console window 1)
+Change into the project's directory and run Docker Compose
+```
+cd ddd-cqrs-4-java-example
+docker-compose up
+```
 
 ### Start command / query implementations
 Start one query service and then one command service.
@@ -58,78 +56,77 @@ You can mix Quarkus & Spring Boot if you want to!
 
 #### Quarkus Microservices
 
-##### Quarkus Query Service
-1. Open a console (Ubuntu shortcut = ctrl alt t)
-2. Start the Quarkus query service:
+##### Quarkus Query Service (Console window 2)
+1. Start the Quarkus query service:
    ```
    cd ddd-cqrs-4-java-example/quarkus/query
    ./mvnw quarkus:dev
    ```
-3. Opening [http://localhost:8080/](http://localhost:8080/) should show the query welcome page
+2. Opening [http://localhost:8080/](http://localhost:8080/) should show the query welcome page
 
 For more details see [quarkus/query](quarkus/query).
 
-##### Quarkus Command Service
-1. Open a console (Ubuntu shortcut = ctrl alt t)
-2. Start the Quarkus command service:   
+##### Quarkus Command Service (Console window 3)
+1. Start the Quarkus command service:   
    ```
    cd ddd-cqrs-4-java-example/quarkus/command
    ./mvnw quarkus:dev
    ```
-3. Opening [http://localhost:8081/](http://localhost:8081/) should show the command welcome page
+2. Opening [http://localhost:8081/](http://localhost:8081/) should show the command welcome page
 
 For more details see [quarkus/command](quarkus/command).
 
 #### Spring Boot Microservices
 
-##### Spring Boot Query Service
-1. Open a console (Ubuntu shortcut = ctrl alt t)
-2. Start the Spring Boot query service:   
+##### Spring Boot Query Service (Console window 2)
+1. Start the Spring Boot query service:   
    ```
    cd ddd-cqrs-4-java-example/spring-boot/query
    ./mvnw spring-boot:run
    ```
-3. Opening [http://localhost:8080/](http://localhost:8080/) should show the query welcome page
+2. Opening [http://localhost:8080/](http://localhost:8080/) should show the query welcome page
 
 For more details see [spring-boot/query](spring-boot/query).
 
-##### Spring Boot Command Service
-1. Open a console (Ubuntu shortcut = ctrl alt t)
-2. Start the Spring Boot command service:   
+##### Spring Boot Command Service (Console window 3)
+1. Start the Spring Boot command service:   
    ```
    cd ddd-cqrs-4-java-example/spring-boot/command
    ./mvnw spring-boot:run
    ```
-3. Opening [http://localhost:8081/](http://localhost:8081/) should show the command welcome page
+2. Opening [http://localhost:8081/](http://localhost:8081/) should show the command welcome page
 
 For more details see [spring-boot/command](spring-boot/command).
 
-### Test
+### Verify projection and query data
 1. Open [http://localhost:2113/](http://localhost:2113/) to access the event store UI (User: admin / Password: changeit)
    You should see a projection named "qry-person-stream" when you click on "Projections" in the top menu.
 2. Opening [http://localhost:8080/persons](http://localhost:8080/persons) should show an empty JSON array
-3. Open a console (Ubuntu shortcut = ctrl alt t)
-4. Change into the demo directory and execute a command using cURL (See [shell script](demo/create-person-command.sh) and [command](demo/create-person-command.json)) 
-   ```
-   cd ddd-cqrs-4-java-example/demo
-   ./create-person-command.sh
-   ```   
-   Command console should show something like
-   ```
-   Update aggregate: id=PERSON 84565d62-115e-4502-b7c9-38ad69c64b05, version=-1, nextVersion=0
-   ```   
-   Query console should show something like
-   ```
-   PersonCreatedEventHandler ... Handle PersonCreatedEvent: Person 'Peter Parker' was created
-   ```    
-4. Refreshing [http://localhost:8080/persons](http://localhost:8080/persons) should show
+
+### Execute a test command (Console window 4)
+Change into the demo directory and execute a command using cURL (See [shell script](demo/create-person-command.sh) and [command](demo/create-person-command.json)) 
+```
+cd ddd-cqrs-4-java-example/demo
+./create-person-command.sh
+```   
+Command service (Console window 3) should show something like
+```
+Update aggregate: id=PERSON 84565d62-115e-4502-b7c9-38ad69c64b05, version=-1, nextVersion=0
+```   
+Query service (Console window 2) should show something like
+```
+PersonCreatedEventHandler ... Handle PersonCreatedEvent: Person 'Peter Parker' was created
+```    
+
+## Verify the query data was updated
+1. Refreshing [http://localhost:8080/persons](http://localhost:8080/persons) should show
     ```json
     [{"id":"84565d62-115e-4502-b7c9-38ad69c64b05","name":"Peter Parker"}]
     ```
-5. Opening [http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05) should show
+2. Opening [http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05) should show
     ```json
     {"id":"84565d62-115e-4502-b7c9-38ad69c64b05","name":"Peter Parker"}
-6. The event sourced data of the person aggregate could be found in a stream named [PERSON-84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:2113/web/index.html#/streams/PERSON-84565d62-115e-4502-b7c9-38ad69c64b05)
+3. The event sourced data of the person aggregate could be found in a stream named [PERSON-84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:2113/web/index.html#/streams/PERSON-84565d62-115e-4502-b7c9-38ad69c64b05)
 
 
 ### Stop Event Store and Maria DB and clean up
