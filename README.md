@@ -24,29 +24,12 @@ Here is an overview of how such an application looks like:
 ## Getting started
 
 ### Prerequisites
-#### Option 1: Install everything yourself 
 Make sure you have the following tools installed/configured:
 * [git](https://git-scm.com/) (VCS)
 * [Docker CE](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/)
 * [Docker Compose](https://docs.docker.com/compose/)
 * *OPTIONAL* [GraalVM](https://www.graalvm.org/)
 * Hostname should be set in /etc/hosts (See [Find and Change Your Hostname in Ubuntu](https://helpdeskgeek.com/linux-tips/find-and-change-your-hostname-in-ubuntu/) for more information)
-
-#### :star: Option 2: Use lubuntu-developer-vm :star:
-The **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** has already (almost) everything installed. You only need to  execute the following steps:
-1. Download and install the [lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm) as described
-2. OPTIONAL: Change memory of VM to 6 GB (instead of 4 GB default) if you want to create a native image with GraalVM 
-3. Start the VM and login (developer / developer)
-4. Open a console (Shortcut = ctrl alt t)
-5. Run a script that finalizes the setup of the developer virtual machine
-   ```
-   bash <(curl \
-   -s https://raw.githubusercontent.com/fuinorg/ddd-cqrs-4-java-example/master/setup-lubuntu-developer-vm.sh)   
-   ```
-6. Reboot
-   ```
-   reboot
-   ```
 
 ### Clone and install project 
 1. Open a console (Ubuntu shortcut = ctrl alt t)
@@ -70,20 +53,56 @@ The **[lubuntu-developer-vm](https://github.com/fuinorg/lubuntu-developer-vm)** 
    ```
 
 ### Start command / query implementations
-Start one command microservice and one query microservice - You can mix Quarkus & Spring Boot!  
+Start one query service and then one command service.
+You can mix Quarkus & Spring Boot if you want to!
 
 #### Quarkus Microservices
-| Module        |       |
-| :------------ | :---- |
-| **[Command](quarkus/command)** | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/quarkus/command/doc/cdi-command-small.png)](quarkus/command) |
-| **[Query](quarkus/query)** | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/quarkus/query/doc/cdi-view-small.png)](quarkus/query) |
-  
-#### Spring Boot Microservices
-| Module        |       |
-| :------------ | :---- |
-| **[Command](spring-boot/command)** | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/spring-boot/command/doc/spring-command-small.png)](spring-boot/command)  |
-| **[Query](spring-boot/query)** | [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/spring-boot/query/doc/spring-view-small.png)](spring-boot/query)  |
 
+##### Quarkus Query Service
+1. Open a console (Ubuntu shortcut = ctrl alt t)
+2. Start the Quarkus query service:
+   ```
+   cd ddd-cqrs-4-java-example/quarkus/query
+   ./mvnw quarkus:dev
+   ```
+3. Opening [http://localhost:8080/](http://localhost:8080/) should show the query welcome page
+
+For more details see [quarkus/query](quarkus/query).
+
+##### Quarkus Command Service
+1. Open a console (Ubuntu shortcut = ctrl alt t)
+2. Start the Quarkus command service:   
+   ```
+   cd ddd-cqrs-4-java-example/quarkus/command
+   ./mvnw quarkus:dev
+   ```
+3. Opening [http://localhost:8081/](http://localhost:8081/) should show the command welcome page
+
+For more details see [quarkus/command](quarkus/command).
+
+#### Spring Boot Microservices
+
+##### Spring Boot Query Service
+1. Open a console (Ubuntu shortcut = ctrl alt t)
+2. Start the Spring Boot query service:   
+   ```
+   cd ddd-cqrs-4-java-example/spring-boot/query
+   ./mvnw spring-boot:run
+   ```
+3. Opening [http://localhost:8080/](http://localhost:8080/) should show the query welcome page
+
+For more details see [spring-boot/query](spring-boot/query).
+
+##### Spring Boot Command Service
+1. Open a console (Ubuntu shortcut = ctrl alt t)
+2. Start the Spring Boot command service:   
+   ```
+   cd ddd-cqrs-4-java-example/spring-boot/command
+   ./mvnw spring-boot:run
+   ```
+3. Opening [http://localhost:8081/](http://localhost:8081/) should show the command welcome page
+
+For more details see [spring-boot/command](spring-boot/command).
 
 ### Test
 1. Open [http://localhost:2113/](http://localhost:2113/) to access the event store UI (User: admin / Password: changeit)
