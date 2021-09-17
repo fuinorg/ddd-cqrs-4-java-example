@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 @ApplicationScoped
 public class PersonCreatedEventHandler implements EventHandler<PersonCreatedEvent> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(PersonCreatedEventHandler.class);
 
     @Inject

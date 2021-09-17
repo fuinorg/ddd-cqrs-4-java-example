@@ -56,8 +56,10 @@ public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId
     /**
      * A new person was created in the system.
      *
-     * @param id   Identifies uniquely a person.
-     * @param name Name of a person.
+     * @param id
+     *            Identifies uniquely a person.
+     * @param name
+     *            Name of a person.
      */
     public CreatePersonCommand(@NotNull final PersonId id, @NotNull final PersonName name) {
         super(id, null);

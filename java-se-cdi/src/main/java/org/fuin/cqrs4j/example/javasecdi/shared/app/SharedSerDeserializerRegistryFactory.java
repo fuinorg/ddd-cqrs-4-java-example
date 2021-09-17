@@ -24,8 +24,7 @@ public class SharedSerDeserializerRegistryFactory {
         final JsonbDeSerializer jsonbDeSer = SharedUtils.createJsonbDeSerializer();
 
         // Registry connects the type with the appropriate serializer and de-serializer
-        final SerDeserializerRegistry serDeserRegistry = SharedUtils.createSerDeserializerRegistry(typeRegistry,
-                jsonbDeSer);
+        final SerDeserializerRegistry serDeserRegistry = SharedUtils.createSerDeserializerRegistry(typeRegistry, jsonbDeSer);
 
         return serDeserRegistry;
 

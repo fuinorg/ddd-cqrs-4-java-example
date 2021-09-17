@@ -2,7 +2,7 @@ package org.fuin.cqrs4j.example.spring.shared;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Executors;
 
 import javax.json.bind.Jsonb;
@@ -39,8 +39,7 @@ public class BeanFactory {
     public Jsonb createJsonb() {
         final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.JSONB_ADAPTERS)
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy());
-        final Jsonb jsonb = JsonbBuilder.create(config);
-        return jsonb;
+        return JsonbBuilder.create(config);
     }
 
     /**
@@ -72,7 +71,7 @@ public class BeanFactory {
         final SerDeserializerRegistry registry = SharedUtils.createRegistry();
 
         final IESJCEventStore eventstore = new ESJCEventStore.Builder().eventStore(es).serDesRegistry(registry)
-                .targetContentType(EnhancedMimeType.create("application", "json", Charset.forName("utf-8"))).build();
+                .targetContentType(EnhancedMimeType.create("application", "json", StandardCharsets.UTF_8)).build();
 
         eventstore.open();
         return eventstore;

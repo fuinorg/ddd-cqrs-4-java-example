@@ -68,14 +68,19 @@ public class SharedConfig {
     /**
      * Constructor with all data.
      * 
-     * @param eventStoreHost     Host.
-     * @param eventStoreHttpPort HTTP port
-     * @param eventStoreTcpPort  TCP port.
-     * @param eventStoreUser     User.
-     * @param eventStorePassword Password.
+     * @param eventStoreHost
+     *            Host.
+     * @param eventStoreHttpPort
+     *            HTTP port
+     * @param eventStoreTcpPort
+     *            TCP port.
+     * @param eventStoreUser
+     *            User.
+     * @param eventStorePassword
+     *            Password.
      */
-    public SharedConfig(final String eventStoreHost, final int eventStoreHttpPort, final int eventStoreTcpPort,
-            final String eventStoreUser, final String eventStorePassword) {
+    public SharedConfig(final String eventStoreHost, final int eventStoreHttpPort, final int eventStoreTcpPort, final String eventStoreUser,
+            final String eventStorePassword) {
         super();
         this.eventStoreHost = eventStoreHost;
         this.eventStoreHttpPort = eventStoreHttpPort;

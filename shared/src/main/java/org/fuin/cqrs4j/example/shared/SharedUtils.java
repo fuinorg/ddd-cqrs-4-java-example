@@ -19,7 +19,7 @@ package org.fuin.cqrs4j.example.shared;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.zip.Adler32;
 
@@ -48,12 +48,14 @@ import org.fuin.esc.spi.SimpleSerializerDeserializerRegistry;
  */
 public final class SharedUtils {
 
+    private static final String APPLICATION_JSON = "application/json";
+
     /** All types that will be written into and read from the event store. */
-    private static TypeClass[] USER_DEFINED_TYPES = new TypeClass[] {
+    private static final TypeClass[] USER_DEFINED_TYPES = new TypeClass[] {
             new TypeClass(PersonCreatedEvent.SER_TYPE, PersonCreatedEvent.class) };
 
     /** All JSON-B adapters from this module. */
-    public static JsonbAdapter<?, ?>[] JSONB_ADAPTERS = new JsonbAdapter<?, ?>[] { new EventIdConverter(),
+    public static final JsonbAdapter<?, ?>[] JSONB_ADAPTERS = new JsonbAdapter<?, ?>[] { new EventIdConverter(),
             new EntityIdPathConverter(new SharedEntityIdFactory()), new EntityIdConverter(new SharedEntityIdFactory()),
             new AggregateVersionConverter(), new PersonId.Converter(), new PersonName.Converter() };
 
@@ -101,14 +103,14 @@ public final class SharedUtils {
         final SimpleSerializerDeserializerRegistry registry = new SimpleSerializerDeserializerRegistry();
 
         // Base types always needed
-        registry.add(EscEvents.SER_TYPE, "application/json", jsonbDeSer);
-        registry.add(EscEvent.SER_TYPE, "application/json", jsonbDeSer);
-        registry.add(EscMeta.SER_TYPE, "application/json", jsonbDeSer);
-        registry.add(Base64Data.SER_TYPE, "application/json", jsonbDeSer);
+        registry.add(EscEvents.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
+        registry.add(EscEvent.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
+        registry.add(EscMeta.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
+        registry.add(Base64Data.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
 
         // User defined types
         for (final TypeClass tc : USER_DEFINED_TYPES) {
-            registry.add(tc.getType(), "application/json", jsonbDeSer);
+            registry.add(tc.getType(), APPLICATION_JSON, jsonbDeSer);
         }
         jsonbDeSer.init(typeRegistry, registry, registry);
 
@@ -129,9 +131,7 @@ public final class SharedUtils {
         final JsonbDeSerializer jsonbDeSer = SharedUtils.createJsonbDeSerializer();
 
         // Registry connects the type with the appropriate serializer and de-serializer
-        final SerDeserializerRegistry serDeserRegistry = SharedUtils.createSerDeserializerRegistry(typeRegistry, jsonbDeSer);
-
-        return serDeserRegistry;
+        return SharedUtils.createSerDeserializerRegistry(typeRegistry, jsonbDeSer);
 
     }
 
@@ -144,7 +144,7 @@ public final class SharedUtils {
 
         return JsonbDeSerializer.builder().withSerializers(EscSpiUtils.createEscJsonbSerializers())
                 .withDeserializers(EscSpiUtils.createEscJsonbDeserializers()).withAdapters(JSONB_ADAPTERS)
-                .withPropertyVisibilityStrategy(new FieldAccessStrategy()).withEncoding(Charset.forName("utf-8")).build();
+                .withPropertyVisibilityStrategy(new FieldAccessStrategy()).withEncoding(StandardCharsets.UTF_8).build();
 
     }
 
@@ -159,7 +159,7 @@ public final class SharedUtils {
     public static long calculateChecksum(final Collection<EventType> eventTypes) {
         final Adler32 checksum = new Adler32();
         for (final EventType eventType : eventTypes) {
-            checksum.update(eventType.asBaseType().getBytes(Charset.forName("ascii")));
+            checksum.update(eventType.asBaseType().getBytes(StandardCharsets.US_ASCII));
         }
         return checksum.getValue();
     }

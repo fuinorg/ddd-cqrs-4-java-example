@@ -17,7 +17,6 @@
  */
 package org.fuin.cqrs4j.example.shared;
 
-import org.fuin.objects4j.common.Immutable;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.validation.constraints.NotNull;
 
@@ -26,6 +25,7 @@ import org.fuin.ddd4j.ddd.EntityIdPath;
 import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.spi.SerializedDataType;
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.Immutable;
 
 /**
  * A new person was created in the system.
@@ -55,8 +55,10 @@ public final class PersonCreatedEvent extends AbstractDomainEvent<PersonId> {
     /**
      * A new person was created in the system.
      *
-     * @param id   Identifies uniquely a person.
-     * @param name Name of a person.
+     * @param id
+     *            Identifies uniquely a person.
+     * @param name
+     *            Name of a person.
      */
     public PersonCreatedEvent(@NotNull final PersonId id, @NotNull final PersonName name) {
         super(new EntityIdPath(id));

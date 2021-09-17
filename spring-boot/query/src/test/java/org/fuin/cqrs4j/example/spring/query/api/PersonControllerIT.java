@@ -40,72 +40,72 @@ import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = QryApplication.class)
-public class PersonControllerIT {
+class PersonControllerIT {
 
-	@LocalServerPort
+    @LocalServerPort
     int port;
-	
-	@Autowired
-	WebApplicationContext wac;
-	
-	@Autowired
-	IESHttpEventStore eventStore;
 
-	@Autowired
-	EntityManager em;
+    @Autowired
+    WebApplicationContext wac;
 
-	@Autowired
-	PersonController testee;
+    @Autowired
+    IESHttpEventStore eventStore;
 
-	@Autowired
-	Config config;
+    @Autowired
+    EntityManager em;
 
-	@BeforeEach
-	public void initRestAssuredMockMvcStandalone() {
-		RestAssured.port = port;
-		RestAssuredMockMvc.webAppContextSetup(wac);
-	}
+    @Autowired
+    PersonController testee;
 
-	@Test
-	public void testGetByIdNotFound() {
-		given().pathParam("id", UUID.randomUUID()).when().get("/persons/{id}").then().statusCode(404);
-	}
+    @Autowired
+    Config config;
 
-	public boolean findPerson(final PersonId personId) {
-		return em.find(PersonListEntry.class, personId.asString()) != null;
-	}
+    @BeforeEach
+    public void initRestAssuredMockMvcStandalone() {
+        RestAssured.port = port;
+        RestAssuredMockMvc.webAppContextSetup(wac);
+    }
 
-	@Test
-	public void testGetByIdOK() {
+    @Test
+    void testGetByIdNotFound() {
+        given().pathParam("id", UUID.randomUUID()).when().get("/persons/{id}").then().statusCode(404);
+    }
 
-		// PREPARE
-		final PersonId personId = new PersonId(UUID.randomUUID());
-		final PersonName personName = new PersonName("Peter Parker " + personId);
-		final SimpleStreamId personStreamId = new SimpleStreamId(PersonId.TYPE + "-" + personId);
-		final PersonCreatedEvent event = new PersonCreatedEvent(personId, personName);
-		final CommonEvent ce = new SimpleCommonEvent(new EventId(event.getEventId().asBaseType()),
-				new TypeName(event.getEventType().asBaseType()), event);
-		eventStore.appendToStream(personStreamId, ce);
+    public boolean findPerson(final PersonId personId) {
+        return em.find(PersonListEntry.class, personId.asString()) != null;
+    }
 
-		await().atMost(5, SECONDS).until(() -> findPerson(personId));
+    @Test
+    void testGetByIdOK() {
 
-		// TEST & VERIFY
+        // PREPARE
+        final PersonId personId = new PersonId(UUID.randomUUID());
+        final PersonName personName = new PersonName("Peter Parker " + personId);
+        final SimpleStreamId personStreamId = new SimpleStreamId(PersonId.TYPE + "-" + personId);
+        final PersonCreatedEvent event = new PersonCreatedEvent(personId, personName);
+        final CommonEvent ce = new SimpleCommonEvent(new EventId(event.getEventId().asBaseType()),
+                new TypeName(event.getEventType().asBaseType()), event);
+        eventStore.appendToStream(personStreamId, ce);
 
-		// given().pathParam("id", personId.asString()).when().get("/persons/{id}").then().log().all(true);
-		
-		final PersonListEntry person = given().pathParam("id", personId.asString()).when().get("/persons/{id}").then()
-				.statusCode(200).extract().as(PersonListEntry.class);
-		assertThat(person.getId(), is(equalTo(personId)));
-		assertThat(person.getName(), is(equalTo(personName)));
+        await().atMost(5, SECONDS).until(() -> findPerson(personId));
 
-		final PersonListEntry[] persons = given().when().get("/persons").then().statusCode(200).extract()
-				.as(PersonListEntry[].class);
+        // TEST & VERIFY
 
-		assertThat(Arrays.asList(persons), is(not(empty())));
-		final PersonListEntry person0 = persons[0];
-		assertThat(person0.getId(), is(equalTo(personId)));
-		assertThat(person0.getName(), is(equalTo(personName)));
+        // given().pathParam("id",
+        // personId.asString()).when().get("/persons/{id}").then().log().all(true);
 
-	}
+        final PersonListEntry person = given().pathParam("id", personId.asString()).when().get("/persons/{id}").then().statusCode(200)
+                .extract().as(PersonListEntry.class);
+        assertThat(person.getId(), is(equalTo(personId)));
+        assertThat(person.getName(), is(equalTo(personName)));
+
+        final PersonListEntry[] persons = given().when().get("/persons").then().statusCode(200).extract().as(PersonListEntry[].class);
+
+        assertThat(Arrays.asList(persons), is(not(empty())));
+        final PersonListEntry person0 = persons[0];
+        assertThat(person0.getId(), is(equalTo(personId)));
+        assertThat(person0.getName(), is(equalTo(personName)));
+
+    }
 
 }

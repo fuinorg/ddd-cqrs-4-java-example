@@ -39,49 +39,40 @@ import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = CmdApplication.class)
-public class PersonControllerIT {
+class PersonControllerIT {
 
-	@LocalServerPort
+    @LocalServerPort
     int port;
-	
-	@Autowired
-	WebApplicationContext wac;
-	
-	@Autowired
-	IESJCEventStore eventStore;
 
-	@Autowired
+    @Autowired
+    WebApplicationContext wac;
+
+    @Autowired
+    IESJCEventStore eventStore;
+
+    @Autowired
     Jsonb jsonb;
-    
-	@BeforeEach
-	public void initRestAssuredMockMvcStandalone() {
-		RestAssured.port = port;
-		RestAssuredMockMvc.webAppContextSetup(wac);
-	}
-	
+
+    @BeforeEach
+    public void initRestAssuredMockMvcStandalone() {
+        RestAssured.port = port;
+        RestAssuredMockMvc.webAppContextSetup(wac);
+    }
+
     @Test
-    public void testCreate() {
-        
+    void testCreate() {
+
         // PREPARE
         final PersonId personId = new PersonId(UUID.randomUUID());
         final PersonName personName = new PersonName("Peter Parker");
         final CreatePersonCommand cmd = new CreatePersonCommand(personId, personName);
         final String json = jsonb.toJson(cmd);
-        
+
         // TEST & VERIFY
-        final SimpleResult result = 
-          given()
-            .accept(ContentType.JSON)
-            .contentType(ContentType.JSON)
-            .body(json)
-          .when()
-            .post("/persons/create")             
-          .then()
-            .statusCode(200)
-            .extract()
-            .as(SimpleResult.class);
+        final SimpleResult result = given().accept(ContentType.JSON).contentType(ContentType.JSON).body(json).when().post("/persons/create")
+                .then().statusCode(200).extract().as(SimpleResult.class);
         assertThat(result.getType(), is(equalTo(ResultType.OK)));
-        
+
         final SimpleStreamId personStreamId = new SimpleStreamId(PersonId.TYPE + "-" + personId);
         final StreamEventsSlice slice = eventStore.readEventsForward(personStreamId, 0, 1);
         final List<CommonEvent> events = slice.getEvents();
@@ -91,7 +82,7 @@ public class PersonControllerIT {
         final PersonCreatedEvent event = (PersonCreatedEvent) ce.getData();
         assertThat(event.getEntityId(), is(equalTo(personId)));
         assertThat(event.getName(), is(equalTo(personName)));
-        
+
     }
 
 }

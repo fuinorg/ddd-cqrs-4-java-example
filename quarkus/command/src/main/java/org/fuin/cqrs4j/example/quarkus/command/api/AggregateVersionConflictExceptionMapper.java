@@ -40,8 +40,8 @@ public class AggregateVersionConflictExceptionMapper implements ExceptionMapper<
 
         LOG.info("{} {}", ex.getShortId(), ex.getMessage());
 
-        return Response.status(Status.CONFLICT).entity(SimpleResult.error(ex.getShortId(), ex.getMessage()))
-                .type(headers.getMediaType()).build();
+        return Response.status(Status.CONFLICT).entity(SimpleResult.error(ex.getShortId(), ex.getMessage())).type(headers.getMediaType())
+                .build();
     }
 
 }

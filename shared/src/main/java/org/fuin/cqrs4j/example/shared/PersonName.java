@@ -23,7 +23,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.fuin.objects4j.common.Immutable;
 import javax.json.bind.adapter.JsonbAdapter;
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
@@ -32,6 +31,7 @@ import javax.validation.Payload;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
+import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
@@ -66,7 +66,8 @@ public final class PersonName extends AbstractStringValueObject {
     /**
      * Constructor with mandatory data.
      * 
-     * @param value Value.
+     * @param value
+     *            Value.
      */
     public PersonName(final String value) {
         super();
@@ -83,14 +84,14 @@ public final class PersonName extends AbstractStringValueObject {
     public final String toString() {
         return value;
     }
-    
+
     /**
      * Verifies that a given string can be converted into the type.
      * 
-     * @param value Value to validate.
+     * @param value
+     *            Value to validate.
      * 
-     * @return Returns <code>true</code> if it's a valid type else
-     *         <code>false</code>.
+     * @return Returns <code>true</code> if it's a valid type else <code>false</code>.
      */
     public static boolean isValid(final String value) {
         if (value == null) {
@@ -107,16 +108,17 @@ public final class PersonName extends AbstractStringValueObject {
     }
 
     /**
-     * Verifies if the argument is valid and throws an exception if this is not the
-     * case.
+     * Verifies if the argument is valid and throws an exception if this is not the case.
      * 
-     * @param name  Name of the value for a possible error message.
-     * @param value Value to check.
+     * @param name
+     *            Name of the value for a possible error message.
+     * @param value
+     *            Value to check.
      * 
-     * @throws ConstraintViolationException The value was not valid.
+     * @throws ConstraintViolationException
+     *             The value was not valid.
      */
-    public static void requireArgValid(@NotNull final String name, @NotNull final String value)
-            throws ConstraintViolationException {
+    public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
 
         if (!PersonName.isValid(value)) {
             throw new ConstraintViolationException("The argument '" + name + "' is not valid: '" + value + "'");
@@ -163,8 +165,7 @@ public final class PersonName extends AbstractStringValueObject {
     /**
      * Converts the value object from/to string.
      */
-    public static final class Converter
-            implements ValueObjectConverter<String, PersonName>, JsonbAdapter<PersonName, String> {
+    public static final class Converter implements ValueObjectConverter<String, PersonName>, JsonbAdapter<PersonName, String> {
 
         // Attribute Converter
 

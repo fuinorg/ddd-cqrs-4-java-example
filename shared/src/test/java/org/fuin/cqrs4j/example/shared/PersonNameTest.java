@@ -17,7 +17,6 @@
  */
 package org.fuin.cqrs4j.example.shared;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
@@ -76,8 +75,9 @@ public final class PersonNameTest {
         assertThat(PersonName.isValid("Peter Parker")).isTrue();
 
         assertThat(PersonName.isValid("")).isFalse();
-        assertThat(PersonName.isValid("123456789.123456789.123456789.123456789.123456789."
-                + "123456789.123456789.123456789.123456789.123456789." + "12345")).isFalse();
+        assertThat(PersonName.isValid(
+                "123456789.123456789.123456789.123456789.123456789." + "123456789.123456789.123456789.123456789.123456789." + "12345"))
+                        .isFalse();
 
     }
 
@@ -95,13 +95,12 @@ public final class PersonNameTest {
         }
 
         try {
-            PersonName.requireArgValid("d", "123456789.123456789.123456789.123456789.123456789."
-                    + "123456789.123456789.123456789.123456789.123456789." + "12345");
+            PersonName.requireArgValid("d",
+                    "123456789.123456789.123456789.123456789.123456789." + "123456789.123456789.123456789.123456789.123456789." + "12345");
             Assert.fail();
         } catch (final ConstraintViolationException ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo("The argument 'd' is not valid: '" + "123456789.123456789.123456789.123456789.123456789."
-                            + "123456789.123456789.123456789.123456789.123456789." + "12345" + "'");
+            assertThat(ex.getMessage()).isEqualTo("The argument 'd' is not valid: '" + "123456789.123456789.123456789.123456789.123456789."
+                    + "123456789.123456789.123456789.123456789.123456789." + "12345" + "'");
         }
 
     }
@@ -113,8 +112,9 @@ public final class PersonNameTest {
         assertThat(new PersonName.Validator().isValid("Peter Parker", null)).isTrue();
 
         assertThat(new PersonName.Validator().isValid("", null)).isFalse();
-        assertThat(new PersonName.Validator().isValid("123456789.123456789.123456789.123456789.123456789."
-                + "123456789.123456789.123456789.123456789.123456789." + "12345", null)).isFalse();
+        assertThat(new PersonName.Validator().isValid(
+                "123456789.123456789.123456789.123456789.123456789." + "123456789.123456789.123456789.123456789.123456789." + "12345",
+                null)).isFalse();
 
     }
 
@@ -126,8 +126,9 @@ public final class PersonNameTest {
         assertThat(new PersonName.Converter().isValid(null)).isTrue();
         assertThat(new PersonName.Converter().isValid("Peter Parker")).isTrue();
 
-        assertThat(new PersonName.Converter().isValid("123456789.123456789.123456789.123456789.123456789."
-                + "123456789.123456789.123456789.123456789.123456789." + "12345")).isFalse();
+        assertThat(new PersonName.Converter().isValid(
+                "123456789.123456789.123456789.123456789.123456789." + "123456789.123456789.123456789.123456789.123456789." + "12345"))
+                        .isFalse();
 
     }
 

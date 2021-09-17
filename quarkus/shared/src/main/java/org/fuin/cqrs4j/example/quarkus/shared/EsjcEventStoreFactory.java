@@ -30,8 +30,7 @@ public class EsjcEventStoreFactory {
     @ApplicationScoped
     public EventStore createESJC(final ManagedExecutor executor, final Config config) {
         return EventStoreBuilder.newBuilder().singleNodeAddress(config.getEventStoreHost(), config.getEventStoreTcpPort())
-                .executor(executor).userCredentials(config.getEventStoreUser(), config.getEventStorePassword())
-                .build();
+                .executor(executor).userCredentials(config.getEventStoreUser(), config.getEventStorePassword()).build();
     }
 
 }

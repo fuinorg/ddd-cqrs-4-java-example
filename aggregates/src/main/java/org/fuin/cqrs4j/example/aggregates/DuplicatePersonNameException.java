@@ -18,7 +18,6 @@ import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.objects4j.common.ExceptionShortIdentifable;
 
-
 /**
  * A name that should be unique does already exist.
  */
@@ -26,11 +25,11 @@ public final class DuplicatePersonNameException extends Exception implements Exc
 
     private static final long serialVersionUID = 1000L;
 
-    private static final String SHORT_ID = "DUPLICATE_PERSON_NAME"; 
-    
-    private PersonId personId;
+    private static final String SHORT_ID = "DUPLICATE_PERSON_NAME";
 
-    private PersonName name;
+    private final PersonId personId;
+
+    private final PersonName name;
 
     /**
      * Constructor with mandatory data.
@@ -64,9 +63,9 @@ public final class DuplicatePersonNameException extends Exception implements Exc
         return name;
     }
 
-	@Override
-	public final String getShortId() {
-		return SHORT_ID;
-	}
+    @Override
+    public final String getShortId() {
+        return SHORT_ID;
+    }
 
 }

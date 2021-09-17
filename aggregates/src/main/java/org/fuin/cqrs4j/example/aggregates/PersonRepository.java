@@ -12,13 +12,13 @@
  */
 package org.fuin.cqrs4j.example.aggregates;
 
-import org.fuin.objects4j.common.NotThreadSafe;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.ddd4j.ddd.EntityType;
 import org.fuin.ddd4j.esrepo.EventStoreRepository;
 import org.fuin.esc.api.EventStore;
+import org.fuin.objects4j.common.NotThreadSafe;
 
 /**
  * Event sourced repository for storing a {@link Person} aggregate.

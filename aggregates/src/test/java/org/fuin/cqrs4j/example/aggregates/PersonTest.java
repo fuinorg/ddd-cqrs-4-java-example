@@ -12,7 +12,7 @@ import org.fuin.cqrs4j.example.shared.PersonName;
 import org.junit.Test;
 
 /**
- * Test for the {@link Person} class. 
+ * Test for the {@link Person} class.
  */
 public class PersonTest {
 
@@ -24,7 +24,9 @@ public class PersonTest {
         final PersonName personName = new PersonName("Peter Parker");
 
         // TEST
-        final Person testee = new Person(personId, personName, pid -> { return Optional.empty(); }) ;
+        final Person testee = new Person(personId, personName, pid -> {
+            return Optional.empty();
+        });
 
         // VERIFY
         assertThat(testee.getUncommittedChanges()).hasSize(1);
@@ -34,8 +36,7 @@ public class PersonTest {
         assertThat(event.getName()).isEqualTo(personName);
 
     }
-    
-    
+
     @Test
     public final void testCreateDuplicateName() {
 
@@ -46,12 +47,14 @@ public class PersonTest {
 
         // TEST & VERIFY
         try {
-            new Person(personId, personName, pid -> { return Optional.of(otherId); }) ;
+            new Person(personId, personName, pid -> {
+                return Optional.of(otherId);
+            });
             fail("Excpected duplicate name exception");
         } catch (final DuplicatePersonNameException ex) {
             assertThat(ex.getMessage()).isEqualTo("The name 'Peter Parker' already exists: " + otherId);
         }
-        
+
     }
-    
+
 }

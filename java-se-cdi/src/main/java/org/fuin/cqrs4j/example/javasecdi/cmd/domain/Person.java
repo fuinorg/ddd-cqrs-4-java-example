@@ -45,7 +45,8 @@ public class Person extends AbstractAggregateRoot<PersonId> implements Serializa
      * @throws DuplicatePersonNameException
      *             The name already exists for another person.
      */
-    public Person(@NotNull final PersonId id, @NotNull final PersonName name, final PersonService service) throws DuplicatePersonNameException {
+    public Person(@NotNull final PersonId id, @NotNull final PersonName name, final PersonService service)
+            throws DuplicatePersonNameException {
         super();
 
         // VERIFY PRECONDITIONS

@@ -11,10 +11,10 @@ import org.apache.deltaspike.jpa.api.transaction.TransactionScoped;
 
 @ApplicationScoped
 public class QryEntityManagerProducer {
-    
+
     private EntityManagerFactory emf;
 
-    @Produces 
+    @Produces
     @TransactionScoped
     public EntityManager create() {
         if (emf == null) {

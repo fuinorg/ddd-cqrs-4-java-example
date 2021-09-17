@@ -33,7 +33,6 @@ import org.apache.commons.io.IOUtils;
 import org.eclipse.yasson.FieldAccessStrategy;
 import org.junit.Test;
 
-
 // CHECKSTYLE:OFF
 public final class PersonCreatedEventTest {
 
@@ -71,7 +70,7 @@ public final class PersonCreatedEventTest {
         assertThat(copy.getName()).isEqualTo(original.getName());
 
     }
-    
+
     @Test
     public final void testUnmarshalJson() throws IOException {
 
@@ -92,12 +91,11 @@ public final class PersonCreatedEventTest {
 
     }
 
-
     @Test
     public final void testToString() {
         final PersonCreatedEvent testee = createTestee();
-        assertThat(testee.toString())
-                .isEqualTo("Person 'Peter Parker' (" + testee.getEntityId() + ") was created [Event " + testee.getEventId() + "]");
+        assertThat(testee)
+                .hasToString("Person 'Peter Parker' (" + testee.getEntityId() + ") was created [Event " + testee.getEventId() + "]");
     }
 
     private PersonCreatedEvent createTestee() {

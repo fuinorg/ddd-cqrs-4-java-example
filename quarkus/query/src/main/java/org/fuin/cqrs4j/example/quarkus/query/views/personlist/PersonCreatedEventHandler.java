@@ -28,12 +28,12 @@ import org.slf4j.LoggerFactory;
  */
 @ApplicationScoped
 public class PersonCreatedEventHandler implements EventHandler<PersonCreatedEvent> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(PersonCreatedEventHandler.class);
 
     @Inject
     EntityManager em;
-    
+
     @Override
     public EventType getEventType() {
         return PersonCreatedEvent.TYPE;
@@ -41,7 +41,7 @@ public class PersonCreatedEventHandler implements EventHandler<PersonCreatedEven
 
     @Override
     public void handle(final PersonCreatedEvent event) {
-        LOG.info("Handle {}: {}", event.getClass().getSimpleName() , event);
+        LOG.info("Handle {}: {}", event.getClass().getSimpleName(), event);
         final PersonId personId = event.getEntityId();
         if (em.find(PersonListEntry.class, personId.asString()) == null) {
             em.persist(new PersonListEntry(personId, event.getName()));

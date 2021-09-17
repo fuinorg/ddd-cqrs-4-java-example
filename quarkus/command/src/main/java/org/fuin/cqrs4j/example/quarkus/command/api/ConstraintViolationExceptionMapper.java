@@ -55,7 +55,7 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
     }
 
     private static String asString(@Nullable final Set<ConstraintViolation<?>> constraintViolations) {
-        if (constraintViolations == null || constraintViolations.size() == 0) {
+        if (constraintViolations == null || constraintViolations.isEmpty()) {
             return "";
         }
         final List<String> list = new ArrayList<>();

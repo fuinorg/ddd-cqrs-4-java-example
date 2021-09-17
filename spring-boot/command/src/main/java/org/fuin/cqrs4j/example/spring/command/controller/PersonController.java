@@ -40,33 +40,32 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/persons")
 public class PersonController {
 
-	@Autowired
-	private PersonRepository repo;
+    @Autowired
+    private PersonRepository repo;
 
-	@Autowired
-	private Validator validator;
+    @Autowired
+    private Validator validator;
 
-	@PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SimpleResult> create(@RequestBody final CreatePersonCommand cmd)
-			throws AggregateAlreadyExistsException, AggregateDeletedException, CommandExecutionFailedException,
-			DuplicatePersonNameException {
+    @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<SimpleResult> create(@RequestBody final CreatePersonCommand cmd) throws AggregateAlreadyExistsException,
+            AggregateDeletedException, CommandExecutionFailedException, DuplicatePersonNameException {
 
-		// Verify preconditions
-		final Set<ConstraintViolation<CreatePersonCommand>> violations = validator.validate(cmd);
-		if (!violations.isEmpty()) {
-			throw new ConstraintViolationException(violations);
-		}
+        // Verify preconditions
+        final Set<ConstraintViolation<CreatePersonCommand>> violations = validator.validate(cmd);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
 
-		// Create aggregate
-		final Person person = new Person(cmd.getAggregateRootId(), cmd.getName(), (name) -> {
-			// TODO Execute a call to the query side to verify if the name already exists
-			return Optional.empty();
-		});
-		repo.add(person);
+        // Create aggregate
+        final Person person = new Person(cmd.getAggregateRootId(), cmd.getName(), name -> {
+            // TODO Execute a call to the query side to verify if the name already exists
+            return Optional.empty();
+        });
+        repo.add(person);
 
-		// Send OK response
-		return new ResponseEntity<>(SimpleResult.ok(), HttpStatus.OK);
+        // Send OK response
+        return new ResponseEntity<>(SimpleResult.ok(), HttpStatus.OK);
 
-	}
+    }
 
 }

@@ -27,12 +27,13 @@ import org.fuin.objects4j.common.Contract;
 @ApplicationScoped
 public class QryProjectionPositionRepository implements ProjectionService {
 
+    private static final String ARG_STREAM_ID = "streamId";
     @Inject
     EntityManager em;
-    
+
     @Override
     public void resetProjectionPosition(@NotNull final StreamId streamId) {
-        Contract.requireArgNotNull("streamId", streamId);
+        Contract.requireArgNotNull(ARG_STREAM_ID, streamId);
         final QryProjectionPosition pos = em.find(QryProjectionPosition.class, streamId.asString());
         if (pos != null) {
             pos.setNextPosition(0L);
@@ -41,7 +42,7 @@ public class QryProjectionPositionRepository implements ProjectionService {
 
     @Override
     public Long readProjectionPosition(@NotNull StreamId streamId) {
-        Contract.requireArgNotNull("streamId", streamId);
+        Contract.requireArgNotNull(ARG_STREAM_ID, streamId);
         final QryProjectionPosition pos = em.find(QryProjectionPosition.class, streamId.asString());
         if (pos == null) {
             return 0L;
@@ -51,7 +52,7 @@ public class QryProjectionPositionRepository implements ProjectionService {
 
     @Override
     public void updateProjectionPosition(@NotNull StreamId streamId, @NotNull Long nextEventNumber) {
-        Contract.requireArgNotNull("streamId", streamId);
+        Contract.requireArgNotNull(ARG_STREAM_ID, streamId);
         Contract.requireArgNotNull("nextEventNumber", nextEventNumber);
         final QryProjectionPosition pos = em.find(QryProjectionPosition.class, streamId.asString());
         if (pos == null) {

@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 public class CmdExampleApp {
 
     private static final Logger LOG = LoggerFactory.getLogger(CmdExampleApp.class);
-    
+
     @Inject
     private Instance<EventStore> eventStoreInstance;
 
@@ -48,7 +48,7 @@ public class CmdExampleApp {
     public void execute() {
 
         LOG.info("Executing...");
-        
+
         try (final EventStore eventStore = eventStoreInstance.get()) {
 
             final PersonId id = new PersonId(UUID.fromString("f645969a-402d-41a9-882b-d2d8000d0f43"));
@@ -61,7 +61,7 @@ public class CmdExampleApp {
             repo.update(person);
 
             LOG.info("Updated event store...");
-            
+
         } catch (final Exception ex) {
             throw new RuntimeException("Error saving person aggregate into event store", ex);
         }
@@ -81,16 +81,16 @@ public class CmdExampleApp {
             new LogbackStandalone().init(args, new NewLogConfigFileParams("org.fuin.cqrs4j.example.javasecdi", "logback"));
 
             LOG.info("Start example");
-            
+
             try (final SeContainer container = SeContainerInitializer.newInstance().initialize()) {
                 final CmdExampleApp app = container.select(CmdExampleApp.class).get();
                 app.execute();
             }
 
             LOG.info("Finished example");
-            
+
             System.exit(0);
-            
+
         } catch (final RuntimeException ex) {
             ex.printStackTrace(System.err);
             System.exit(1);

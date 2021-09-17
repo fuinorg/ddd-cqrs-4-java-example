@@ -40,8 +40,8 @@ public class AggregateDeletedExceptionMapper implements ExceptionMapper<Aggregat
 
         LOG.info("{} {}", ex.getShortId(), ex.getMessage());
 
-        return Response.status(Status.GONE).entity(SimpleResult.error(ex.getShortId(), ex.getMessage()))
-                .type(headers.getMediaType()).build();
+        return Response.status(Status.GONE).entity(SimpleResult.error(ex.getShortId(), ex.getMessage())).type(headers.getMediaType())
+                .build();
     }
 
 }

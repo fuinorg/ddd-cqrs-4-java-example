@@ -39,7 +39,6 @@ import org.fuin.esc.spi.SerializedDataTypeRegistry;
 import org.fuin.esc.spi.SimpleSerializedDataTypeRegistry;
 import org.fuin.esc.spi.SimpleSerializerDeserializerRegistry;
 
-
 /**
  * Utility code shared between command (write) and query (read) module.
  */
@@ -51,16 +50,14 @@ public final class SharedUtils {
 
     /** All JSON-B adapters from this module. */
     public static JsonbAdapter<?, ?>[] JSONB_ADAPTERS = new JsonbAdapter<?, ?>[] { new EventIdConverter(),
-            new EntityIdPathConverter(new SharedEntityIdFactory()), new PersonId.Converter(),
-            new PersonName.Converter() };
+            new EntityIdPathConverter(new SharedEntityIdFactory()), new PersonId.Converter(), new PersonName.Converter() };
 
     private SharedUtils() {
         throw new UnsupportedOperationException("It is not allowed to create an instance of a utiliy class");
     }
 
     /**
-     * Create a registry that allows finding types (classes) based on their unique
-     * type name.
+     * Create a registry that allows finding types (classes) based on their unique type name.
      * 
      * @return New instance.
      */
@@ -84,11 +81,12 @@ public final class SharedUtils {
     }
 
     /**
-     * Creates a registry that connects the type with the appropriate serializer and
-     * de-serializer.
+     * Creates a registry that connects the type with the appropriate serializer and de-serializer.
      * 
-     * @param typeRegistry Type registry (Mapping from type name to class).
-     * @param jsonbDeSer   JSON-B serializer/deserializer to use.
+     * @param typeRegistry
+     *            Type registry (Mapping from type name to class).
+     * @param jsonbDeSer
+     *            JSON-B serializer/deserializer to use.
      * 
      * @return New instance.
      */
@@ -120,9 +118,8 @@ public final class SharedUtils {
     public static JsonbDeSerializer createJsonbDeSerializer() {
 
         return JsonbDeSerializer.builder().withSerializers(EscSpiUtils.createEscJsonbSerializers())
-                .withDeserializers(EscSpiUtils.createEscJsonbDeserializers())
-                .withAdapters(JSONB_ADAPTERS).withPropertyVisibilityStrategy(new FieldAccessStrategy())
-                .withEncoding(Charset.forName("utf-8")).build();
+                .withDeserializers(EscSpiUtils.createEscJsonbDeserializers()).withAdapters(JSONB_ADAPTERS)
+                .withPropertyVisibilityStrategy(new FieldAccessStrategy()).withEncoding(Charset.forName("utf-8")).build();
 
     }
 
@@ -138,8 +135,10 @@ public final class SharedUtils {
         /**
          * Constructor with all data.
          * 
-         * @param type  Type.
-         * @param clasz Class.
+         * @param type
+         *            Type.
+         * @param clasz
+         *            Class.
          */
         public TypeClass(final SerializedDataType type, final Class<?> clasz) {
             super();

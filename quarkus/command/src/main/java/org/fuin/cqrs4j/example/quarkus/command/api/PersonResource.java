@@ -48,7 +48,7 @@ public class PersonResource {
 
     @Context
     UriInfo uriInfo;
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -64,18 +64,18 @@ public class PersonResource {
 
         try {
             // Create aggregate
-            final Person person = new Person(cmd.getAggregateRootId(), cmd.getName(), (name) -> {
+            final Person person = new Person(cmd.getAggregateRootId(), cmd.getName(), name -> {
                 // TODO Execute a call to the query side to verify if the name already exists
                 return Optional.empty();
             });
             repo.add(person);
 
             // Send OK response
-            return Response.ok(SimpleResult.ok()).build();            
+            return Response.ok(SimpleResult.ok()).build();
         } catch (final DuplicatePersonNameException ex) {
             throw new CommandExecutionFailedException(ex);
         }
 
     }
-    
+
 }

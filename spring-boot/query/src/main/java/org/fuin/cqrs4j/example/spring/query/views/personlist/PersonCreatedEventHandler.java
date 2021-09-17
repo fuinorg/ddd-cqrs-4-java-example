@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PersonCreatedEventHandler implements EventHandler<PersonCreatedEvent> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(PersonCreatedEventHandler.class);
 
     @Autowired
@@ -27,9 +27,9 @@ public class PersonCreatedEventHandler implements EventHandler<PersonCreatedEven
         return PersonCreatedEvent.TYPE;
     }
 
-    @Override    
+    @Override
     public void handle(final PersonCreatedEvent event) {
-        LOG.info("Handle " + event);
+        LOG.info("Handle {}", event);
         final PersonId personId = event.getEntityId();
         if (em.find(PersonListEntry.class, personId.asString()) == null) {
             em.persist(new PersonListEntry(personId, event.getName()));

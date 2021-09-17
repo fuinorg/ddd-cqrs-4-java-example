@@ -16,7 +16,9 @@ public class QryScheduledExecutorService {
     @Produces
     @ApplicationScoped
     public ScheduledExecutorService create(ThreadFactory threadFactory) {
-        return new ScheduledThreadPoolExecutor(1, threadFactory, (runnable, executor) -> { System.out.println("Execution blocked"); });
+        return new ScheduledThreadPoolExecutor(1, threadFactory, (runnable, executor) -> {
+            System.out.println("Execution blocked");
+        });
     }
-    
+
 }

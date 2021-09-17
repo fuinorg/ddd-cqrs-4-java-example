@@ -81,9 +81,8 @@ public class PersonListProjector {
 
         // Read and dispatch events
         final Long nextEventNumber = chunkHandler.readNextEventNumber();
-        eventstore.readAllEventsForward(chunkHandler.getProjectionStreamId(), nextEventNumber, 100, (currentSlice) -> {
-            chunkHandler.handleChunk(currentSlice);
-        });
+        eventstore.readAllEventsForward(chunkHandler.getProjectionStreamId(), nextEventNumber, 100,
+                currentSlice -> chunkHandler.handleChunk(currentSlice));
 
     }
 

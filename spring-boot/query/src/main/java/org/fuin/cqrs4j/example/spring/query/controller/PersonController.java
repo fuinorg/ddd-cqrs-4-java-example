@@ -36,44 +36,45 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/persons")
 @Transactional(readOnly = true)
 public class PersonController {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(PersonController.class);
+
+    private static final Logger LOG = LoggerFactory.getLogger(PersonController.class);
 
     @Autowired
     private EntityManager em;
 
-	/**
-	 * Get all persons list.
-	 *
-	 * @return the list
-	 */
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<PersonListEntry> getAllPersons() {
+    /**
+     * Get all persons list.
+     *
+     * @return the list
+     */
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<PersonListEntry> getAllPersons() {
         final List<PersonListEntry> persons = em.createNamedQuery(PersonListEntry.FIND_ALL, PersonListEntry.class).getResultList();
         LOG.info("getAllPersons() = {}", persons.size());
-		return persons;
-	}
+        return persons;
+    }
 
-	/**
-	 * Reads a person by it's universally unique aggregate UUID.
-	 *
-	 * @param personId Person UUID.
-	 * 
-	 * @return Person from database.
-	 * 
-	 * @throws AggregateNotFoundException A person with the given identifier is
-	 *                                 unknown.
-	 */
-	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PersonListEntry> getPersonById(@PathVariable(value = "id") @UUIDStr String personId)
-			throws AggregateNotFoundException {
-		
+    /**
+     * Reads a person by it's universally unique aggregate UUID.
+     *
+     * @param personId
+     *            Person UUID.
+     * 
+     * @return Person from database.
+     * 
+     * @throws AggregateNotFoundException
+     *             A person with the given identifier is unknown.
+     */
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PersonListEntry> getPersonById(@PathVariable(value = "id") @UUIDStr String personId)
+            throws AggregateNotFoundException {
+
         final PersonListEntry person = em.find(PersonListEntry.class, personId);
         if (person == null) {
-        	throw new AggregateNotFoundException(PersonId.TYPE, new PersonId(UUID.fromString(personId)));
+            throw new AggregateNotFoundException(PersonId.TYPE, new PersonId(UUID.fromString(personId)));
         }
         LOG.info("getPersonById({}) = {}", personId, person);
-		return ResponseEntity.ok().body(person);
-	}
+        return ResponseEntity.ok().body(person);
+    }
 
 }

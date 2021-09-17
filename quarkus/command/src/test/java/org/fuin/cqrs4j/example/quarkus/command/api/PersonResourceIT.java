@@ -31,37 +31,28 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
-public class PersonResourceIT {
+class PersonResourceIT {
 
     @Inject
     IESJCEventStore eventStore;
-    
+
     @Inject
     Jsonb jsonb;
-    
+
     @Test
-    public void testCreate() {
-        
+    void testCreate() {
+
         // PREPARE
         final PersonId personId = new PersonId(UUID.randomUUID());
         final PersonName personName = new PersonName("Peter Parker");
         final CreatePersonCommand cmd = new CreatePersonCommand(personId, personName);
         final String json = jsonb.toJson(cmd);
-        
+
         // TEST & VERIFY
-        final SimpleResult result = 
-          given()
-            .accept(ContentType.JSON)
-            .contentType(ContentType.JSON)
-            .body(json)
-          .when()
-            .post("/persons/create")             
-          .then()
-            .statusCode(200)
-            .extract()
-            .as(SimpleResult.class);
+        final SimpleResult result = given().accept(ContentType.JSON).contentType(ContentType.JSON).body(json).when().post("/persons/create")
+                .then().statusCode(200).extract().as(SimpleResult.class);
         assertThat(result.getType(), is(equalTo(ResultType.OK)));
-        
+
         final SimpleStreamId personStreamId = new SimpleStreamId(PersonId.TYPE + "-" + personId);
         final StreamEventsSlice slice = eventStore.readEventsForward(personStreamId, 0, 1);
         final List<CommonEvent> events = slice.getEvents();
@@ -71,7 +62,7 @@ public class PersonResourceIT {
         final PersonCreatedEvent event = (PersonCreatedEvent) ce.getData();
         assertThat(event.getEntityId(), is(equalTo(personId)));
         assertThat(event.getName(), is(equalTo(personName)));
-        
+
     }
 
 }

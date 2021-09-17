@@ -2,5 +2,6 @@
 !.gitignore
 !.gitkeep
 !.mvn
+!.github
 target
 *.log

@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class QryEventChunkHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(QryEventChunkHandler.class);
-            
+
     /** Unique name of the event store projection that is used. */
     public static final ProjectionStreamId PROJECTION_STREAM_ID = new ProjectionStreamId("qry-person-stream");
 

@@ -40,8 +40,8 @@ public class AggregateNotFoundExceptionMapper implements ExceptionMapper<Aggrega
 
         LOG.info("{} {}", ex.getShortId(), ex.getMessage());
 
-        return Response.status(Status.NOT_FOUND).entity(SimpleResult.error(ex.getShortId(), ex.getMessage()))
-                .type(headers.getMediaType()).build();
+        return Response.status(Status.NOT_FOUND).entity(SimpleResult.error(ex.getShortId(), ex.getMessage())).type(headers.getMediaType())
+                .build();
     }
 
 }

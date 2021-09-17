@@ -33,7 +33,7 @@ public class PersonListEventDispatcher implements EventDispatcher {
     private final SimpleEventDispatcher delegate;
 
     /**
-     * Constructor with all events to be dispatched. 
+     * Constructor with all events to be dispatched.
      * 
      * @param createdHandler
      *            PersonCreatedEventHandler.

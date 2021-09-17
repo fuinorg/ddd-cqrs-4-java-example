@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.fuin.objects4j.common.Nullable;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -29,6 +28,7 @@ import org.fuin.ddd4j.ddd.AggregateVersionConflictException;
 import org.fuin.ddd4j.ddd.AggregateVersionNotFoundException;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ExceptionShortIdentifable;
+import org.fuin.objects4j.common.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -129,12 +129,13 @@ public class GlobalExceptionHandler {
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(SimpleResult.error(CONSTRAINT_VIOLATION, asString(ex.getConstraintViolations())), headers, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(SimpleResult.error(CONSTRAINT_VIOLATION, asString(ex.getConstraintViolations())), headers,
+                HttpStatus.BAD_REQUEST);
 
     }
-    
+
     private static String asString(@Nullable final Set<ConstraintViolation<?>> constraintViolations) {
-        if (constraintViolations == null || constraintViolations.size() == 0) {
+        if (constraintViolations == null || constraintViolations.isEmpty()) {
             return "";
         }
         final List<String> list = new ArrayList<>();
@@ -143,5 +144,5 @@ public class GlobalExceptionHandler {
         }
         return list.toString();
     }
-    
+
 }

@@ -12,7 +12,7 @@
  */
 package org.fuin.cqrs4j.example.quarkus.shared;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
@@ -57,7 +57,7 @@ public class EventStoreFactory {
     public IESJCEventStore createEventStore(final com.github.msemys.esjc.EventStore es, final SerDeserializerRegistry registry) {
 
         final IESJCEventStore eventstore = new ESJCEventStore.Builder().eventStore(es).serDesRegistry(registry)
-                .targetContentType(EnhancedMimeType.create("application", "json", Charset.forName("utf-8"))).build();
+                .targetContentType(EnhancedMimeType.create("application", "json", StandardCharsets.UTF_8)).build();
 
         eventstore.open();
         return eventstore;

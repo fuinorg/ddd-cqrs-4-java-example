@@ -19,13 +19,13 @@ package org.fuin.cqrs4j.example.shared;
 
 import java.util.UUID;
 
-import org.fuin.objects4j.common.Immutable;
 import javax.json.bind.adapter.JsonbAdapter;
 import javax.validation.constraints.NotNull;
 
 import org.fuin.ddd4j.ddd.AggregateRootUuid;
 import org.fuin.ddd4j.ddd.EntityType;
 import org.fuin.ddd4j.ddd.StringBasedEntityType;
+import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
