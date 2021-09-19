@@ -1,5 +1,5 @@
 # ddd-cqrs-4-java-example
-Example DDD/CQRS/Event Sourcing microservices with [Quarkus](https://quarkus.io/), [Spring Boot](https://spring.io/projects/spring-boot/) and the [EventStore](https://eventstore.org/) from Greg Young. The code uses the lightweight [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libaries. No special framework is used except the well known JEE/Spring standards.
+Example Java DDD/CQRS/Event Sourcing microservices with [Quarkus](https://quarkus.io/), [Spring Boot](https://spring.io/projects/spring-boot/) and the [EventStore](https://eventstore.org/) from Greg Young. The code uses the lightweight [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libaries. No special framework is used except the well known JEE/Spring standards.
 
 [![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
 [![Build Status](https://github.com/fuinorg/ddd-cqrs-4-java-example/actions/workflows/maven.yml/badge.svg)](https://github.com/fuinorg/ddd-cqrs-4-java-example/actions/workflows/maven.yml)
