@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 
 import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.api.TypeName;

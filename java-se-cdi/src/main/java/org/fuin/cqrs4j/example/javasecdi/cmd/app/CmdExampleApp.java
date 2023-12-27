@@ -14,11 +14,11 @@ package org.fuin.cqrs4j.example.javasecdi.cmd.app;
 
 import java.util.UUID;
 
-import javax.enterprise.context.control.ActivateRequestContext;
-import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.se.SeContainer;
-import javax.enterprise.inject.se.SeContainerInitializer;
-import javax.inject.Inject;
+import jakarta.enterprise.context.control.ActivateRequestContext;
+import jakarta.enterprise.inject.Instance;
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.enterprise.inject.se.SeContainerInitializer;
+import jakarta.inject.Inject;
 
 import org.fuin.cqrs4j.example.javasecdi.cmd.domain.Person;
 import org.fuin.cqrs4j.example.javasecdi.cmd.domain.PersonRepository;

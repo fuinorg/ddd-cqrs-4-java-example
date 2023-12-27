@@ -16,8 +16,8 @@
     <packaging>pom</packaging>
 
     <properties>
-        <quarkus.version>2.2.1.Final</quarkus.version>
-		<eventstore.version>5.0.9</eventstore.version>
+        <quarkus.version>3.6.4</quarkus.version>
+		<eventstore.version>21.10.1-bionic</eventstore.version>
     </properties>
 
     <dependencyManagement>
@@ -35,13 +35,13 @@
 	        <dependency>
 	            <groupId>jakarta.enterprise</groupId>
 	            <artifactId>jakarta.enterprise.cdi-api</artifactId>
-	            <version>2.0.2</version>
+	            <version>4.0.1</version>
 	        </dependency>
 	
 	        <dependency>
 	            <groupId>org.jboss.weld.se</groupId>
 	            <artifactId>weld-se-core</artifactId>
-	            <version>3.1.8.Final</version>
+	            <version>5.1.1.SP1</version>
 	        </dependency>
 
         </dependencies>

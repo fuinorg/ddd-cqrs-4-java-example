@@ -12,9 +12,9 @@
  */
 package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 import org.fuin.cqrs4j.EventHandler;
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;

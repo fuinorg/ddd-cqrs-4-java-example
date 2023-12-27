@@ -1,8 +1,8 @@
 package org.fuin.cqrs4j.example.spring.query.views.common;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.validation.constraints.NotNull;
 
 import org.fuin.cqrs4j.ProjectionService;
 import org.fuin.esc.api.StreamId;

@@ -14,8 +14,8 @@ package org.fuin.cqrs4j.example.javasecdi.shared.app;
 
 import java.util.concurrent.Executors;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 
 import com.github.msemys.esjc.EventStore;
 import com.github.msemys.esjc.EventStoreBuilder;

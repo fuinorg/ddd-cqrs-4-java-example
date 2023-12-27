@@ -165,7 +165,7 @@
 
 					<images>
 						<image>
-							<name>eventstore/eventstore:release-${eventstore.version}</name>
+							<name>eventstore/eventstore:${eventstore.version}</name>
 							<run>
 								<network>
 									<mode>bridge</mode>
@@ -177,6 +177,14 @@
 								<log>
 									<enabled>false</enabled>
 								</log>
+                                <env>
+									<EVENTSTORE_MEM_DB>TRUE</EVENTSTORE_MEM_DB>
+									<EVENTSTORE_RUN_PROJECTIONS>All</EVENTSTORE_RUN_PROJECTIONS>
+									<EVENTSTORE_INSECURE>true</EVENTSTORE_INSECURE>
+									<EVENTSTORE_ENABLE_EXTERNAL_TCP>true</EVENTSTORE_ENABLE_EXTERNAL_TCP>
+									<EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP>true</EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP>
+									<EVENTSTORE_LOG>/tmp/log-eventstore</EVENTSTORE_LOG>
+								</env>
 								<wait>
 									<http>
 										<url>http://localhost:2113/web/index.html#/</url>

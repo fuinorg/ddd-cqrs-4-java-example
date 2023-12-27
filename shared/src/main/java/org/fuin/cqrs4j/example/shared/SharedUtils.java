@@ -23,8 +23,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.zip.Adler32;
 
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.json.bind.config.PropertyVisibilityStrategy;
+import jakarta.json.bind.adapter.JsonbAdapter;
+import jakarta.json.bind.config.PropertyVisibilityStrategy;
 
 import org.fuin.ddd4j.ddd.AggregateVersionConverter;
 import org.fuin.ddd4j.ddd.EntityIdConverter;

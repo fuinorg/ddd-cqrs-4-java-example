@@ -1,6 +1,6 @@
 package org.fuin.cqrs4j.example.javasecdi.qry.handler;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.apache.deltaspike.data.api.AbstractEntityRepository;
 import org.apache.deltaspike.data.api.Repository;

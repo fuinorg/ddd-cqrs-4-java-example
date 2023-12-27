@@ -19,8 +19,8 @@ package org.fuin.cqrs4j.example.shared;
 
 import java.util.UUID;
 
-import javax.json.bind.adapter.JsonbAdapter;
-import javax.validation.constraints.NotNull;
+import jakarta.json.bind.adapter.JsonbAdapter;
+import jakarta.validation.constraints.NotNull;
 
 import org.fuin.ddd4j.ddd.AggregateRootUuid;
 import org.fuin.ddd4j.ddd.EntityType;

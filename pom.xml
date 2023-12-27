@@ -10,12 +10,12 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
         <maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<esc.version>0.4.2</esc.version>
+		<esc.version>0.6.0-SNAPSHOT</esc.version>
 	</properties>
 
 	<modules>
@@ -33,19 +33,19 @@
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>ddd-4-java</artifactId>
-				<version>0.4.0</version>
+				<version>0.5.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>cqrs-4-java</artifactId>
-				<version>0.4.0</version>
+				<version>0.5.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>objects4j</artifactId>
-				<version>0.7.1</version>
+				<version>0.9.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
@@ -81,61 +81,61 @@
 	        <dependency>
 	            <groupId>org.apache.httpcomponents</groupId>
 	            <artifactId>httpasyncclient</artifactId>
-	            <version>4.1.4</version>
+	            <version>4.1.5</version>
 	        </dependency>
 	
 	        <dependency>
 	            <groupId>org.apache.httpcomponents</groupId>
 	            <artifactId>httpclient</artifactId>
-	            <version>4.5.13</version>
+	            <version>4.5.14</version>
 	        </dependency>
 	
 	        <dependency>
 	            <groupId>org.fuin</groupId>
 	            <artifactId>ext4logback</artifactId>
-	            <version>0.2.0</version>
+	            <version>0.4.0</version>
 	        </dependency>
 
 	        <dependency>
 	            <groupId>ch.qos.logback</groupId>
 	            <artifactId>logback-classic</artifactId>
-	            <version>1.2.5</version>
+	            <version>1.4.14</version>
 	        </dependency>
 	
 	        <dependency>
 	            <groupId>org.apache.commons</groupId>
 	            <artifactId>commons-lang3</artifactId>
-	            <version>3.12.0</version>
+	            <version>3.14.0</version>
 	        </dependency>
 
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
-				<version>1.7.32</version>
+				<version>2.0.9</version>
 			</dependency>
 
 			<dependency>
 				<groupId>jakarta.validation</groupId>
 				<artifactId>jakarta.validation-api</artifactId>
-				<version>2.0.2</version>
+				<version>3.0.2</version>
 			</dependency>
 
 			<dependency>
 	            <groupId>jakarta.json.bind</groupId>
 	            <artifactId>jakarta.json.bind-api</artifactId>
-				<version>1.0.2</version>
+				<version>3.0.0</version>
 			</dependency>
 
 			<dependency>
 				<groupId>jakarta.persistence</groupId>
 				<artifactId>jakarta.persistence-api</artifactId>
-				<version>2.2.3</version>
+				<version>3.1.0</version>
 			</dependency>
 
 	        <dependency>
 	            <groupId>jakarta.json</groupId>
 	            <artifactId>jakarta.json-api</artifactId>
-	            <version>1.1.6</version>
+	            <version>2.1.3</version>
 	        </dependency>
 
 	        <dependency>
@@ -147,7 +147,7 @@
 	        <dependency>
 	            <groupId>org.hsqldb</groupId>
 	            <artifactId>hsqldb</artifactId>
-	            <version>2.6.0</version>
+	            <version>2.7.2</version>
 	        </dependency>
 
 			<dependency>
@@ -159,55 +159,55 @@
 			<dependency>
 				<groupId>org.assertj</groupId>
 				<artifactId>assertj-core</artifactId>
-				<version>3.20.2</version>
+				<version>3.24.2</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>units4j</artifactId>
-				<version>0.9.1</version>
+				<version>0.11.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
 				<groupId>nl.jqno.equalsverifier</groupId>
 				<artifactId>equalsverifier</artifactId>
-				<version>3.7.1</version>
+				<version>3.15.5</version>
 			</dependency>
 
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.11.0</version>
+				<version>2.15.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.hibernate.validator</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>6.2.0.Final</version>
+				<version>8.0.1.Final</version>
 			</dependency>
 
 			<dependency>
 	            <groupId>org.glassfish</groupId>
 	            <artifactId>jakarta.json</artifactId>
-	            <version>1.1.6</version>
+	            <version>2.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.eclipse</groupId>
 				<artifactId>yasson</artifactId>
-				<version>1.0.8</version>
+				<version>3.0.3</version>
 			</dependency>
 
 	        <dependency>
 	            <groupId>jakarta.mail</groupId>
 	            <artifactId>jakarta.mail-api</artifactId>
-	            <version>1.6.7</version>
+	            <version>2.1.2</version>
 	        </dependency>
 
 	        <dependency>
 	            <groupId>com.sun.mail</groupId>
 	            <artifactId>jakarta.mail</artifactId>
-	            <version>1.6.7</version>
+	            <version>2.0.1</version>
 	        </dependency>
 
 		</dependencies>
@@ -241,7 +241,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.2.0</version>
+					<version>3.3.0</version>
 					<configuration>
 						<includes>
 							<include>**/*</include>
@@ -252,7 +252,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.1</version>
+					<version>3.12.1</version>
 					<configuration>
 						<release>${java.version}</release>
 					</configuration>
@@ -261,13 +261,13 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.2.0</version>
+					<version>3.6.3</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
-					<version>3.2.1</version>
+					<version>3.3.0</version>
 					<executions>
 						<execution>
 							<id>attach-sources</id>
@@ -281,27 +281,57 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>3.0.0-M1</version>
+					<version>3.0.1</version>
 				</plugin>
 
 	            <plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 	                <artifactId>maven-surefire-plugin</artifactId>
-	                <version>2.22.2</version>	                
+	                <version>3.2.3</version>
 				</plugin>
 				
 	            <plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 	                <artifactId>maven-failsafe-plugin</artifactId>
-	                <version>2.22.2</version>
+	                <version>3.2.3</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.12.1</version>
 				</plugin>
 
 	            <plugin>
 	                <groupId>io.fabric8</groupId>
 	                <artifactId>docker-maven-plugin</artifactId>
-	                <version>0.37.0</version>
+	                <version>0.43.4</version>
 				</plugin>
-		
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.3.1</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>3.1.1</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>3.1.1</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.12.1</version>
+				</plugin>
+
 			</plugins>
 
 		</pluginManagement>
@@ -311,7 +341,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.0.0-M3</version>
+				<version>3.4.1</version>
 				<executions>
 					<execution>
 						<id>enforce-java-and-maven-version</id>
@@ -322,7 +352,7 @@
 							<rules>
 								<requireJavaVersion>
 									<version>${java.version}</version>
-									<message>Java 11 or later is required!</message>
+									<message>Java ${java.version} or later is required!</message>
 								</requireJavaVersion>
 								<requireMavenVersion>
 									<version>3.6.0</version>
