@@ -31,7 +31,7 @@ import jakarta.json.bind.JsonbConfig;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.yasson.FieldAccessStrategy;
 import org.fuin.utils4j.Utils4J;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 // CHECKSTYLE:OFF
 public final class CreatePersonCommandTest {

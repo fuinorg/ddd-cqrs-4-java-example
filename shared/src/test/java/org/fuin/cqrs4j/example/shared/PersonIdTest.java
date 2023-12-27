@@ -18,14 +18,14 @@
 package org.fuin.cqrs4j.example.shared;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.UUID;
 
 import org.fuin.ddd4j.ddd.EntityType;
 import org.fuin.ddd4j.ddd.StringBasedEntityType;
 import org.fuin.objects4j.common.ConstraintViolationException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;

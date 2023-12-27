@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.fuin.ddd4j.ddd.EventType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for the {@link SharedUtils} class.
