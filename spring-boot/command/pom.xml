@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.fuin.cqrs4j.example.spring</groupId>
 		<artifactId>cqrs4j-spring-example-root</artifactId>
-		<version>0.2.0-SNAPSHOT</version>
+		<version>0.2.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -23,19 +23,19 @@
 		<dependency>
 			<groupId>org.fuin.cqrs4j.example</groupId>
 			<artifactId>cqrs4j-example-shared</artifactId>
-			<version>0.2.0-SNAPSHOT</version>
+			<version>0.2.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin.cqrs4j.example</groupId>
 			<artifactId>cqrs4j-example-aggregates</artifactId>
-			<version>0.2.0-SNAPSHOT</version>
+			<version>0.2.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin.cqrs4j.example.spring</groupId>
 			<artifactId>cqrs4j-spring-example-shared</artifactId>
-			<version>0.2.0-SNAPSHOT</version>
+			<version>0.2.0</version>
 		</dependency>
 
 		<dependency>

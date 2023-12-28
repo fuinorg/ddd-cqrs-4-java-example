@@ -59,7 +59,7 @@ mariadb:10.4
    ```
 4. Run the microservice
    ```
-    ./target/cqrs4j-quarkus-example-query-1.0-SNAPSHOT-runner \
+    ./target/cqrs4j-quarkus-example-query-2.0-runner \
         -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 \
         -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
    ```
