@@ -12,9 +12,9 @@ import static org.hamcrest.Matchers.not;
 import java.util.Arrays;
 import java.util.UUID;
 
-import javax.enterprise.context.control.ActivateRequestContext;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import jakarta.enterprise.context.control.ActivateRequestContext;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 import org.fuin.cqrs4j.example.quarkus.query.views.personlist.PersonListEntry;
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;

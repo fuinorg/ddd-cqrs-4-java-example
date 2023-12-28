@@ -15,8 +15,8 @@ package org.fuin.cqrs4j.example.quarkus.shared;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 

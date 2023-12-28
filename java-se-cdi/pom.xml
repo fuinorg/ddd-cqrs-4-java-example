@@ -27,10 +27,6 @@
         <url>https://github.com/fuinorg/ddd-cqrs-4-java-example/issues</url>
     </issueManagement>
 
-    <properties>
-        <esc.version>0.4.0</esc.version>
-    </properties>
-
     <dependencyManagement>
 
         <dependencies>
@@ -38,7 +34,7 @@
             <dependency>
                 <groupId>org.apache.deltaspike.distribution</groupId>
                 <artifactId>distributions-bom</artifactId>
-                <version>1.9.4</version>
+                <version>1.9.6</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -120,25 +116,25 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>2.0.2</version>
+            <version>4.0.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-core</artifactId>
-            <version>3.1.5.SP1</version>
+            <version>5.1.2.Final</version>
         </dependency>
 
         <dependency>
             <groupId>org.eclipse.microprofile.config</groupId>
             <artifactId>microprofile-config-api</artifactId>
-            <version>2.0</version>
+            <version>3.1</version>
         </dependency>
 
 		<dependency>
 		    <groupId>io.smallrye.config</groupId>
 		    <artifactId>smallrye-config</artifactId>
-		    <version>2.4.2</version>
+		    <version>3.5.0</version>
 		</dependency>
 
         <dependency>
@@ -200,8 +196,8 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -224,128 +220,5 @@
         </dependency>
 
     </dependencies>
-
-	<build>
-
-		<pluginManagement>
-
-			<plugins>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jdeps-plugin</artifactId>
-					<version>3.1.2</version>
-					<configuration>
-						<multiRelease>base</multiRelease>
-						<failOnWarning>true</failOnWarning>
-					</configuration>
-					<executions>
-						<execution>
-							<goals>
-								<goal>jdkinternals</goal>
-								<goal>test-jdkinternals</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.2.0</version>
-					<configuration>
-						<includes>
-							<include>**/*</include>
-						</includes>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.1</version>
-					<configuration>
-						<release>${java.version}</release>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.2.0</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>3.2.1</version>
-					<executions>
-						<execution>
-							<id>attach-sources</id>
-							<goals>
-								<goal>jar-no-fork</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-release-plugin</artifactId>
-					<version>3.0.0-M1</version>
-				</plugin>
-
-			</plugins>
-
-		</pluginManagement>
-
-		<plugins>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.0.0-M3</version>
-				<executions>
-					<execution>
-						<id>enforce-java-and-maven-version</id>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<requireJavaVersion>
-									<version>${java.version}</version>
-									<message>Java 11 or later is required!</message>
-								</requireJavaVersion>
-								<requireMavenVersion>
-									<version>3.6.0</version>
-									<message>Please use at least Maven	3.6.0 as older versions may	cause problems with Java 11+</message>
-								</requireMavenVersion>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-
-	</build>
-
-    <repositories>
-
-        <repository>
-            <id>sonatype.oss.snapshots</id>
-            <name>Sonatype OSS Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
-    </repositories>
 
 </project>

@@ -15,7 +15,7 @@ package org.fuin.cqrs4j.example.spring.query.controller;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.spring.query.views.personlist.PersonListEntry;

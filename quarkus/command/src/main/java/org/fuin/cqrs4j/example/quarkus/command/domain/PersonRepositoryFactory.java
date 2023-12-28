@@ -12,9 +12,9 @@
  */
 package org.fuin.cqrs4j.example.quarkus.command.domain;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Produces;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Produces;
 
 import org.fuin.cqrs4j.example.aggregates.PersonRepository;
 import org.fuin.esc.esjc.IESJCEventStore;

@@ -18,11 +18,11 @@
 package org.fuin.cqrs4j.example.shared;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.utils4j.Utils4J;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -89,7 +89,7 @@ public final class PersonNameTest {
 
         try {
             PersonName.requireArgValid("c", "");
-            Assert.fail();
+            fail();
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'c' is not valid: ''");
         }
@@ -97,7 +97,7 @@ public final class PersonNameTest {
         try {
             PersonName.requireArgValid("d",
                     "123456789.123456789.123456789.123456789.123456789." + "123456789.123456789.123456789.123456789.123456789." + "12345");
-            Assert.fail();
+            fail();
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'd' is not valid: '" + "123456789.123456789.123456789.123456789.123456789."
                     + "123456789.123456789.123456789.123456789.123456789." + "12345" + "'");

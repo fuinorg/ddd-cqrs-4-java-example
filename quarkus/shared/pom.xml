@@ -93,8 +93,8 @@
         <!-- Test -->
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -158,10 +158,12 @@
 				</configuration>
 			</plugin>
 
+            <!-- TODO "Command Line Too Long on Windows"
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jdeps-plugin</artifactId>
 			</plugin>
+			-->
 
 		</plugins>
 

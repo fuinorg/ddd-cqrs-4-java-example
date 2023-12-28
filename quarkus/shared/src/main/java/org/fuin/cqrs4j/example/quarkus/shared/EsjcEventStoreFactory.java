@@ -12,8 +12,8 @@
  */
 package org.fuin.cqrs4j.example.quarkus.shared;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 
 import org.eclipse.microprofile.context.ManagedExecutor;
 

@@ -19,7 +19,7 @@ package org.fuin.cqrs4j.example.javasecdi.shared.app;
 
 import java.nio.charset.Charset;
 
-import javax.json.bind.adapter.JsonbAdapter;
+import jakarta.json.bind.adapter.JsonbAdapter;
 
 import org.eclipse.yasson.FieldAccessStrategy;
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;

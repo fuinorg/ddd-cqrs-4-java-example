@@ -5,3 +5,4 @@
 !.github
 target
 *.log
+pom.xml.versionsBackup

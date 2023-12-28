@@ -15,7 +15,7 @@ package org.fuin.cqrs4j.example.aggregates;
 import java.io.Serializable;
 import java.util.Optional;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;

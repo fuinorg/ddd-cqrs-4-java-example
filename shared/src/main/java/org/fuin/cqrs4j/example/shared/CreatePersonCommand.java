@@ -17,8 +17,8 @@
  */
 package org.fuin.cqrs4j.example.shared;
 
-import javax.json.bind.annotation.JsonbProperty;
-import javax.validation.constraints.NotNull;
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.validation.constraints.NotNull;
 
 import org.fuin.cqrs4j.AbstractAggregateCommand;
 import org.fuin.ddd4j.ddd.DomainEventExpectedEntityIdPath;

@@ -1,6 +1,6 @@
 package org.fuin.cqrs4j.example.javasecdi.cmd.domain;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
