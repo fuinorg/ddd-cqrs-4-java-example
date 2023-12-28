@@ -16,7 +16,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
         <maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -86,7 +86,10 @@
 			<dependency>
 				<groupId>org.eclipse</groupId>
 				<artifactId>yasson</artifactId>
+				<!-- https://github.com/eclipse-ee4j/yasson/issues/604
 				<version>3.0.3</version>
+				-->
+				<version>3.0.2</version>
 			</dependency>
 
 			<dependency>
