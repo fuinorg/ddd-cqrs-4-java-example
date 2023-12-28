@@ -152,7 +152,8 @@
 				<groupId>io.fabric8</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 				<configuration>
-
+					<skip>${skipTests}</skip>
+					
 					<images>
 						<image>
 							<name>eventstore/eventstore:${eventstore.version}</name>

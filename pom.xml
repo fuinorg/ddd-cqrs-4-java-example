@@ -12,9 +12,9 @@
 	<properties>
 		<java.version>17</java.version>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
-        <maven.compiler.parameters>true</maven.compiler.parameters>
+		<maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<esc.version>0.6.0</esc.version>
 	</properties>
 
@@ -25,7 +25,7 @@
 		<module>quarkus</module>
 		<module>spring-boot</module>
 	</modules>
-	
+
 	<dependencyManagement>
 
 		<dependencies>
@@ -60,53 +60,53 @@
 				<version>${esc.version}</version>
 			</dependency>
 
-	        <dependency>
-	            <groupId>org.fuin.esc</groupId>
-	            <artifactId>esc-esjc</artifactId>
-	            <version>${esc.version}</version>
-	        </dependency>
-	
-	        <dependency>
-	            <groupId>org.fuin.esc</groupId>
-	            <artifactId>esc-eshttp</artifactId>
-	            <version>${esc.version}</version>
-	        </dependency>
+			<dependency>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-esjc</artifactId>
+				<version>${esc.version}</version>
+			</dependency>
 
-	        <dependency>
-	            <groupId>org.fuin.esc</groupId>
-	            <artifactId>esc-mem</artifactId>
-	            <version>${esc.version}</version>
-	        </dependency>
+			<dependency>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-eshttp</artifactId>
+				<version>${esc.version}</version>
+			</dependency>
 
-	        <dependency>
-	            <groupId>org.apache.httpcomponents</groupId>
-	            <artifactId>httpasyncclient</artifactId>
-	            <version>4.1.5</version>
-	        </dependency>
-	
-	        <dependency>
-	            <groupId>org.apache.httpcomponents</groupId>
-	            <artifactId>httpclient</artifactId>
-	            <version>4.5.14</version>
-	        </dependency>
-	
-	        <dependency>
-	            <groupId>org.fuin</groupId>
-	            <artifactId>ext4logback</artifactId>
-	            <version>0.4.0</version>
-	        </dependency>
+			<dependency>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-mem</artifactId>
+				<version>${esc.version}</version>
+			</dependency>
 
-	        <dependency>
-	            <groupId>ch.qos.logback</groupId>
-	            <artifactId>logback-classic</artifactId>
-	            <version>1.4.14</version>
-	        </dependency>
-	
-	        <dependency>
-	            <groupId>org.apache.commons</groupId>
-	            <artifactId>commons-lang3</artifactId>
-	            <version>3.14.0</version>
-	        </dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpasyncclient</artifactId>
+				<version>4.1.5</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.5.14</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin</groupId>
+				<artifactId>ext4logback</artifactId>
+				<version>0.4.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.4.14</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.14.0</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -121,8 +121,8 @@
 			</dependency>
 
 			<dependency>
-	            <groupId>jakarta.json.bind</groupId>
-	            <artifactId>jakarta.json.bind-api</artifactId>
+				<groupId>jakarta.json.bind</groupId>
+				<artifactId>jakarta.json.bind-api</artifactId>
 				<version>3.0.0</version>
 			</dependency>
 
@@ -132,23 +132,23 @@
 				<version>3.1.0</version>
 			</dependency>
 
-	        <dependency>
-	            <groupId>jakarta.json</groupId>
-	            <artifactId>jakarta.json-api</artifactId>
-	            <version>2.1.3</version>
-	        </dependency>
+			<dependency>
+				<groupId>jakarta.json</groupId>
+				<artifactId>jakarta.json-api</artifactId>
+				<version>2.1.3</version>
+			</dependency>
 
-	        <dependency>
-	            <groupId>org.hibernate</groupId>
-	            <artifactId>hibernate-entitymanager</artifactId>
-	            <version>5.5.7.Final</version>
-	        </dependency>
-	        
-	        <dependency>
-	            <groupId>org.hsqldb</groupId>
-	            <artifactId>hsqldb</artifactId>
-	            <version>2.7.2</version>
-	        </dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>5.5.7.Final</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>2.7.2</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
@@ -187,9 +187,9 @@
 			</dependency>
 
 			<dependency>
-	            <groupId>org.glassfish</groupId>
-	            <artifactId>jakarta.json</artifactId>
-	            <version>2.0.1</version>
+				<groupId>org.glassfish</groupId>
+				<artifactId>jakarta.json</artifactId>
+				<version>2.0.1</version>
 			</dependency>
 
 			<dependency>
@@ -198,17 +198,17 @@
 				<version>3.0.3</version>
 			</dependency>
 
-	        <dependency>
-	            <groupId>jakarta.mail</groupId>
-	            <artifactId>jakarta.mail-api</artifactId>
-	            <version>2.1.2</version>
-	        </dependency>
+			<dependency>
+				<groupId>jakarta.mail</groupId>
+				<artifactId>jakarta.mail-api</artifactId>
+				<version>2.1.2</version>
+			</dependency>
 
-	        <dependency>
-	            <groupId>com.sun.mail</groupId>
-	            <artifactId>jakarta.mail</artifactId>
-	            <version>2.0.1</version>
-	        </dependency>
+			<dependency>
+				<groupId>com.sun.mail</groupId>
+				<artifactId>jakarta.mail</artifactId>
+				<version>2.0.1</version>
+			</dependency>
 
 		</dependencies>
 
@@ -284,16 +284,16 @@
 					<version>3.0.1</version>
 				</plugin>
 
-	            <plugin>
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-	                <artifactId>maven-surefire-plugin</artifactId>
-	                <version>3.2.3</version>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.2.3</version>
 				</plugin>
-				
-	            <plugin>
+
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-	                <artifactId>maven-failsafe-plugin</artifactId>
-	                <version>3.2.3</version>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>3.2.3</version>
 				</plugin>
 
 				<plugin>
@@ -302,10 +302,10 @@
 					<version>3.12.1</version>
 				</plugin>
 
-	            <plugin>
-	                <groupId>io.fabric8</groupId>
-	                <artifactId>docker-maven-plugin</artifactId>
-	                <version>0.43.4</version>
+				<plugin>
+					<groupId>io.fabric8</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>0.43.4</version>
 				</plugin>
 
 				<plugin>
@@ -324,12 +324,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>3.1.1</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-site-plugin</artifactId>
-					<version>3.12.1</version>
 				</plugin>
 
 			</plugins>
@@ -352,11 +346,14 @@
 							<rules>
 								<requireJavaVersion>
 									<version>${java.version}</version>
-									<message>Java ${java.version} or later is required!</message>
+									<message>Java ${java.version} or later is
+										required!</message>
 								</requireJavaVersion>
 								<requireMavenVersion>
 									<version>3.6.0</version>
-									<message>Please use at least Maven	3.6.0 as older versions may	cause problems with Java 11+</message>
+									<message>Please use at least Maven 3.6.0 as
+										older versions may cause problems with
+										Java 11+</message>
 								</requireMavenVersion>
 							</rules>
 						</configuration>
@@ -368,22 +365,22 @@
 
 	</build>
 
-    <repositories>
+	<repositories>
 
-        <repository>
-            <id>sonatype.oss.snapshots</id>
-            <name>Sonatype OSS Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
+		<repository>
+			<id>sonatype.oss.snapshots</id>
+			<name>Sonatype OSS Snapshot Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<updatePolicy>always</updatePolicy>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 
-    </repositories>
+	</repositories>
 
 
 </project>
