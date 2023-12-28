@@ -53,7 +53,7 @@ There are several configuration classes used for CDI in the [app](src/main/java/
 
 #### Sub package 'domain'
 The view data will be stored in an in-memory HSQL database using JPA
-* The [QryPerson](src/main/java/org/fuin/cqrs4j/example/javasecdi/qry/domain/QryPerson.java) class is an [@javax.persistence.Entity](https://javaee.github.io/javaee-spec/javadocs/javax/persistence/Entity.html) class
+* The [QryPerson](src/main/java/org/fuin/cqrs4j/example/javasecdi/qry/domain/QryPerson.java) class is an [@jakarta.persistence.Entity](https://jakarta.ee/specifications/persistence/3.1/apidocs/jakarta.persistence/jakarta/persistence/entity) class
 * The [QryPersonRepository](src/main/java/org/fuin/cqrs4j/example/javasecdi/qry/domain/QryPersonRepository.java) class is used for the [Apache DeltaSpike Data Module](https://deltaspike.apache.org/documentation/data.html) entity repository to  simplifying the database access. (See [EntityRepository](https://deltaspike.apache.org/javadoc/1.7.2/index.html?org/apache/deltaspike/data/api/EntityRepository.html)) 
 
 #### Sub package 'handler'
