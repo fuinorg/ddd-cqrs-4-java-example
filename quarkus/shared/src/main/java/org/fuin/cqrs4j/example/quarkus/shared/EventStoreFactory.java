@@ -47,7 +47,7 @@ public class EventStoreFactory {
     public IESGrpcEventStore createEventStore(final Config config, final SerDeserializerRegistry registry) {
 
         final EventStoreDBClientSettings setts = EventStoreDBClientSettings.builder()
-                .addHost(config.getEventStoreHost(), config.getEventStoreTcpPort())
+                .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
                 .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
                 .tls(false)
                 .buildConnectionSettings();

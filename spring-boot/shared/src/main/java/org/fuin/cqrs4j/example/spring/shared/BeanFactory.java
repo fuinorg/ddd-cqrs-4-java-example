@@ -52,7 +52,7 @@ public class BeanFactory {
         final SerDeserializerRegistry registry = SharedUtils.createRegistry();
 
         final EventStoreDBClientSettings setts = EventStoreDBClientSettings.builder()
-                .addHost(config.getEventStoreHost(), config.getEventStoreTcpPort())
+                .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
                 .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
                 .tls(false)
                 .buildConnectionSettings();
