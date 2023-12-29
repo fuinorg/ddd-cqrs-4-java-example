@@ -1,18 +1,10 @@
 package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
-import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import jakarta.annotation.PreDestroy;
-
 import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.esc.api.ProjectionAdminEventStore;
 import org.fuin.esc.api.TypeName;
-import org.fuin.esc.eshttp.IESHttpEventStore;
+import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.fuin.objects4j.common.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +14,14 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
 
 /**
  * Reads incoming events from an event store projection and dispatches them to the appropriate event handlers. The event store projection
@@ -42,7 +42,10 @@ public class PersonListProjector {
     // Above LOCK prevents multithreaded access
 
     @Autowired
-    private IESHttpEventStore eventstore;
+    private IESGrpcEventStore eventstore;
+
+    @Autowired
+    private ProjectionAdminEventStore admin;
 
     @Autowired
     private PersonListEventChunkHandler chunkHandler;
@@ -87,10 +90,10 @@ public class PersonListProjector {
         // Create a projection if it does not exist.
         // Multiple projections (even in different microservice versions)
         // might share the same projection based on the event name hash.
-        if (!eventstore.projectionExists(chunkHandler.getProjectionStreamId())) {
+        if (!admin.projectionExists(chunkHandler.getProjectionStreamId())) {
             final List<TypeName> typeNames = getEventTypeNames();
             LOG.info("Create projection '{}' with events: {}", chunkHandler.getProjectionStreamId(), typeNames);
-            eventstore.createProjection(chunkHandler.getProjectionStreamId(), true, typeNames);
+            admin.createProjection(chunkHandler.getProjectionStreamId(), true, typeNames);
         }
 
         // Read and dispatch events

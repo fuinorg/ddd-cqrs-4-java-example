@@ -68,7 +68,7 @@
 
         <dependency>
             <groupId>org.fuin.esc</groupId>
-            <artifactId>esc-esjc</artifactId>
+            <artifactId>esc-esgrpc</artifactId>
         </dependency>
 
         <dependency>

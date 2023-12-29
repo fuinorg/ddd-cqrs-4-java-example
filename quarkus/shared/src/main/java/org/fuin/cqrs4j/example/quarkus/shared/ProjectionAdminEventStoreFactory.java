@@ -1,9 +1,8 @@
-package org.fuin.cqrs4j.example.javasecdi.qry.app;
+package org.fuin.cqrs4j.example.quarkus.shared;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Disposes;
 import jakarta.enterprise.inject.Produces;
-import org.fuin.cqrs4j.example.javasecdi.shared.app.SharedConfig;
 import org.fuin.esc.admin.HttpProjectionAdminEventStore;
 import org.fuin.esc.api.ProjectionAdminEventStore;
 
@@ -15,12 +14,12 @@ import java.net.http.HttpClient;
  * CDI factory that creates a {@link ProjectionAdminEventStore} instance.
  */
 @ApplicationScoped
-public class QryProjectionAdminEventStoreFactory {
+public class ProjectionAdminEventStoreFactory {
 
     @Produces
     @ApplicationScoped
-    public ProjectionAdminEventStore getProjectionAdminEventStore(final SharedConfig config, final HttpClient httpClient) {
-        final String url = "http://" + config.getEventStoreHost() + ":" + config.getEventStoreHttpPort();
+    public ProjectionAdminEventStore getProjectionAdminEventStore(final Config config, final HttpClient httpClient) {
+        final String url = config.getEventStoreProtocol() + "://" + config.getEventStoreHost() + ":" + config.getEventStoreHttpPort();
         try {
             final ProjectionAdminEventStore es = new HttpProjectionAdminEventStore(httpClient, new URL(url));
             es.open();

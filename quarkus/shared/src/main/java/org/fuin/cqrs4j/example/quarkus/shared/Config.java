@@ -1,30 +1,31 @@
 /**
  * Copyright (C) 2015 Michael Schnell. All rights reserved. http://www.fuin.org/
- *
+ * <p>
  * This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- *
+ * <p>
  * This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
  * http://www.gnu.org/licenses/.
  */
 package org.fuin.cqrs4j.example.quarkus.shared;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Application configuration.
  */
 @ApplicationScoped
 public class Config {
+
+    private static final String EVENT_STORE_PROTOCOL = "http";
 
     private static final String EVENT_STORE_HOST = "127.0.0.1";
 
@@ -35,6 +36,10 @@ public class Config {
     private static final String EVENT_STORE_USER = "admin";
 
     private static final String EVENT_STORE_PASSWORD = "changeit";
+
+    @Inject
+    @ConfigProperty(name = "EVENT_STORE_PROTOCOL", defaultValue = EVENT_STORE_PROTOCOL)
+    private String eventStoreProtocol;
 
     @Inject
     @ConfigProperty(name = "EVENT_STORE_HOST", defaultValue = EVENT_STORE_HOST)
@@ -61,6 +66,7 @@ public class Config {
      */
     public Config() {
         super();
+        this.eventStoreProtocol = EVENT_STORE_PROTOCOL;
         this.eventStoreHost = EVENT_STORE_HOST;
         this.eventStoreHttpPort = EVENT_STORE_HTTP_PORT;
         this.eventStoreTcpPort = EVENT_STORE_TCP_PORT;
@@ -70,7 +76,9 @@ public class Config {
 
     /**
      * Constructor with all data.
-     * 
+     *
+     * @param eventStoreProtocol
+     *            Protocol (http or https).
      * @param eventStoreHost
      *            Host.
      * @param eventStoreHttpPort
@@ -82,9 +90,10 @@ public class Config {
      * @param eventStorePassword
      *            Password.
      */
-    public Config(final String eventStoreHost, final int eventStoreHttpPort, final int eventStoreTcpPort, final String eventStoreUser,
-            final String eventStorePassword) {
+    public Config(final String eventStoreProtocol, final String eventStoreHost, final int eventStoreHttpPort, final int eventStoreTcpPort, final String eventStoreUser,
+                  final String eventStorePassword) {
         super();
+        this.eventStoreProtocol = eventStoreProtocol;
         this.eventStoreHost = eventStoreHost;
         this.eventStoreHttpPort = eventStoreHttpPort;
         this.eventStoreTcpPort = eventStoreTcpPort;
@@ -93,8 +102,17 @@ public class Config {
     }
 
     /**
+     * Returns the protocol of the event store.
+     *
+     * @return Protocol.
+     */
+    public String getEventStoreProtocol() {
+        return eventStoreProtocol;
+    }
+
+    /**
      * Returns the host name of the event store.
-     * 
+     *
      * @return Name.
      */
     public String getEventStoreHost() {
@@ -103,7 +121,7 @@ public class Config {
 
     /**
      * Returns the HTTP port of the event store.
-     * 
+     *
      * @return Port.
      */
     public int getEventStoreHttpPort() {
@@ -112,7 +130,7 @@ public class Config {
 
     /**
      * Returns the TCP port of the event store.
-     * 
+     *
      * @return Port.
      */
     public int getEventStoreTcpPort() {
@@ -121,7 +139,7 @@ public class Config {
 
     /**
      * Returns the username of the event store.
-     * 
+     *
      * @return Username.
      */
     public String getEventStoreUser() {
@@ -130,7 +148,7 @@ public class Config {
 
     /**
      * Returns the password of the event store.
-     * 
+     *
      * @return Password.
      */
     public String getEventStorePassword() {
@@ -139,7 +157,7 @@ public class Config {
 
     /**
      * Creates a URL with parameters from the config.
-     * 
+     *
      * @return Event store base URL.
      */
     public URL getEventStoreURL() {

@@ -1,6 +1,10 @@
 # ddd-cqrs-4-java-example
 Minimal standalone example application that uses the [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libraries and an [EventStore](https://eventstore.org/) to store the events (Event Sourcing). The query data is stored in-memory using a [HSQLDB](http://hsqldb.org/).
 
+> [!CAUTION]
+> [Apache Deltaspike](https://deltaspike.apache.org/) does not support the **jakarta** namespace yet.
+> Therefore the project currently does not work correctly! (Applications fail to start...)
+
 ## Starting the demo
 
 1. Start an EventStore locally on your PC
