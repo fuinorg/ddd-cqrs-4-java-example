@@ -12,23 +12,23 @@
  */
 package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
-import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.ObservesAsync;
+import jakarta.inject.Inject;
+import org.fuin.cqrs4j.example.quarkus.query.app.QryCheckForViewUpdatesEvent;
+import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.esc.api.ProjectionAdminEventStore;
+import org.fuin.esc.api.TypeName;
+import org.fuin.esc.esgrpc.IESGrpcEventStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.ObservesAsync;
-import jakarta.inject.Inject;
-
-import org.fuin.cqrs4j.example.quarkus.query.app.QryCheckForViewUpdatesEvent;
-import org.fuin.ddd4j.ddd.EventType;
-import org.fuin.esc.api.TypeName;
-import org.fuin.esc.eshttp.IESHttpEventStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
 
 /**
  * Reads incoming events from an attached event store and dispatches them to the appropriate event handlers.
@@ -45,7 +45,10 @@ public class PersonListProjector {
     // Above LOCK prevents multithreaded access
 
     @Inject
-    IESHttpEventStore eventstore;
+    IESGrpcEventStore eventstore;
+
+    @Inject
+    ProjectionAdminEventStore admin;
 
     @Inject
     PersonListEventChunkHandler chunkHandler;
@@ -73,10 +76,10 @@ public class PersonListProjector {
     private void readStreamEvents() {
 
         // Create an event store projection if it does not exist.
-        if (!eventstore.projectionExists(chunkHandler.getProjectionStreamId())) {
+        if (!admin.projectionExists(chunkHandler.getProjectionStreamId())) {
             final List<TypeName> typeNames = getEventTypeNames();
             LOG.info("Create projection '{}' with events: {}", chunkHandler.getProjectionStreamId(), typeNames);
-            eventstore.createProjection(chunkHandler.getProjectionStreamId(), true, typeNames);
+            admin.createProjection(chunkHandler.getProjectionStreamId(), true, typeNames);
         }
 
         // Read and dispatch events

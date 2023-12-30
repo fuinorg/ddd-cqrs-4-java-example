@@ -12,8 +12,6 @@ public class Config {
 
     private static final int EVENT_STORE_HTTP_PORT = 2113;
 
-    private static final int EVENT_STORE_TCP_PORT = 1113;
-
     private static final String EVENT_STORE_USER = "admin";
 
     private static final String EVENT_STORE_PASSWORD = "changeit";
@@ -26,9 +24,6 @@ public class Config {
 
     @Value("${EVENT_STORE_HTTP_PORT:2113}")
     private int eventStoreHttpPort;
-
-    @Value("${EVENT_STORE_TCP_PORT:1113}")
-    private int eventStoreTcpPort;
 
     @Value("${EVENT_STORE_USER:admin}")
     private String eventStoreUser;
@@ -44,7 +39,6 @@ public class Config {
         this.eventStoreProtocol = EVENT_STORE_PROTOCOL;
         this.eventStoreHost = EVENT_STORE_HOST;
         this.eventStoreHttpPort = EVENT_STORE_HTTP_PORT;
-        this.eventStoreTcpPort = EVENT_STORE_TCP_PORT;
         this.eventStoreUser = EVENT_STORE_USER;
         this.eventStorePassword = EVENT_STORE_PASSWORD;
     }
@@ -58,20 +52,17 @@ public class Config {
      *            Host.
      * @param eventStoreHttpPort
      *            HTTP port
-     * @param eventStoreTcpPort
-     *            TCP port.
      * @param eventStoreUser
      *            User.
      * @param eventStorePassword
      *            Password.
      */
-    public Config(final String eventStoreProtocol, final String eventStoreHost, final int eventStoreHttpPort, final int eventStoreTcpPort,
+    public Config(final String eventStoreProtocol, final String eventStoreHost, final int eventStoreHttpPort, 
             final String eventStoreUser, final String eventStorePassword) {
         super();
         this.eventStoreProtocol = eventStoreProtocol;
         this.eventStoreHost = eventStoreHost;
         this.eventStoreHttpPort = eventStoreHttpPort;
-        this.eventStoreTcpPort = eventStoreTcpPort;
         this.eventStoreUser = eventStoreUser;
         this.eventStorePassword = eventStorePassword;
     }
@@ -101,15 +92,6 @@ public class Config {
      */
     public int getEventStoreHttpPort() {
         return eventStoreHttpPort;
-    }
-
-    /**
-     * Returns the TCP port of the event store.
-     *
-     * @return Port.
-     */
-    public int getEventStoreTcpPort() {
-        return eventStoreTcpPort;
     }
 
     /**
