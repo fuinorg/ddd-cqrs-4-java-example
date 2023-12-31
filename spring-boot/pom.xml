@@ -65,12 +65,6 @@
 	            <version>${esc.version}</version>
 	        </dependency>
 	
-	        <dependency>
-	            <groupId>org.fuin.esc</groupId>
-	            <artifactId>esc-http-admin</artifactId>
-	            <version>${esc.version}</version>
-	        </dependency>
-
 			<dependency>
 	            <groupId>org.glassfish</groupId>
 	            <artifactId>jakarta.json</artifactId>

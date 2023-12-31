@@ -72,11 +72,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.fuin.esc</groupId>
-			<artifactId>esc-http-admin</artifactId>
-		</dependency>
-
-		<dependency>
 		  <groupId>com.sun.mail</groupId>
 		  <artifactId>jakarta.mail</artifactId>
 		</dependency>

@@ -67,11 +67,6 @@
 			<artifactId>esc-esgrpc</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.fuin.esc</groupId>
-			<artifactId>esc-http-admin</artifactId>
-		</dependency>
-
 		<!-- runtime -->
 
 		<dependency>
