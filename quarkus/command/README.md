@@ -29,7 +29,7 @@ Make sure you installed everything as described [here](../../../../).
    ```
 4. Run the microservice
    ```
-    ./target/cqrs4j-quarkus-example-command-0.3.0-SNAPSHOT-runner \
+    ./target/cqrs4j-quarkus-example-command-0.3.0-runner \
         -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 \
         -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
    ```
