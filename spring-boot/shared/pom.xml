@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.fuin.cqrs4j.example.spring</groupId>
 		<artifactId>cqrs4j-spring-example-root</artifactId>
-		<version>0.2.0</version>
+		<version>0.3.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>org.fuin.cqrs4j.example</groupId>
 			<artifactId>cqrs4j-example-shared</artifactId>
-			<version>0.2.0</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
@@ -57,12 +57,12 @@
 
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
-			<artifactId>esc-esjc</artifactId>
+			<artifactId>esc-esgrpc</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
-			<artifactId>esc-eshttp</artifactId>
+			<artifactId>esc-http-admin</artifactId>
 		</dependency>
 
 		<dependency>

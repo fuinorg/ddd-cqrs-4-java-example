@@ -1,18 +1,9 @@
 package org.fuin.cqrs4j.example.spring.command.api;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import jakarta.json.bind.Jsonb;
-
 import org.fuin.cqrs4j.ResultType;
 import org.fuin.cqrs4j.SimpleResult;
 import org.fuin.cqrs4j.example.shared.CreatePersonCommand;
@@ -24,7 +15,7 @@ import org.fuin.esc.api.CommonEvent;
 import org.fuin.esc.api.SimpleStreamId;
 import org.fuin.esc.api.StreamEventsSlice;
 import org.fuin.esc.api.TypeName;
-import org.fuin.esc.esjc.IESJCEventStore;
+import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +24,13 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = CmdApplication.class)
@@ -48,7 +43,7 @@ class PersonControllerIT {
     WebApplicationContext wac;
 
     @Autowired
-    IESJCEventStore eventStore;
+    IESGrpcEventStore eventStore;
 
     @Autowired
     Jsonb jsonb;

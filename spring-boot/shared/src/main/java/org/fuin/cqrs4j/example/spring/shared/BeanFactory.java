@@ -1,38 +1,36 @@
 package org.fuin.cqrs4j.example.spring.shared;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.Executors;
-
+import com.eventstore.dbclient.EventStoreDBClient;
+import com.eventstore.dbclient.EventStoreDBClientSettings;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
-
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.eclipse.yasson.FieldAccessStrategy;
 import org.fuin.cqrs4j.example.shared.SharedUtils;
-import org.fuin.esc.eshttp.ESEnvelopeType;
-import org.fuin.esc.eshttp.ESHttpEventStore;
-import org.fuin.esc.eshttp.IESHttpEventStore;
-import org.fuin.esc.esjc.ESJCEventStore;
-import org.fuin.esc.esjc.IESJCEventStore;
+import org.fuin.esc.admin.HttpProjectionAdminEventStore;
+import org.fuin.esc.api.ProjectionAdminEventStore;
+import org.fuin.esc.esgrpc.ESGrpcEventStore;
+import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.fuin.esc.spi.EnhancedMimeType;
 import org.fuin.esc.spi.SerDeserializerRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import com.github.msemys.esjc.EventStoreBuilder;
+import java.net.Authenticator;
+import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 @Component
 public class BeanFactory {
 
     /**
      * Creates a Jsonb instance.
-     * 
+     *
      * @return Fully configured instance.
      */
     @Bean
@@ -43,62 +41,58 @@ public class BeanFactory {
     }
 
     /**
-     * Creates a TCP based event store connection.
-     * 
-     * @param config
-     *            Configuration to use.
-     * 
-     * @return New event store instance.
-     */
-    @Bean(destroyMethod = "shutdown")
-    public com.github.msemys.esjc.EventStore getEventStore(final Config config) {
-        return EventStoreBuilder.newBuilder().singleNodeAddress(config.getEventStoreHost(), config.getEventStoreTcpPort())
-                .executor(Executors.newFixedThreadPool(10)).userCredentials(config.getEventStoreUser(), config.getEventStorePassword())
-                .build();
-    }
-
-    /**
      * Creates an event store connection.
-     * 
-     * @param config
-     *            Configuration to use.
-     * 
+     *
+     * @param config Configuration to use.
      * @return New event store instance.
      */
     @Bean(destroyMethod = "close")
-    public IESJCEventStore getESJCEventStore(final com.github.msemys.esjc.EventStore es) {
+    public IESGrpcEventStore getESJCEventStore(final Config config) {
 
         final SerDeserializerRegistry registry = SharedUtils.createRegistry();
 
-        final IESJCEventStore eventstore = new ESJCEventStore.Builder().eventStore(es).serDesRegistry(registry)
-                .targetContentType(EnhancedMimeType.create("application", "json", StandardCharsets.UTF_8)).build();
+        final EventStoreDBClientSettings setts = EventStoreDBClientSettings.builder()
+                .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
+                .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
+                .tls(false)
+                .buildConnectionSettings();
+
+        final EventStoreDBClient client = EventStoreDBClient.create(setts);
+        final IESGrpcEventStore eventstore = new ESGrpcEventStore.Builder().eventStore(client).serDesRegistry(registry)
+                .targetContentType(EnhancedMimeType.create("application", "json", StandardCharsets.UTF_8))
+                .build();
 
         eventstore.open();
         return eventstore;
 
     }
 
+    @Bean
+    public HttpClient getHttpClient(final Config config) {
+        return HttpClient.newBuilder()
+                .authenticator(new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(config.getEventStoreUser(), config.getEventStorePassword().toCharArray());
+                    }
+                })
+                .connectTimeout(Duration.of(10, ChronoUnit.SECONDS))
+                .build();
+    }
+
+
     /**
-     * Creates a HTTP based event store connection.
-     * 
-     * @param config
-     *            Configuration to use.
-     * 
+     * Creates an HTTP based projection admin event store.
+     *
+     * @param config     Configuration to use.
+     * @param httpClient Client to use.
      * @return New event store instance.
      */
     @Bean(destroyMethod = "close")
-    public IESHttpEventStore getESHttpEventStore(final Config config) {
+    public ProjectionAdminEventStore getProjectionAdminEventStore(final Config config, final HttpClient httpClient) {
         final String url = config.getEventStoreProtocol() + "://" + config.getEventStoreHost() + ":" + config.getEventStoreHttpPort();
         try {
-            final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-            final UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(config.getEventStoreUser(),
-                    config.getEventStorePassword());
-            credentialsProvider.setCredentials(AuthScope.ANY, credentials);
-            final SerDeserializerRegistry registry = SharedUtils.createRegistry();
-
-            final ESHttpEventStore es = new ESHttpEventStore.Builder().threadFactory(Executors.defaultThreadFactory()).url(new URL(url))
-                    .envelopeType(ESEnvelopeType.JSON).serDesRegistry(registry).credentialsProvider(credentialsProvider).build();
-
+            final ProjectionAdminEventStore es = new HttpProjectionAdminEventStore(httpClient, new URL(url));
             es.open();
             return es;
         } catch (final MalformedURLException ex) {

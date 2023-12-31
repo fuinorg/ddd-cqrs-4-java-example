@@ -1,7 +1,7 @@
 package org.fuin.cqrs4j.example.spring.command.app;
 
 import org.fuin.cqrs4j.example.aggregates.PersonRepository;
-import org.fuin.esc.esjc.IESJCEventStore;
+import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ public class CmdApplication {
      */
     @Bean
     @RequestScope
-    public PersonRepository create(final IESJCEventStore eventStore) {
+    public PersonRepository create(final IESGrpcEventStore eventStore) {
         return new PersonRepository(eventStore);
     }
 

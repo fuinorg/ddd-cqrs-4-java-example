@@ -19,35 +19,6 @@ Make sure you installed everything as described [here](../../../../).
 ## Running test in IDE
 In case you want to run the integration test inside your IDE (Eclipse or other), you need to start the Eventstore and MariaDB before.
 
-1. Start the Eventstore Docker container:
-
-```
-docker run -d --name eventstore-node \
--p 2113:2113 \
--p 1113:1113 \
---rm \
-eventstore/eventstore:release-5.0.9
-```
-
-2. Start the MariaDB Docker container:
-
-```
-docker run -d --name mariadb \
--p 3306:3306 \
--e MYSQL_INITDB_SKIP_TZINFO=1 \
--e MYSQL_ROOT_PASSWORD=xyz \
--e MYSQL_DATABASE=querydb \
--e MYSQL_USER=mary \
--e MYSQL_PASSWORD=abc \
---rm \
-mariadb:10.4
-```
-
-3. Run the test: [PersonControllerIT.java](src/test/java/org/fuin/cqrs4j/example/spring/query/api/PersonControllerIT.java)
-
-4. Run `docker ps` to see the CONTAINER IDs and stop the Eventstore and MariaDB with `docker stop <CONTAINER_ID>`
-
-# TODO ...
-
-**Issues**
-- [IOException / Stream closed with JSON-B](https://github.com/fuinorg/ddd-cqrs-4-java-example/issues/4)
+1. Start the Eventstore and MariaDB Docker container using the [docker-compose.yml](../../docker-compose.yml) script: `docker-compose up`
+2. Run the test: [PersonControllerIT.java](src/test/java/org/fuin/cqrs4j/example/spring/query/api/PersonControllerIT.java)
+3. Stop the containers in the console using CTRL+C and then remove the containers using again Docker Compose: `docker-compose rm`

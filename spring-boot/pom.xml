@@ -12,7 +12,7 @@
 
 	<groupId>org.fuin.cqrs4j.example.spring</groupId>
 	<artifactId>cqrs4j-spring-example-root</artifactId>
-	<version>0.2.0</version>
+	<version>0.3.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -21,7 +21,7 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<esc.version>0.6.0</esc.version>
+		<esc.version>0.7.0-SNAPSHOT</esc.version>
 		<eventstore.version>21.10.1-bionic</eventstore.version>
 	</properties>
 	
@@ -61,19 +61,13 @@
 
 	        <dependency>
 	            <groupId>org.fuin.esc</groupId>
-	            <artifactId>esc-esjc</artifactId>
+	            <artifactId>esc-esgrpc</artifactId>
 	            <version>${esc.version}</version>
 	        </dependency>
 	
 	        <dependency>
 	            <groupId>org.fuin.esc</groupId>
-	            <artifactId>esc-eshttp</artifactId>
-	            <version>${esc.version}</version>
-	        </dependency>
-
-	        <dependency>
-	            <groupId>org.fuin.esc</groupId>
-	            <artifactId>esc-mem</artifactId>
+	            <artifactId>esc-http-admin</artifactId>
 	            <version>${esc.version}</version>
 	        </dependency>
 

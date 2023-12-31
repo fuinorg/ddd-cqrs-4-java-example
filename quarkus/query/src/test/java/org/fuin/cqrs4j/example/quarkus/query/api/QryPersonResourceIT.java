@@ -1,40 +1,31 @@
 package org.fuin.cqrs4j.example.quarkus.query.api;
 
-import static io.restassured.RestAssured.given;
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.awaitility.Awaitility.await;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-
-import java.util.Arrays;
-import java.util.UUID;
-
+import io.quarkus.test.junit.QuarkusTest;
 import jakarta.enterprise.context.control.ActivateRequestContext;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-
 import org.fuin.cqrs4j.example.quarkus.query.views.personlist.PersonListEntry;
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
-import org.fuin.esc.api.CommonEvent;
-import org.fuin.esc.api.EventId;
-import org.fuin.esc.api.SimpleCommonEvent;
-import org.fuin.esc.api.SimpleStreamId;
-import org.fuin.esc.api.TypeName;
-import org.fuin.esc.eshttp.IESHttpEventStore;
+import org.fuin.esc.api.*;
+import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.junit.QuarkusTest;
+import java.util.Arrays;
+import java.util.UUID;
+
+import static io.restassured.RestAssured.given;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.awaitility.Awaitility.await;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 @QuarkusTest
 class QryPersonResourceIT {
 
     @Inject
-    IESHttpEventStore eventStore;
+    IESGrpcEventStore eventStore;
 
     @Inject
     EntityManager em;

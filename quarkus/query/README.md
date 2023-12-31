@@ -19,33 +19,9 @@ Make sure you installed everything as described [here](../../../../).
 ## Running test in IDE
 In case you want to run the integration test inside your IDE (Eclipse or other), you need to start the Eventstore and MariaDB before.
 
-1. Start the Eventstore Docker container:
-
-```
-docker run -d --name eventstore-node \
--p 2113:2113 \
--p 1113:1113 \
---rm \
-eventstore/eventstore:release-5.0.9
-```
-
-2. Start the MariaDB Docker container:
-
-```
-docker run -d --name mariadb \
--p 3306:3306 \
--e MYSQL_INITDB_SKIP_TZINFO=1 \
--e MYSQL_ROOT_PASSWORD=xyz \
--e MYSQL_DATABASE=querydb \
--e MYSQL_USER=mary \
--e MYSQL_PASSWORD=abc \
---rm \
-mariadb:10.4
-```
-
-3. Run the test: [QryPersonResourceIT.java](src/test/java/org/fuin/cqrs4j/example/quarkus/query/api/QryPersonResourceIT.java)
-
-4. Run `docker ps` to see the CONTAINER IDs and stop the Eventstore and MariaDB with `docker stop <CONTAINER_ID>`
+1. Start the Eventstore and MariaDB Docker container using the [docker-compose.yml](../../docker-compose.yml) script: `docker-compose up`
+2. Run the test: [QryPersonResourceIT.java](src/test/java/org/fuin/cqrs4j/example/quarkus/query/api/QryPersonResourceIT.java)
+3. Stop the containers in the console using CTRL+C and then remove the containers using again Docker Compose: `docker-compose rm`
 
 # TODO ... (Does currently not work)
 
@@ -59,7 +35,7 @@ mariadb:10.4
    ```
 4. Run the microservice
    ```
-    ./target/cqrs4j-quarkus-example-query-0.2.0-runner \
+    ./target/cqrs4j-quarkus-example-query-0.3.0-SNAPSHOT-runner \
         -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 \
         -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
    ```

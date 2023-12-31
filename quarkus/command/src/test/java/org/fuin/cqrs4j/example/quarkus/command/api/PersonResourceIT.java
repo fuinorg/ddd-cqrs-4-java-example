@@ -1,19 +1,9 @@
 package org.fuin.cqrs4j.example.quarkus.command.api;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
-
 import org.fuin.cqrs4j.ResultType;
 import org.fuin.cqrs4j.SimpleResult;
 import org.fuin.cqrs4j.example.shared.CreatePersonCommand;
@@ -24,17 +14,22 @@ import org.fuin.esc.api.CommonEvent;
 import org.fuin.esc.api.SimpleStreamId;
 import org.fuin.esc.api.StreamEventsSlice;
 import org.fuin.esc.api.TypeName;
-import org.fuin.esc.esjc.IESJCEventStore;
+import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.http.ContentType;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 @QuarkusTest
 class PersonResourceIT {
 
     @Inject
-    IESJCEventStore eventStore;
+    IESGrpcEventStore eventStore;
 
     @Inject
     Jsonb jsonb;

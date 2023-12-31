@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.fuin.cqrs4j.example.quarkus</groupId>
 		<artifactId>cqrs4j-quarkus-example-root</artifactId>
-		<version>0.2.0</version>
+		<version>0.3.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -57,18 +57,23 @@
 		<dependency>
 			<groupId>org.fuin.cqrs4j.example</groupId>
 			<artifactId>cqrs4j-example-aggregates</artifactId>
-			<version>0.2.0</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin.cqrs4j.example.quarkus</groupId>
 			<artifactId>cqrs4j-quarkus-example-shared</artifactId>
-			<version>0.2.0</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
-			<artifactId>esc-eshttp</artifactId>
+			<artifactId>esc-esgrpc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-http-admin</artifactId>
 		</dependency>
 
 		<dependency>
@@ -162,7 +167,6 @@
 									<mode>bridge</mode>
 								</network>
 								<ports>
-									<port>1113:1113</port>
 									<port>2113:2113</port>
 								</ports>
 								<log>
@@ -172,8 +176,6 @@
 									<EVENTSTORE_MEM_DB>TRUE</EVENTSTORE_MEM_DB>
 									<EVENTSTORE_RUN_PROJECTIONS>All</EVENTSTORE_RUN_PROJECTIONS>
 									<EVENTSTORE_INSECURE>true</EVENTSTORE_INSECURE>
-									<EVENTSTORE_ENABLE_EXTERNAL_TCP>true</EVENTSTORE_ENABLE_EXTERNAL_TCP>
-									<EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP>true</EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP>
 									<EVENTSTORE_LOG>/tmp/log-eventstore</EVENTSTORE_LOG>
 								</env>
 								<wait>
