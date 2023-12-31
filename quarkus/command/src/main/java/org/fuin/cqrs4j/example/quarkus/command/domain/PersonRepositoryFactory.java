@@ -35,7 +35,7 @@ public class PersonRepositoryFactory {
     @Produces
     @Dependent
     public PersonRepository create(final IESGrpcEventStore eventStore) {
-        return new PersonRepository(eventStore);
+        return new EventStorePersonRepository(eventStore);
     }
 
 }

@@ -1,7 +1,5 @@
 package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
-import java.util.Set;
-
 import org.fuin.cqrs4j.ProjectionService;
 import org.fuin.cqrs4j.example.shared.SharedUtils;
 import org.fuin.ddd4j.ddd.EventType;
@@ -13,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Set;
 
 /**
  * Dispatches the events to the event handlers that will update the database and stores the next event position in the database (All in the

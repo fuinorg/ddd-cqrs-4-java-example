@@ -12,7 +12,7 @@
 
 	<groupId>org.fuin.cqrs4j.example.spring</groupId>
 	<artifactId>cqrs4j-spring-example-root</artifactId>
-	<version>0.3.0-SNAPSHOT</version>
+	<version>0.5.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -65,12 +65,6 @@
 	            <version>${esc.version}</version>
 	        </dependency>
 	
-	        <dependency>
-	            <groupId>org.fuin.esc</groupId>
-	            <artifactId>esc-http-admin</artifactId>
-	            <version>${esc.version}</version>
-	        </dependency>
-
 			<dependency>
 	            <groupId>org.glassfish</groupId>
 	            <artifactId>jakarta.json</artifactId>

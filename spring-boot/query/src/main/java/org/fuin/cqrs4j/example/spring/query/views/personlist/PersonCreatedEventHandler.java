@@ -1,7 +1,6 @@
 package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import jakarta.persistence.EntityManager;
-
 import org.fuin.cqrs4j.EventHandler;
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;

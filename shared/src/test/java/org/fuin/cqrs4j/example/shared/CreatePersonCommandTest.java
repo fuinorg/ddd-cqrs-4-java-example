@@ -1,37 +1,19 @@
-/**
- * Copyright (C) 2015 Michael Schnell. All rights reserved. 
- * http://www.fuin.org/
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 3 of the License, or (at your option) any
- * later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library. If not, see http://www.gnu.org/licenses/.
- */
 package org.fuin.cqrs4j.example.shared;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
+import jakarta.json.bind.JsonbConfig;
+import org.apache.commons.io.IOUtils;
+import org.eclipse.yasson.FieldAccessStrategy;
+import org.fuin.utils4j.Utils4J;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import jakarta.json.bind.Jsonb;
-import jakarta.json.bind.JsonbBuilder;
-import jakarta.json.bind.JsonbConfig;
-
-import org.apache.commons.io.IOUtils;
-import org.eclipse.yasson.FieldAccessStrategy;
-import org.fuin.utils4j.Utils4J;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF
 public final class CreatePersonCommandTest {
@@ -99,7 +81,7 @@ public final class CreatePersonCommandTest {
     private CreatePersonCommand createTestee() {
         final PersonId personId = new PersonId(UUID.fromString(PERSON_UUID));
         final PersonName personName = new PersonName("Peter Parker");
-        return new CreatePersonCommand(personId, personName);
+        return new CreatePersonCommand.Builder().id(personId).name(personName).build();
     }
 
 }

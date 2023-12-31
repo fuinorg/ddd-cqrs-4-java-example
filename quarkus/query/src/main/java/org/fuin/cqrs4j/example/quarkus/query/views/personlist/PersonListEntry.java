@@ -1,33 +1,15 @@
-/**
- * Copyright (C) 2015 Michael Schnell. All rights reserved. http://www.fuin.org/
- *
- * This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
- * http://www.gnu.org/licenses/.
- */
 package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.Table;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.objects4j.common.Contract;
-
-import io.quarkus.runtime.annotations.RegisterForReflection;
 
 /**
  * Represents a person that will be stored in the database.
