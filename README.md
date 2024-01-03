@@ -21,7 +21,6 @@ Here is an overview of how such an application looks like:
 - **[Aggregates](aggregates)** - DDD related code for all demo applications (aggregates, entities and business exceptions).
 - **[Quarkus](quarkus)** - Two microservices (Command & Query) based on [Quarkus](https://quarkus.io/).
 - **[Spring Boot](spring-boot)** - Two microservices (Command & Query) based on [Spring Boot](https://spring.io/projects/spring-boot/).
-- **[Java SE + CDI](java-se-cdi)** - Two standalone applications (Command & Query) using CDI for dependency injection.
 
 ## Getting started
 The following instructions are tested on Linux (Ubuntu 22)

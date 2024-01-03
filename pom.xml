@@ -21,7 +21,6 @@
 	<modules>
 		<module>shared</module>
 		<module>aggregates</module>
-		<module>java-se-cdi</module>
 		<module>quarkus</module>
 		<module>spring-boot</module>
 	</modules>
