@@ -16,7 +16,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.cqrs4j.ProjectionService;
 import org.fuin.esc.api.StreamId;
 import org.fuin.objects4j.common.Contract;

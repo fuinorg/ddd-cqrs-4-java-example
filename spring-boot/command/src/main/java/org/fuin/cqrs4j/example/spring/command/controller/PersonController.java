@@ -12,13 +12,9 @@
  */
 package org.fuin.cqrs4j.example.spring.command.controller;
 
-import java.util.Optional;
-import java.util.Set;
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
-
 import org.fuin.cqrs4j.CommandExecutionFailedException;
 import org.fuin.cqrs4j.SimpleResult;
 import org.fuin.cqrs4j.example.aggregates.DuplicatePersonNameException;
@@ -35,6 +31,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/persons")

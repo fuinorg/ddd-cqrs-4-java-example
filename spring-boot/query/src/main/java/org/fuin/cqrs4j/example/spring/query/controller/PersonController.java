@@ -12,11 +12,7 @@
  */
 package org.fuin.cqrs4j.example.spring.query.controller;
 
-import java.util.List;
-import java.util.UUID;
-
 import jakarta.persistence.EntityManager;
-
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.spring.query.views.personlist.PersonListEntry;
 import org.fuin.ddd4j.ddd.AggregateNotFoundException;
@@ -31,6 +27,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/persons")

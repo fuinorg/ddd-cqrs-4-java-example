@@ -1,11 +1,11 @@
 package org.fuin.cqrs4j.example.javasecdi.qry.app;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
-
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
 
 /**
  * CDI producer that creates an {@link ScheduledExecutorService}.

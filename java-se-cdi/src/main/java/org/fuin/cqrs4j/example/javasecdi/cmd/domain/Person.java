@@ -1,9 +1,6 @@
 package org.fuin.cqrs4j.example.javasecdi.cmd.domain;
 
-import java.io.Serializable;
-
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
@@ -11,6 +8,8 @@ import org.fuin.ddd4j.ddd.AbstractAggregateRoot;
 import org.fuin.ddd4j.ddd.ApplyEvent;
 import org.fuin.ddd4j.ddd.EntityType;
 import org.fuin.objects4j.common.Contract;
+
+import java.io.Serializable;
 
 /**
  * A medical practitioner most likely also holder of an accredited academic degree.

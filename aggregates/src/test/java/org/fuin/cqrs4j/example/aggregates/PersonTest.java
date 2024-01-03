@@ -1,15 +1,15 @@
 package org.fuin.cqrs4j.example.aggregates;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.util.Optional;
-import java.util.UUID;
-
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test for the {@link Person} class.

@@ -1,10 +1,6 @@
 package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
-import java.util.List;
-import java.util.Set;
-
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.cqrs4j.EventDispatcher;
 import org.fuin.cqrs4j.SimpleEventDispatcher;
 import org.fuin.ddd4j.ddd.Event;
@@ -12,6 +8,9 @@ import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.api.CommonEvent;
 import org.fuin.objects4j.common.NotThreadSafe;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Dispatches events that relate to the {@link PersonListEntry} entity to the appropriate event handers.

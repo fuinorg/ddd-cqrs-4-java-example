@@ -1,10 +1,10 @@
 package org.fuin.cqrs4j.example.javasecdi.qry.app;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * Creates an thread factory.

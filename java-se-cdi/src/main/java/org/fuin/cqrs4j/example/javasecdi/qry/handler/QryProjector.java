@@ -1,24 +1,23 @@
 package org.fuin.cqrs4j.example.javasecdi.qry.handler;
 
-import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
-import static org.fuin.cqrs4j.example.javasecdi.qry.handler.QryEventChunkHandler.PROJECTION_STREAM_ID;
+import jakarta.enterprise.event.ObservesAsync;
+import jakarta.inject.Inject;
+import org.fuin.cqrs4j.EventDispatcher;
+import org.fuin.cqrs4j.example.javasecdi.qry.app.QryCheckForViewUpdatesEvent;
+import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.esc.api.EventStore;
+import org.fuin.esc.api.ProjectionAdminEventStore;
+import org.fuin.esc.api.TypeName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
-import jakarta.enterprise.event.ObservesAsync;
-import jakarta.inject.Inject;
-
-import org.fuin.cqrs4j.EventDispatcher;
-import org.fuin.ddd4j.ddd.EventType;
-import org.fuin.cqrs4j.example.javasecdi.qry.app.QryCheckForViewUpdatesEvent;
-import org.fuin.esc.api.EventStore;
-import org.fuin.esc.api.ProjectionAdminEventStore;
-import org.fuin.esc.api.TypeName;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
+import static org.fuin.cqrs4j.example.javasecdi.qry.handler.QryEventChunkHandler.PROJECTION_STREAM_ID;
 
 /**
  * Reads incoming events from an attached event store and dispatches them to the appropriate event handlers.

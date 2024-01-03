@@ -17,7 +17,6 @@ import jakarta.enterprise.inject.Produces;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
-
 import org.eclipse.yasson.FieldAccessStrategy;
 import org.fuin.cqrs4j.example.shared.SharedUtils;
 

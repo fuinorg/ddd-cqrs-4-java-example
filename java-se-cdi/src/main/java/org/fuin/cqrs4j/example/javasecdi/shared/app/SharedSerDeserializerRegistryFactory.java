@@ -2,7 +2,6 @@ package org.fuin.cqrs4j.example.javasecdi.shared.app;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
-
 import org.fuin.esc.spi.JsonbDeSerializer;
 import org.fuin.esc.spi.SerDeserializerRegistry;
 import org.fuin.esc.spi.SerializedDataTypeRegistry;

@@ -12,12 +12,9 @@
  */
 package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
-import java.util.Set;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-
 import org.fuin.cqrs4j.ProjectionService;
 import org.fuin.cqrs4j.example.shared.SharedUtils;
 import org.fuin.ddd4j.ddd.EventType;
@@ -25,6 +22,8 @@ import org.fuin.esc.api.ProjectionStreamId;
 import org.fuin.esc.api.StreamEventsSlice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Set;
 
 @ApplicationScoped
 @Transactional

@@ -2,7 +2,6 @@ package org.fuin.cqrs4j.example.javasecdi.qry.handler;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
-
 import org.fuin.cqrs4j.EventDispatcher;
 import org.fuin.cqrs4j.SimpleEventDispatcher;
 

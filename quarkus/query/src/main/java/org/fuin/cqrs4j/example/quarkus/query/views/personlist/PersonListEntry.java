@@ -12,22 +12,16 @@
  */
 package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.Table;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.objects4j.common.Contract;
-
-import io.quarkus.runtime.annotations.RegisterForReflection;
 
 /**
  * Represents a person that will be stored in the database.

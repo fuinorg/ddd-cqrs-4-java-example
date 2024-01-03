@@ -12,11 +12,10 @@
  */
 package org.fuin.cqrs4j.example.quarkus.query.app;
 
+import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
-
-import io.quarkus.scheduler.Scheduled;
 
 @ApplicationScoped
 public class QryScheduler {

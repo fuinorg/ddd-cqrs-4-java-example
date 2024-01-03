@@ -12,20 +12,11 @@
  */
 package org.fuin.cqrs4j.example.spring.shared;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-
 import org.fuin.cqrs4j.CommandExecutionFailedException;
 import org.fuin.cqrs4j.SimpleResult;
-import org.fuin.ddd4j.ddd.AggregateAlreadyExistsException;
-import org.fuin.ddd4j.ddd.AggregateDeletedException;
-import org.fuin.ddd4j.ddd.AggregateNotFoundException;
-import org.fuin.ddd4j.ddd.AggregateVersionConflictException;
-import org.fuin.ddd4j.ddd.AggregateVersionNotFoundException;
+import org.fuin.ddd4j.ddd.*;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.ExceptionShortIdentifable;
 import org.fuin.objects4j.common.Nullable;
@@ -37,6 +28,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Maps the exceptions into a HTTP status.
