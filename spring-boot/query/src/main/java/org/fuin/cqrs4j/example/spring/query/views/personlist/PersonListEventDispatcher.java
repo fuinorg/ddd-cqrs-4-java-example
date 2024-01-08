@@ -24,9 +24,10 @@ public class PersonListEventDispatcher implements EventDispatcher {
     /**
      * Default constructor.
      */
-    public PersonListEventDispatcher(final PersonCreatedEventHandler createdHandler) {
+    public PersonListEventDispatcher(final PersonCreatedEventHandler createdHandler,
+                                     final PersonDeletedEventHandler deletedHandler) {
         super();
-        delegate = new SimpleEventDispatcher(createdHandler);
+        delegate = new SimpleEventDispatcher(createdHandler, deletedHandler);
     }
 
     @Override

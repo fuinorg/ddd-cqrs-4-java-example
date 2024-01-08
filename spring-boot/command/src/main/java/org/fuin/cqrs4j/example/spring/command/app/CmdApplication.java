@@ -1,5 +1,6 @@
 package org.fuin.cqrs4j.example.spring.command.app;
 
+import org.fuin.cqrs4j.example.aggregates.EventStorePersonRepository;
 import org.fuin.cqrs4j.example.aggregates.PersonRepository;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +23,7 @@ public class CmdApplication {
     @Bean
     @RequestScope
     public PersonRepository create(final IESGrpcEventStore eventStore) {
-        return new PersonRepository(eventStore);
+        return new EventStorePersonRepository(eventStore);
     }
 
     public static void main(String[] args) {

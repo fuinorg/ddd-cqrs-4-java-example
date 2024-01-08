@@ -2,30 +2,31 @@ package org.fuin.cqrs4j.example.shared;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.validation.constraints.NotNull;
-import org.fuin.cqrs4j.AbstractAggregateCommand;
-import org.fuin.ddd4j.ddd.DomainEventExpectedEntityIdPath;
+import org.fuin.ddd4j.ddd.AbstractDomainEvent;
+import org.fuin.ddd4j.ddd.AggregateVersion;
+import org.fuin.ddd4j.ddd.EntityIdPath;
 import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.spi.SerializedDataType;
+import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
 
 /**
- * A new person should be created in the system.
+ * A person was deleted from the system.
  */
 @Immutable
-@DomainEventExpectedEntityIdPath(PersonId.class)
-public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId, PersonId> {
+public final class PersonDeletedEvent extends AbstractDomainEvent<PersonId> {
 
     private static final long serialVersionUID = 1000L;
 
     /**
      * Never changing unique event type name.
      */
-    public static final EventType TYPE = new EventType("CreatePersonCommand");
+    public static final EventType TYPE = new EventType("PersonDeletedEvent");
 
     /**
      * Unique name used for marshalling/unmarshalling the event.
      */
-    public static final SerializedDataType SER_TYPE = new SerializedDataType(CreatePersonCommand.TYPE.asBaseType());
+    public static final SerializedDataType SER_TYPE = new SerializedDataType(PersonDeletedEvent.TYPE.asBaseType());
 
     @NotNull
     @JsonbProperty("name")
@@ -34,13 +35,13 @@ public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId
     /**
      * Protected default constructor for deserialization.
      */
-    protected CreatePersonCommand() {
+    protected PersonDeletedEvent() {
         super();
     }
 
     @Override
     public final EventType getEventType() {
-        return CreatePersonCommand.TYPE;
+        return PersonDeletedEvent.TYPE;
     }
 
     /**
@@ -55,18 +56,18 @@ public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId
 
     @Override
     public final String toString() {
-        return "Create person '" + name + "' with identifier '" + getAggregateRootId() + "'";
+        return "Deleted person '" + name + "' (" + getEntityId() + ") [Event " + getEventId() + "]";
     }
 
     /**
      * Builds an instance of the outer class.
      */
-    public static final class Builder extends AbstractAggregateCommand.Builder<PersonId, PersonId, CreatePersonCommand, Builder> {
+    public static final class Builder extends AbstractDomainEvent.Builder<PersonId, PersonDeletedEvent, Builder> {
 
-        private CreatePersonCommand delegate;
+        private PersonDeletedEvent delegate;
 
         public Builder() {
-            super(new CreatePersonCommand());
+            super(new PersonDeletedEvent());
             delegate = delegate();
         }
 
@@ -85,13 +86,18 @@ public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId
             return this;
         }
 
-        public CreatePersonCommand build() {
-            ensureBuildableAbstractAggregateCommand();
+        public Builder version(int version) {
+            aggregateVersion(AggregateVersion.valueOf(version));
+            return this;
+        }
+
+        public PersonDeletedEvent build() {
+            ensureBuildableAbstractDomainEvent();
             ensureNotNull("name", delegate.name);
 
-            final CreatePersonCommand result = delegate;
-            delegate = new CreatePersonCommand();
-            resetAbstractAggregateCommand(delegate);
+            final PersonDeletedEvent result = delegate;
+            delegate = new PersonDeletedEvent();
+            resetAbstractDomainEvent(delegate);
             return result;
         }
 

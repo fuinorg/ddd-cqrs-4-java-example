@@ -20,7 +20,9 @@ public final class SharedUtils {
 
     /** All types that will be written into and read from the event store. */
     private static final TypeClass[] USER_DEFINED_TYPES = new TypeClass[] {
-            new TypeClass(PersonCreatedEvent.SER_TYPE, PersonCreatedEvent.class) };
+            new TypeClass(PersonCreatedEvent.SER_TYPE, PersonCreatedEvent.class),
+            new TypeClass(PersonDeletedEvent.SER_TYPE, PersonDeletedEvent.class)
+    };
 
     /** All JSON-B adapters from this module. */
     public static final JsonbAdapter<?, ?>[] JSONB_ADAPTERS = new JsonbAdapter<?, ?>[] { new EventIdConverter(),

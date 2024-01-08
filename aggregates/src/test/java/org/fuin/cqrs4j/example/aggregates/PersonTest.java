@@ -1,8 +1,10 @@
 package org.fuin.cqrs4j.example.aggregates;
 
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonDeletedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
+import org.fuin.ddd4j.ddd.AggregateDeletedException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -33,6 +35,7 @@ public class PersonTest {
         assertThat(testee.getUncommittedChanges().get(0)).isInstanceOf(PersonCreatedEvent.class);
         final PersonCreatedEvent event = (PersonCreatedEvent) testee.getUncommittedChanges().get(0);
         assertThat(event.getEntityId()).isEqualTo(personId);
+        assertThat(event.getAggregateVersionInteger()).isEqualTo(0);
         assertThat(event.getName()).isEqualTo(personName);
 
     }
@@ -54,6 +57,31 @@ public class PersonTest {
         } catch (final DuplicatePersonNameException ex) {
             assertThat(ex.getMessage()).isEqualTo("The name 'Peter Parker' already exists: " + otherId);
         }
+
+    }
+
+    @Test
+    public void testDeleteOK() throws DuplicatePersonNameException, AggregateDeletedException {
+
+        // PREPARE
+        final PersonId personId = new PersonId(UUID.randomUUID());
+        final PersonName personName = new PersonName("Peter Parker");
+        final PersonId otherId = new PersonId(UUID.randomUUID());
+        final Person testee = new Person(personId, personName, pid -> {
+            return Optional.empty();
+        });
+        testee.markChangesAsCommitted();
+
+        // TEST
+        testee.delete();
+
+        //VERIFY
+        assertThat(testee.getUncommittedChanges()).hasSize(1);
+        assertThat(testee.getUncommittedChanges().get(0)).isInstanceOf(PersonDeletedEvent.class);
+        final PersonDeletedEvent event = (PersonDeletedEvent) testee.getUncommittedChanges().get(0);
+        assertThat(event.getEntityId()).isEqualTo(personId);
+        assertThat(event.getAggregateVersionInteger()).isEqualTo(1);
+        assertThat(event.getName()).isEqualTo(personName);
 
     }
 

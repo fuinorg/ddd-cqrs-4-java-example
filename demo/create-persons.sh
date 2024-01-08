@@ -1,4 +1,4 @@
-for file in ./*.json
+for file in ./create-*-command.json
 do
   curl -i \
     -H "Content-Type:application/json" \

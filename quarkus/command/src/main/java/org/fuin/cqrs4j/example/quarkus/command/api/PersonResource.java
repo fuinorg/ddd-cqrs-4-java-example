@@ -4,10 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -18,11 +15,12 @@ import org.fuin.cqrs4j.example.aggregates.DuplicatePersonNameException;
 import org.fuin.cqrs4j.example.aggregates.Person;
 import org.fuin.cqrs4j.example.aggregates.PersonRepository;
 import org.fuin.cqrs4j.example.shared.CreatePersonCommand;
-import org.fuin.ddd4j.ddd.AggregateAlreadyExistsException;
-import org.fuin.ddd4j.ddd.AggregateDeletedException;
+import org.fuin.cqrs4j.example.shared.DeletePersonCommand;
+import org.fuin.ddd4j.ddd.*;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Path("/persons")
 public class PersonResource {
@@ -62,6 +60,37 @@ public class PersonResource {
         } catch (final DuplicatePersonNameException ex) {
             throw new CommandExecutionFailedException(ex);
         }
+
+    }
+
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{personId}")
+    public Response delete(@PathParam("personId") final UUID personId, final DeletePersonCommand cmd)
+            throws AggregateVersionConflictException, AggregateVersionNotFoundException,
+            AggregateDeletedException, AggregateNotFoundException {
+
+        // Verify preconditions
+        final Set<ConstraintViolation<DeletePersonCommand>> violations = validator.validate(cmd);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+
+        // Read last known entity version
+        final Person person = repo.read(cmd.getAggregateRootId(), cmd.getAggregateVersionInteger());
+
+        // Try to delete the aggregate
+        // Internally just sets a 'deleted' flag
+        person.delete();
+
+        // Write resulting events back to the repository
+        // DO NOT call "repo.delete(..)! If you would do, you would never see a "deleted" event...
+        // The repository "delete" really removes the stream and is more like a "purge".
+        repo.update(person);
+
+        // Send OK response
+        return Response.ok(SimpleResult.ok()).build();
 
     }
 

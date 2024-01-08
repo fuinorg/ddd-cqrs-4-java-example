@@ -3,6 +3,7 @@ package org.fuin.cqrs4j.example.quarkus.query.views.statistic;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import org.fuin.cqrs4j.example.shared.PersonDeletedEvent;
 import org.fuin.cqrs4j.example.shared.View;
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
 import org.fuin.ddd4j.ddd.Event;
@@ -33,13 +34,13 @@ public class StatisticView implements View {
 
     @Override
     public String getCron() {
-        // Every minute
+        // Every second
         return "* * * * * ? *";
     }
 
     @Override
     public Set<EventType> getEventTypes() {
-        return Set.of(PersonCreatedEvent.TYPE);
+        return Set.of(PersonCreatedEvent.TYPE, PersonDeletedEvent.TYPE);
     }
 
     @Override
@@ -47,6 +48,8 @@ public class StatisticView implements View {
         for (final Event event : events) {
             if (event instanceof PersonCreatedEvent ev) {
                 handlePersonCreatedEvent(ev);
+            } else if (event instanceof PersonDeletedEvent ev) {
+                    handlePersonDeletedEvent(ev);
             } else {
                 throw new RuntimeException("Cannot handle event: " + event);
             }
@@ -60,6 +63,14 @@ public class StatisticView implements View {
             em.persist(new StatisticEntity(PERSON));
         } else {
             entity.inc();
+        }
+    }
+
+    private void handlePersonDeletedEvent(final PersonDeletedEvent event) {
+        LOG.info("Handle {}: {}", event.getClass().getSimpleName(), event);
+        final StatisticEntity entity = em.find(StatisticEntity.class, PERSON.name());
+        if (entity != null) {
+            entity.dec();
         }
     }
 

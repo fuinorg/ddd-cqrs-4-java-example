@@ -24,10 +24,13 @@ public class PersonListEventDispatcher implements EventDispatcher {
      * 
      * @param createdHandler
      *            PersonCreatedEventHandler.
+     * @param deletedHandler
+     *            PersonDeletedEventHandler.
      */
-    public PersonListEventDispatcher(final PersonCreatedEventHandler createdHandler) {
+    public PersonListEventDispatcher(final PersonCreatedEventHandler createdHandler,
+                                     final PersonDeletedEventHandler deletedHandler) {
         super();
-        this.delegate = new SimpleEventDispatcher(createdHandler);
+        this.delegate = new SimpleEventDispatcher(createdHandler, deletedHandler);
     }
 
     @Override

@@ -5,6 +5,7 @@ import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.yasson.FieldAccessStrategy;
+import org.fuin.ddd4j.ddd.AggregateVersion;
 import org.fuin.utils4j.Utils4J;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF
-public final class CreatePersonCommandTest {
+public final class DeletePersonCommandTest {
 
     private static final String PERSON_UUID = "84565d62-115e-4502-b7c9-38ad69c64b05";
 
@@ -24,14 +25,15 @@ public final class CreatePersonCommandTest {
     public final void testSerializeDeserialize() {
 
         // PREPARE
-        final CreatePersonCommand original = createTestee();
+        final DeletePersonCommand original = createTestee();
 
         // TEST
-        final CreatePersonCommand copy = Utils4J.deserialize(Utils4J.serialize(original));
+        final DeletePersonCommand copy = Utils4J.deserialize(Utils4J.serialize(original));
 
         // VERIFY
         assertThat(copy).isEqualTo(original);
         assertThat(copy.getAggregateRootId()).isEqualTo(original.getAggregateRootId());
+        assertThat(copy.getAggregateVersionInteger()).isEqualTo(0L);
         assertThat(copy.getName()).isEqualTo(original.getName());
 
     }
@@ -40,19 +42,20 @@ public final class CreatePersonCommandTest {
     public final void testMarshalUnmarshalJson() {
 
         // PREPARE
-        final CreatePersonCommand original = createTestee();
+        final DeletePersonCommand original = createTestee();
 
         final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.JSONB_ADAPTERS)
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy());
         final Jsonb jsonb = JsonbBuilder.create(config);
 
         // TEST
-        final String json = jsonb.toJson(original, CreatePersonCommand.class);
-        final CreatePersonCommand copy = jsonb.fromJson(json, CreatePersonCommand.class);
+        final String json = jsonb.toJson(original, DeletePersonCommand.class);
+        final DeletePersonCommand copy = jsonb.fromJson(json, DeletePersonCommand.class);
 
         // VERIFY
         assertThat(copy).isEqualTo(original);
         assertThat(copy.getAggregateRootId()).isEqualTo(original.getAggregateRootId());
+        assertThat(copy.getAggregateVersionInteger()).isEqualTo(0L);
         assertThat(copy.getName()).isEqualTo(original.getName());
 
     }
@@ -61,27 +64,28 @@ public final class CreatePersonCommandTest {
     public final void testUnmarshalJsonFromFile() throws IOException {
 
         // PREPARE
-        final String json = IOUtils.toString(this.getClass().getResourceAsStream("/commands/CreatePersonCommand.json"),
+        final String json = IOUtils.toString(this.getClass().getResourceAsStream("/commands/DeletePersonCommand.json"),
                 Charset.forName("utf-8"));
         final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.JSONB_ADAPTERS)
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy());
         final Jsonb jsonb = JsonbBuilder.create(config);
 
         // TEST
-        final CreatePersonCommand copy = jsonb.fromJson(json, CreatePersonCommand.class);
+        final DeletePersonCommand copy = jsonb.fromJson(json, DeletePersonCommand.class);
 
         // VERIFY
         assertThat(copy.getEventId().asBaseType()).isEqualTo(UUID.fromString("109a77b2-1de2-46fc-aee1-97fa7740a552"));
         assertThat(copy.getEventTimestamp()).isEqualTo(ZonedDateTime.parse("2019-11-17T10:27:13.183+01:00[Europe/Berlin]"));
         assertThat(copy.getAggregateRootId().asString()).isEqualTo(PERSON_UUID);
+        assertThat(copy.getAggregateVersionInteger()).isEqualTo(0L);
         assertThat(copy.getName().asString()).isEqualTo("Peter Parker");
 
     }
 
-    private CreatePersonCommand createTestee() {
+    private DeletePersonCommand createTestee() {
         final PersonId personId = new PersonId(UUID.fromString(PERSON_UUID));
         final PersonName personName = new PersonName("Peter Parker");
-        return new CreatePersonCommand.Builder().id(personId).name(personName).build();
+        return new DeletePersonCommand.Builder().id(personId).name(personName).version(0).build();
     }
 
 }

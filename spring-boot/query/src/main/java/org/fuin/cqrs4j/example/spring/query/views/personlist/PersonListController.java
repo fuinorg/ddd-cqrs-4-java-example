@@ -24,9 +24,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/persons")
 @Transactional(readOnly = true)
-public class PersonController {
+public class PersonListController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PersonController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PersonListController.class);
 
     @Autowired
     private EntityManager em;
