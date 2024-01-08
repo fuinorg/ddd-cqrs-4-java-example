@@ -6,10 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
 import org.fuin.cqrs4j.ResultType;
 import org.fuin.cqrs4j.SimpleResult;
-import org.fuin.cqrs4j.example.shared.CreatePersonCommand;
-import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.shared.PersonId;
-import org.fuin.cqrs4j.example.shared.PersonName;
+import org.fuin.cqrs4j.example.shared.*;
 import org.fuin.esc.api.CommonEvent;
 import org.fuin.esc.api.SimpleStreamId;
 import org.fuin.esc.api.StreamEventsSlice;
@@ -17,7 +14,6 @@ import org.fuin.esc.api.TypeName;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
