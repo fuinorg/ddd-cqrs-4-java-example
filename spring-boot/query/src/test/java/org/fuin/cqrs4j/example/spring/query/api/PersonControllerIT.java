@@ -7,7 +7,7 @@ import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.cqrs4j.example.spring.query.app.QryApplication;
-import org.fuin.cqrs4j.example.spring.query.controller.PersonController;
+import org.fuin.cqrs4j.example.spring.query.views.personlist.PersonController;
 import org.fuin.cqrs4j.example.spring.query.views.personlist.PersonListEntry;
 import org.fuin.cqrs4j.example.spring.shared.Config;
 import org.fuin.esc.api.*;
