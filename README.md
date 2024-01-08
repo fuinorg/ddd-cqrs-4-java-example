@@ -108,24 +108,41 @@ For more details see [spring-boot/command](spring-boot/command).
 2. Opening [http://localhost:8080/persons](http://localhost:8080/persons) should show an empty JSON array
 
 ### Execute a test command (Console window 4)
-Change into the demo directory and execute a command using cURL (See [shell script](demo/create-person-command.sh) and [command](demo/create-person-command.json)) 
+Change into the demo directory and execute the command using cURL (See [shell script](demo/create-persons.sh) and JSON files with commands in [demo](demo)) 
 ```
 cd ddd-cqrs-4-java-example/demo
-./create-person-command.sh
+./create-persons.sh
 ```   
 Command service (Console window 3) should show something like
 ```
+Update aggregate: id=PERSON 954177c4-aeb7-4d1e-b6d7-3e02fe9432cb, version=-1, nextVersion=0
+Update aggregate: id=PERSON 568df38c-fdc3-4f60-81aa-d3cce9ebfd7b, version=-1, nextVersion=0
 Update aggregate: id=PERSON 84565d62-115e-4502-b7c9-38ad69c64b05, version=-1, nextVersion=0
 ```   
 Query service (Console window 2) should show something like
 ```
-PersonCreatedEventHandler ... Handle PersonCreatedEvent: Person 'Peter Parker' was created
+Handle PersonCreatedEvent: Person 'Harry Osborn' (954177c4-aeb7-4d1e-b6d7-3e02fe9432cb) was created
+Handle PersonCreatedEvent: Person 'Mary Jane Watson' (568df38c-fdc3-4f60-81aa-d3cce9ebfd7b) was created
+Handle PersonCreatedEvent: Person 'Peter Parker' (84565d62-115e-4502-b7c9-38ad69c64b05) was created
 ```    
 
 ### Verify the query data was updated
 1. Refreshing [http://localhost:8080/persons](http://localhost:8080/persons) should show
     ```json
-    [{"id":"84565d62-115e-4502-b7c9-38ad69c64b05","name":"Peter Parker"}]
+    [
+       {
+           "id": "568df38c-fdc3-4f60-81aa-d3cce9ebfd7b",
+           "name": "Mary Jane Watson"
+       },
+       {
+           "id": "84565d62-115e-4502-b7c9-38ad69c64b05",
+           "name": "Peter Parker"
+       },
+       {
+           "id": "954177c4-aeb7-4d1e-b6d7-3e02fe9432cb",
+           "name": "Harry Osborn"
+       }
+    ]
     ```
 2. Opening [http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05) should show
     ```json

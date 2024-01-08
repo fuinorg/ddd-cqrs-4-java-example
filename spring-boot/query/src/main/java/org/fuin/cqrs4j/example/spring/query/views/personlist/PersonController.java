@@ -1,8 +1,7 @@
-package org.fuin.cqrs4j.example.spring.query.controller;
+package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import jakarta.persistence.EntityManager;
 import org.fuin.cqrs4j.example.shared.PersonId;
-import org.fuin.cqrs4j.example.spring.query.views.personlist.PersonListEntry;
 import org.fuin.ddd4j.ddd.AggregateNotFoundException;
 import org.fuin.objects4j.vo.UUIDStr;
 import org.slf4j.Logger;
@@ -19,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * REST controller providing the persons.
+ */
 @RestController
 @RequestMapping("/persons")
 @Transactional(readOnly = true)

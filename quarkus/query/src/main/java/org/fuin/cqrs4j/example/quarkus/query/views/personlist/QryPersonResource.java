@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.quarkus.query.api;
+package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -13,6 +13,9 @@ import org.fuin.objects4j.vo.UUIDStrValidator;
 
 import java.util.List;
 
+/**
+ * REST resource providing the persons.
+ */
 @Path("/persons")
 public class QryPersonResource {
 
