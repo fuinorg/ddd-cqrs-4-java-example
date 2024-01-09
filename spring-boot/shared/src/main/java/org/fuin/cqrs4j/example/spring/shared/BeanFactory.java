@@ -2,14 +2,15 @@ package org.fuin.cqrs4j.example.spring.shared;
 
 import com.eventstore.dbclient.EventStoreDBClient;
 import com.eventstore.dbclient.EventStoreDBClientSettings;
+import com.eventstore.dbclient.EventStoreDBProjectionManagementClient;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
 import org.eclipse.yasson.FieldAccessStrategy;
 import org.fuin.cqrs4j.example.shared.SharedUtils;
-import org.fuin.esc.admin.HttpProjectionAdminEventStore;
 import org.fuin.esc.api.ProjectionAdminEventStore;
 import org.fuin.esc.esgrpc.ESGrpcEventStore;
+import org.fuin.esc.esgrpc.GrpcProjectionAdminEventStore;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.fuin.esc.spi.EnhancedMimeType;
 import org.fuin.esc.spi.SerDeserializerRegistry;
@@ -17,9 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.net.Authenticator;
-import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -40,30 +39,42 @@ public class BeanFactory {
         return JsonbBuilder.create(config);
     }
 
-    /**
-     * Creates an event store connection.
-     *
-     * @param config Configuration to use.
-     * @return New event store instance.
-     */
-    @Bean(destroyMethod = "close")
-    public IESGrpcEventStore getESJCEventStore(final Config config) {
 
-        final SerDeserializerRegistry registry = SharedUtils.createRegistry();
-
-        final EventStoreDBClientSettings setts = EventStoreDBClientSettings.builder()
+    @Bean
+    public EventStoreDBClient createEventStoreDBClient(final Config config) {
+        final EventStoreDBClientSettings settings = EventStoreDBClientSettings.builder()
                 .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
                 .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
                 .tls(false)
                 .buildConnectionSettings();
+        return EventStoreDBClient.create(settings);
+    }
 
-        final EventStoreDBClient client = EventStoreDBClient.create(setts);
-        final IESGrpcEventStore eventstore = new ESGrpcEventStore.Builder().eventStore(client).serDesRegistry(registry)
+    @Bean
+    public EventStoreDBProjectionManagementClient createEventStoreDBProjectionManagementClient(final Config config) {
+        final EventStoreDBClientSettings settings = EventStoreDBClientSettings.builder()
+                .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
+                .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
+                .tls(false)
+                .buildConnectionSettings();
+        return EventStoreDBProjectionManagementClient.create(settings);
+    }
+
+
+    /**
+     * Creates an event store connection.
+     *
+     * @param client Client to use.
+     * @return New event store instance.
+     */
+    @Bean(destroyMethod = "close")
+    public IESGrpcEventStore getESJCEventStore(final EventStoreDBClient client) {
+
+        final SerDeserializerRegistry registry = SharedUtils.createRegistry();
+
+        return new ESGrpcEventStore.Builder().eventStore(client).serDesRegistry(registry)
                 .targetContentType(EnhancedMimeType.create("application", "json", StandardCharsets.UTF_8))
-                .build();
-
-        eventstore.open();
-        return eventstore;
+                .build().open();
 
     }
 
@@ -82,22 +93,14 @@ public class BeanFactory {
 
 
     /**
-     * Creates an HTTP based projection admin event store.
+     * Creates an GRPC based projection admin event store.
      *
-     * @param config     Configuration to use.
-     * @param httpClient Client to use.
+     * @param client Client to use.
      * @return New event store instance.
      */
     @Bean(destroyMethod = "close")
-    public ProjectionAdminEventStore getProjectionAdminEventStore(final Config config, final HttpClient httpClient) {
-        final String url = config.getEventStoreProtocol() + "://" + config.getEventStoreHost() + ":" + config.getEventStoreHttpPort();
-        try {
-            final ProjectionAdminEventStore es = new HttpProjectionAdminEventStore(httpClient, new URL(url));
-            es.open();
-            return es;
-        } catch (final MalformedURLException ex) {
-            throw new RuntimeException("Failed to create URL: " + url, ex);
-        }
+    public ProjectionAdminEventStore getProjectionAdminEventStore(final EventStoreDBProjectionManagementClient client) {
+        return new GrpcProjectionAdminEventStore(client).open();
     }
 
 }

@@ -1,30 +1,11 @@
-/**
- * Copyright (C) 2015 Michael Schnell. All rights reserved. 
- * http://www.fuin.org/
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 3 of the License, or (at your option) any
- * later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library. If not, see http://www.gnu.org/licenses/.
- */
 package org.fuin.cqrs4j.example.shared;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.cqrs4j.AbstractAggregateCommand;
 import org.fuin.ddd4j.ddd.DomainEventExpectedEntityIdPath;
 import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.spi.SerializedDataType;
-import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
 
 /**
@@ -36,10 +17,14 @@ public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId
 
     private static final long serialVersionUID = 1000L;
 
-    /** Never changing unique event type name. */
+    /**
+     * Never changing unique event type name.
+     */
     public static final EventType TYPE = new EventType("CreatePersonCommand");
 
-    /** Unique name used for marshalling/unmarshalling the event. */
+    /**
+     * Unique name used for marshalling/unmarshalling the event.
+     */
     public static final SerializedDataType SER_TYPE = new SerializedDataType(CreatePersonCommand.TYPE.asBaseType());
 
     @NotNull
@@ -51,20 +36,6 @@ public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId
      */
     protected CreatePersonCommand() {
         super();
-    }
-
-    /**
-     * A new person was created in the system.
-     *
-     * @param id
-     *            Identifies uniquely a person.
-     * @param name
-     *            Name of a person.
-     */
-    public CreatePersonCommand(@NotNull final PersonId id, @NotNull final PersonName name) {
-        super(id, null);
-        Contract.requireArgNotNull("name", name);
-        this.name = name;
     }
 
     @Override
@@ -85,6 +56,45 @@ public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId
     @Override
     public final String toString() {
         return "Create person '" + name + "' with identifier '" + getAggregateRootId() + "'";
+    }
+
+    /**
+     * Builds an instance of the outer class.
+     */
+    public static final class Builder extends AbstractAggregateCommand.Builder<PersonId, PersonId, CreatePersonCommand, Builder> {
+
+        private CreatePersonCommand delegate;
+
+        public Builder() {
+            super(new CreatePersonCommand());
+            delegate = delegate();
+        }
+
+        public Builder id(PersonId personId) {
+            entityIdPath(personId);
+            return this;
+        }
+
+        public Builder name(String name) {
+            delegate.name = new PersonName(name);
+            return this;
+        }
+
+        public Builder name(PersonName name) {
+            delegate.name = name;
+            return this;
+        }
+
+        public CreatePersonCommand build() {
+            ensureBuildableAbstractAggregateCommand();
+            ensureNotNull("name", delegate.name);
+
+            final CreatePersonCommand result = delegate;
+            delegate = new CreatePersonCommand();
+            resetAbstractAggregateCommand(delegate);
+            return result;
+        }
+
     }
 
 }

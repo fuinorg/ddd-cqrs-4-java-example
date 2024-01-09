@@ -1,28 +1,15 @@
-/**
- * Copyright (C) 2015 Michael Schnell. All rights reserved. http://www.fuin.org/
- *
- * This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
- * http://www.gnu.org/licenses/.
- */
 package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
-
-import java.util.List;
-import java.util.Set;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.cqrs4j.EventDispatcher;
 import org.fuin.cqrs4j.SimpleEventDispatcher;
 import org.fuin.ddd4j.ddd.Event;
 import org.fuin.ddd4j.ddd.EventType;
 import org.fuin.esc.api.CommonEvent;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Dispatches events for the person list view.
@@ -37,10 +24,13 @@ public class PersonListEventDispatcher implements EventDispatcher {
      * 
      * @param createdHandler
      *            PersonCreatedEventHandler.
+     * @param deletedHandler
+     *            PersonDeletedEventHandler.
      */
-    public PersonListEventDispatcher(final PersonCreatedEventHandler createdHandler) {
+    public PersonListEventDispatcher(final PersonCreatedEventHandler createdHandler,
+                                     final PersonDeletedEventHandler deletedHandler) {
         super();
-        this.delegate = new SimpleEventDispatcher(createdHandler);
+        this.delegate = new SimpleEventDispatcher(createdHandler, deletedHandler);
     }
 
     @Override

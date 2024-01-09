@@ -35,7 +35,7 @@ In case you want to run the integration test inside your IDE (Eclipse or other),
    ```
 4. Run the microservice
    ```
-    ./target/cqrs4j-quarkus-example-query-0.3.0-runner \
+    ./target/cqrs4j-quarkus-example-query-0.4.0-SNAPSHOT-runner \
         -Djava.library.path=$GRAALVM_HOME/jre/lib/amd64 \
         -Djavax.net.ssl.trustStore=$GRAALVM_HOME/jre/lib/security/cacerts
    ```

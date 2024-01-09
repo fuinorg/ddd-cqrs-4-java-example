@@ -1,29 +1,18 @@
-/**
- * Copyright (C) 2015 Michael Schnell. All rights reserved. http://www.fuin.org/
- *
- * This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License along with this library. If not, see
- * http://www.gnu.org/licenses/.
- */
 package org.fuin.cqrs4j.example.aggregates;
 
-import java.io.Serializable;
-import java.util.Optional;
-
 import jakarta.validation.constraints.NotNull;
-
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.shared.PersonDeletedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
 import org.fuin.ddd4j.ddd.AbstractAggregateRoot;
+import org.fuin.ddd4j.ddd.AggregateDeletedException;
 import org.fuin.ddd4j.ddd.ApplyEvent;
 import org.fuin.ddd4j.ddd.EntityType;
 import org.fuin.objects4j.common.Contract;
+
+import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * Represents a natural person.
@@ -34,6 +23,11 @@ public class Person extends AbstractAggregateRoot<PersonId> implements Serializa
 
     @NotNull
     private PersonId id;
+
+    @NotNull
+    private PersonName name;
+
+    private boolean deleted;
 
     /**
      * Default constructor that is mandatory for aggregate roots.
@@ -72,8 +66,20 @@ public class Person extends AbstractAggregateRoot<PersonId> implements Serializa
         }
 
         // CREATE EVENT
-        apply(new PersonCreatedEvent(id, name));
+        apply(new PersonCreatedEvent.Builder().id(id).name(name).version(getNextVersion() + 1).build());
 
+    }
+
+    /**
+     * Deletes the person.
+     *
+     * @throws AggregateDeletedException The aggregate was already deleted.
+     */
+    public void delete() throws AggregateDeletedException {
+        if (deleted) {
+            throw new AggregateDeletedException(PersonId.TYPE, id);
+        }
+        apply(new PersonDeletedEvent.Builder().id(id).name(name).version(getNextVersion() + 1).build());
     }
 
     @Override
@@ -89,6 +95,12 @@ public class Person extends AbstractAggregateRoot<PersonId> implements Serializa
     @ApplyEvent
     public void applyEvent(final PersonCreatedEvent event) {
         this.id = event.getEntityId();
+        this.name = event.getName();
+    }
+
+    @ApplyEvent
+    public void applyEvent(final PersonDeletedEvent event) {
+        this.deleted = true;
     }
 
     /**

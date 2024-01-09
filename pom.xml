@@ -6,7 +6,7 @@
 
 	<groupId>org.fuin.cqrs4j.example</groupId>
 	<artifactId>cqrs4j-example-root</artifactId>
-	<version>0.3.0</version>
+	<version>0.4.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -15,13 +15,12 @@
 		<maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<esc.version>0.7.0-SNAPSHOT</esc.version>
+		<esc.version>0.7.0</esc.version>
 	</properties>
 
 	<modules>
 		<module>shared</module>
 		<module>aggregates</module>
-		<module>java-se-cdi</module>
 		<module>quarkus</module>
 		<module>spring-boot</module>
 	</modules>
@@ -69,12 +68,6 @@
 			<dependency>
 				<groupId>org.fuin.esc</groupId>
 				<artifactId>esc-esgrpc</artifactId>
-				<version>${esc.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.fuin.esc</groupId>
-				<artifactId>esc-http-admin</artifactId>
 				<version>${esc.version}</version>
 			</dependency>
 
