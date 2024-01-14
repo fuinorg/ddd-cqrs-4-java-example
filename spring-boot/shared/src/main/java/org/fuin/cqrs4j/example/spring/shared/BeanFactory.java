@@ -12,8 +12,8 @@ import org.fuin.esc.api.ProjectionAdminEventStore;
 import org.fuin.esc.esgrpc.ESGrpcEventStore;
 import org.fuin.esc.esgrpc.GrpcProjectionAdminEventStore;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
-import org.fuin.esc.spi.EnhancedMimeType;
-import org.fuin.esc.spi.SerDeserializerRegistry;
+import org.fuin.esc.api.EnhancedMimeType;
+import org.fuin.esc.api.SerDeserializerRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 

@@ -6,7 +6,7 @@ import org.fuin.ddd4j.ddd.AbstractDomainEvent;
 import org.fuin.ddd4j.ddd.AggregateVersion;
 import org.fuin.ddd4j.ddd.EntityIdPath;
 import org.fuin.ddd4j.ddd.EventType;
-import org.fuin.esc.spi.SerializedDataType;
+import org.fuin.esc.api.SerializedDataType;
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.common.Immutable;
 
@@ -14,6 +14,7 @@ import org.fuin.objects4j.common.Immutable;
  * A person was deleted from the system.
  */
 @Immutable
+@SerializedDataTypeConstant
 public final class PersonDeletedEvent extends AbstractDomainEvent<PersonId> {
 
     private static final long serialVersionUID = 1000L;

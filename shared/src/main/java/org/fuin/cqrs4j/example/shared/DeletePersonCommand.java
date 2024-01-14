@@ -6,7 +6,7 @@ import org.fuin.cqrs4j.AbstractAggregateCommand;
 import org.fuin.ddd4j.ddd.AggregateVersion;
 import org.fuin.ddd4j.ddd.DomainEventExpectedEntityIdPath;
 import org.fuin.ddd4j.ddd.EventType;
-import org.fuin.esc.spi.SerializedDataType;
+import org.fuin.esc.api.SerializedDataType;
 import org.fuin.objects4j.common.Immutable;
 
 /**

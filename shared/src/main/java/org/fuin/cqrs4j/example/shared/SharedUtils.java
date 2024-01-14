@@ -3,7 +3,10 @@ package org.fuin.cqrs4j.example.shared;
 import jakarta.json.bind.adapter.JsonbAdapter;
 import jakarta.json.bind.config.PropertyVisibilityStrategy;
 import org.fuin.ddd4j.ddd.*;
+import org.fuin.ddd4j.ddd.EventIdConverter;
+import org.fuin.esc.api.*;
 import org.fuin.esc.spi.*;
+
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -68,7 +71,7 @@ public final class SharedUtils {
      * @return New instance.
      */
     public static SerDeserializerRegistry createSerDeserializerRegistry(final SerializedDataTypeRegistry typeRegistry,
-            final JsonbDeSerializer jsonbDeSer) {
+                                                                        final JsonbDeSerializer jsonbDeSer) {
 
         final SimpleSerializerDeserializerRegistry registry = new SimpleSerializerDeserializerRegistry();
 

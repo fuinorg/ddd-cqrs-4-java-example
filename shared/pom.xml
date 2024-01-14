@@ -64,6 +64,11 @@
 			<artifactId>jakarta.persistence-api</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.errorprone</groupId>
+			<artifactId>error_prone_annotations</artifactId>
+		</dependency>
+
 		<!-- Test -->
 
 		<dependency>
@@ -114,6 +119,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>com.tngtech.archunit</groupId>
+			<artifactId>archunit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -123,6 +134,37 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>${java.version}</release>
+					<generatedSourcesDirectory>${project.basedir}/src-gen/main/java</generatedSourcesDirectory>
+					<generatedTestSourcesDirectory>${project.basedir}/src-gen/test/java</generatedTestSourcesDirectory>
+					<annotationProcessorPaths>
+						<annotationProcessorPath>
+							<groupId>org.fuin</groupId>
+							<artifactId>ddd-4-java-codegen</artifactId>
+							<version>0.1.0-SNAPSHOT</version>
+						</annotationProcessorPath>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.spotify.fmt</groupId>
+				<artifactId>fmt-maven-plugin</artifactId>
+				<version>2.21.1</version>
+				<configuration>
+					<sourceDirectory>${project.basedir}/src-gen/main/java</sourceDirectory>
+					<testSourceDirectory>${project.basedir}/src-gen/test/java</testSourceDirectory>
+					<style>AOSP</style>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>format</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>

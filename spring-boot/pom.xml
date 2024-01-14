@@ -21,7 +21,7 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<esc.version>0.7.0</esc.version>
+		<esc.version>0.8.0-SNAPSHOT</esc.version>
 		<eventstore.version>21.10.1-bionic</eventstore.version>
 	</properties>
 	
@@ -32,19 +32,19 @@
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>ddd-4-java</artifactId>
-				<version>0.5.0</version>
+				<version>0.6.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>cqrs-4-java</artifactId>
-				<version>0.5.0</version>
+				<version>0.6.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>objects4j</artifactId>
-				<version>0.9.0</version>
+				<version>0.10.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
