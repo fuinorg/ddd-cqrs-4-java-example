@@ -136,6 +136,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<release>${java.version}</release>
+					<!--
 					<generatedSourcesDirectory>${project.basedir}/src-gen/main/java</generatedSourcesDirectory>
 					<generatedTestSourcesDirectory>${project.basedir}/src-gen/test/java</generatedTestSourcesDirectory>
 					<annotationProcessorPaths>
@@ -145,6 +146,7 @@
 							<version>0.1.0-SNAPSHOT</version>
 						</annotationProcessorPath>
 					</annotationProcessorPaths>
+					-->
 				</configuration>
 			</plugin>
 
