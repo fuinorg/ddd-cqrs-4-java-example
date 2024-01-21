@@ -1,13 +1,15 @@
 package org.fuin.cqrs4j.example.shared;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
-import com.tngtech.archunit.core.domain.properties.CanBeAnnotated;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
-import com.tngtech.archunit.lang.ArchRule;
-import org.fuin.cqrs4j.Command;
-import org.fuin.ddd4j.ddd.*;
-import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
+import org.fuin.cqrs4j.AggregateCommand;
+import org.fuin.ddd4j.ddd.AggregateRootUuid;
+import org.fuin.ddd4j.ddd.DomainEvent;
+import org.fuin.ddd4j.ddd.EntityId;
+import org.fuin.ddd4j.ddd.HasEntityTypeConstant;
+import org.fuin.esc.api.HasSerializedDataTypeConstant;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
+import org.fuin.utils4j.Utils4J;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -26,11 +28,16 @@ public class ArchitectureTest {
     }
 
     @Test
+    public void testX() {
+        Utils4J.classpathFiles().forEach(System.out::println);
+    }
+
+    @Test
     public void testDomainEventsAnnotations() {
 
         classes()
-                .that().implement(DomainEvent.class).and().doNotImplement(Command.class)
-                .should().beAnnotatedWith(SerializedDataTypeConstant.class)
+                .that().implement(DomainEvent.class).and().doNotImplement(AggregateCommand.class)
+                .should().beAnnotatedWith(HasSerializedDataTypeConstant.class)
                 .check(importedClasses);
     }
 

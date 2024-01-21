@@ -2,16 +2,16 @@ package org.fuin.cqrs4j.example.shared;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
 import jakarta.json.bind.config.PropertyVisibilityStrategy;
-import org.fuin.ddd4j.ddd.*;
 import org.fuin.ddd4j.ddd.EventIdConverter;
+import org.fuin.ddd4j.ddd.*;
 import org.fuin.esc.api.*;
 import org.fuin.esc.spi.*;
-
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.List;
 import java.util.zip.Adler32;
 
 /**
@@ -28,13 +28,32 @@ public final class SharedUtils {
     };
 
     /** All JSON-B adapters from this module. */
-    public static final JsonbAdapter<?, ?>[] JSONB_ADAPTERS = new JsonbAdapter<?, ?>[] { new EventIdConverter(),
-            new EntityIdPathConverter(new SharedEntityIdFactory()), new EntityIdConverter(new SharedEntityIdFactory()),
-            new AggregateVersionConverter(), new PersonId.Converter(), new PersonName.Converter() };
+    private static List<JsonbAdapter<?, ?>> JSONB_ADAPTERS;
 
     private SharedUtils() {
         throw new UnsupportedOperationException("It is not allowed to create an instance of a utiliy class");
     }
+
+    /**
+     * Returns all JSON-B adapter.
+     *
+     * @return JSON-B adapter list.
+     */
+    public static synchronized JsonbAdapter<?, ?>[] getJsonbAdapters() {
+        if (JSONB_ADAPTERS == null) {
+            final EntityIdFactory entityIdFactory = new JandexEntityIdFactory(); // Scans classes
+            JSONB_ADAPTERS = List.of(
+                    new EventIdConverter(),
+                    new EntityIdPathConverter(entityIdFactory),
+                    new EntityIdConverter(entityIdFactory),
+                    new AggregateVersionConverter(),
+                    new PersonId.Converter(),
+                    new PersonName.Converter()
+            );
+        }
+        return JSONB_ADAPTERS.toArray(new JsonbAdapter<?, ?>[0]);
+    }
+
 
     /**
      * Create a registry that allows finding types (classes) based on their unique type name.
@@ -42,22 +61,7 @@ public final class SharedUtils {
      * @return New instance.
      */
     public static SerializedDataTypeRegistry createTypeRegistry() {
-
-        // Contains all types for usage with JSON-B
-        final SimpleSerializedDataTypeRegistry typeRegistry = new SimpleSerializedDataTypeRegistry();
-
-        // Base types always needed
-        typeRegistry.add(EscEvent.SER_TYPE, EscEvent.class);
-        typeRegistry.add(EscEvents.SER_TYPE, EscEvents.class);
-        typeRegistry.add(EscMeta.SER_TYPE, EscMeta.class);
-        typeRegistry.add(Base64Data.SER_TYPE, Base64Data.class);
-
-        // User defined types
-        for (final TypeClass tc : USER_DEFINED_TYPES) {
-            typeRegistry.add(tc.getType(), tc.getClasz());
-        }
-        return typeRegistry;
-
+        return new JandexSerializedDataTypeRegistry(); // Scans classes
     }
 
     /**
@@ -116,13 +120,13 @@ public final class SharedUtils {
     public static JsonbDeSerializer createJsonbDeSerializer() {
 
         return JsonbDeSerializer.builder().withSerializers(EscSpiUtils.createEscJsonbSerializers())
-                .withDeserializers(EscSpiUtils.createEscJsonbDeserializers()).withAdapters(JSONB_ADAPTERS)
+                .withDeserializers(EscSpiUtils.createEscJsonbDeserializers()).withAdapters(getJsonbAdapters())
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy()).withEncoding(StandardCharsets.UTF_8).build();
 
     }
 
     /**
-     * Creates an Adler32 checksum based on on event type names.
+     * Creates an Adler32 checksum based on event type names.
      * 
      * @param eventTypes
      *            Types to calculate a checksum for.

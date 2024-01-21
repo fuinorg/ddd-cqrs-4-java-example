@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,46 +41,50 @@ public final class DeletePersonCommandTest {
     }
 
     @Test
-    public final void testMarshalUnmarshalJson() {
+    public final void testMarshalUnmarshalJson() throws Exception {
 
         // PREPARE
         final DeletePersonCommand original = createTestee();
 
-        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.JSONB_ADAPTERS)
+        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.getJsonbAdapters())
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy());
-        final Jsonb jsonb = JsonbBuilder.create(config);
+        try (final Jsonb jsonb = JsonbBuilder.create(config)) {
 
-        // TEST
-        final String json = jsonb.toJson(original, DeletePersonCommand.class);
-        final DeletePersonCommand copy = jsonb.fromJson(json, DeletePersonCommand.class);
+            // TEST
+            final String json = jsonb.toJson(original, DeletePersonCommand.class);
+            final DeletePersonCommand copy = jsonb.fromJson(json, DeletePersonCommand.class);
 
-        // VERIFY
-        assertThat(copy).isEqualTo(original);
-        assertThat(copy.getAggregateRootId()).isEqualTo(original.getAggregateRootId());
-        assertThat(copy.getAggregateVersionInteger()).isEqualTo(0L);
-        assertThat(copy.getName()).isEqualTo(original.getName());
+            // VERIFY
+            assertThat(copy).isEqualTo(original);
+            assertThat(copy.getAggregateRootId()).isEqualTo(original.getAggregateRootId());
+            assertThat(copy.getAggregateVersionInteger()).isEqualTo(0L);
+            assertThat(copy.getName()).isEqualTo(original.getName());
+
+        }
 
     }
 
     @Test
-    public final void testUnmarshalJsonFromFile() throws IOException {
+    public final void testUnmarshalJsonFromFile() throws Exception {
 
         // PREPARE
-        final String json = IOUtils.toString(this.getClass().getResourceAsStream("/commands/DeletePersonCommand.json"),
-                Charset.forName("utf-8"));
-        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.JSONB_ADAPTERS)
+        final String json = IOUtils.toString(Objects.requireNonNull(this.getClass().getResourceAsStream("/commands/DeletePersonCommand.json")),
+                StandardCharsets.UTF_8);
+        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.getJsonbAdapters())
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy());
-        final Jsonb jsonb = JsonbBuilder.create(config);
+        try (final Jsonb jsonb = JsonbBuilder.create(config)) {
 
-        // TEST
-        final DeletePersonCommand copy = jsonb.fromJson(json, DeletePersonCommand.class);
+            // TEST
+            final DeletePersonCommand copy = jsonb.fromJson(json, DeletePersonCommand.class);
 
-        // VERIFY
-        assertThat(copy.getEventId().asBaseType()).isEqualTo(UUID.fromString("109a77b2-1de2-46fc-aee1-97fa7740a552"));
-        assertThat(copy.getEventTimestamp()).isEqualTo(ZonedDateTime.parse("2019-11-17T10:27:13.183+01:00[Europe/Berlin]"));
-        assertThat(copy.getAggregateRootId().asString()).isEqualTo(PERSON_UUID);
-        assertThat(copy.getAggregateVersionInteger()).isEqualTo(0L);
-        assertThat(copy.getName().asString()).isEqualTo("Peter Parker");
+            // VERIFY
+            assertThat(copy.getEventId().asBaseType()).isEqualTo(UUID.fromString("109a77b2-1de2-46fc-aee1-97fa7740a552"));
+            assertThat(copy.getEventTimestamp()).isEqualTo(ZonedDateTime.parse("2019-11-17T10:27:13.183+01:00[Europe/Berlin]"));
+            assertThat(copy.getAggregateRootId().asString()).isEqualTo(PERSON_UUID);
+            assertThat(copy.getAggregateVersionInteger()).isEqualTo(0L);
+            assertThat(copy.getName().asString()).isEqualTo("Peter Parker");
+
+        }
 
     }
 

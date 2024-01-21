@@ -7,8 +7,8 @@ import org.apache.commons.io.IOUtils;
 import org.eclipse.yasson.FieldAccessStrategy;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,44 +34,47 @@ public final class PersonDeletedEventTest {
     }
 
     @Test
-    public final void testMarshalUnmarshalJson() {
+    public final void testMarshalUnmarshalJson() throws Exception {
 
         // PREPARE
         final PersonDeletedEvent original = createTestee();
 
-        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.JSONB_ADAPTERS)
+        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.getJsonbAdapters())
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy());
-        final Jsonb jsonb = JsonbBuilder.create(config);
+        try (final Jsonb jsonb = JsonbBuilder.create(config)) {
 
-        // TEST
-        final String json = jsonb.toJson(original, PersonDeletedEvent.class);
-        final PersonDeletedEvent copy = jsonb.fromJson(json, PersonDeletedEvent.class);
+            // TEST
+            final String json = jsonb.toJson(original, PersonDeletedEvent.class);
+            final PersonDeletedEvent copy = jsonb.fromJson(json, PersonDeletedEvent.class);
 
-        // VERIFY
-        assertThat(copy).isEqualTo(original);
-        assertThat(copy.getName()).isEqualTo(original.getName());
-        assertThat(copy.getAggregateVersionInteger()).isEqualTo(1L);
+            // VERIFY
+            assertThat(copy).isEqualTo(original);
+            assertThat(copy.getName()).isEqualTo(original.getName());
+            assertThat(copy.getAggregateVersionInteger()).isEqualTo(1L);
 
+        }
     }
 
     @Test
-    public final void testUnmarshalJson() throws IOException {
+    public final void testUnmarshalJson() throws Exception {
 
         // PREPARE
         final PersonDeletedEvent original = createTestee();
-        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.JSONB_ADAPTERS)
+        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.getJsonbAdapters())
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy());
-        final Jsonb jsonb = JsonbBuilder.create(config);
+        try (final Jsonb jsonb = JsonbBuilder.create(config)) {
 
-        // TEST
-        final String json = IOUtils.toString(this.getClass().getResourceAsStream("/events/PersonDeletedEvent.json"),
-                Charset.forName("utf-8"));
-        final PersonDeletedEvent copy = jsonb.fromJson(json, PersonDeletedEvent.class);
+            // TEST
+            final String json = IOUtils.toString(Objects.requireNonNull(this.getClass().getResourceAsStream("/events/PersonDeletedEvent.json")),
+                    StandardCharsets.UTF_8);
+            final PersonDeletedEvent copy = jsonb.fromJson(json, PersonDeletedEvent.class);
 
-        // VERIFY
-        assertThat(copy.getEntityIdPath()).isEqualTo(original.getEntityIdPath());
-        assertThat(copy.getName()).isEqualTo(original.getName());
-        assertThat(copy.getAggregateVersionInteger()).isEqualTo(1L);
+            // VERIFY
+            assertThat(copy.getEntityIdPath()).isEqualTo(original.getEntityIdPath());
+            assertThat(copy.getName()).isEqualTo(original.getName());
+            assertThat(copy.getAggregateVersionInteger()).isEqualTo(1L);
+
+        }
 
     }
 

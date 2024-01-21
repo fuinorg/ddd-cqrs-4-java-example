@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import org.fuin.ddd4j.ddd.AbstractDomainEvent;
 import org.fuin.ddd4j.ddd.AggregateVersion;
 import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.esc.api.HasSerializedDataTypeConstant;
 import org.fuin.esc.api.SerializedDataType;
 import org.fuin.objects4j.common.Immutable;
 
@@ -12,7 +13,7 @@ import org.fuin.objects4j.common.Immutable;
  * A new person was created in the system.
  */
 @Immutable
-@SerializedDataTypeConstant
+@HasSerializedDataTypeConstant
 public final class PersonCreatedEvent extends AbstractDomainEvent<PersonId> {
 
     private static final long serialVersionUID = 1000L;

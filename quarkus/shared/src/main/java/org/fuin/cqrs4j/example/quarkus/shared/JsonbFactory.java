@@ -21,7 +21,7 @@ public class JsonbFactory {
      */
     @Produces
     public Jsonb createJsonb() {
-        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.JSONB_ADAPTERS)
+        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.getJsonbAdapters())
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy());
         return JsonbBuilder.create(config);
     }

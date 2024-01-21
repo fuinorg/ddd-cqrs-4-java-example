@@ -158,7 +158,7 @@
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>units4j</artifactId>
-				<version>0.11.0</version>
+				<version>0.12.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
@@ -362,6 +362,20 @@
 								</requireMavenVersion>
 							</rules>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>io.smallrye</groupId>
+				<artifactId>jandex-maven-plugin</artifactId>
+				<version>3.0.6</version>
+				<executions>
+					<execution>
+						<id>make-index</id>
+						<goals>
+							<goal>jandex</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

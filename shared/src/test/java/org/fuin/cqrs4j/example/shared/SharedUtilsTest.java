@@ -1,6 +1,11 @@
 package org.fuin.cqrs4j.example.shared;
 
 import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.esc.api.JandexSerializedDataTypeRegistry;
+import org.fuin.esc.spi.Base64Data;
+import org.fuin.esc.spi.EscEvent;
+import org.fuin.esc.spi.EscEvents;
+import org.fuin.esc.spi.EscMeta;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -28,6 +33,19 @@ public final class SharedUtilsTest {
         // VERIFY
         assertThat(checksum).isEqualTo(1341789591L);
 
+    }
+
+    @Test
+    public void testCreate() {
+        final JandexSerializedDataTypeRegistry testee = new JandexSerializedDataTypeRegistry();
+        assertThat(testee.getClasses()).containsOnly(
+                EscEvent.class,
+                EscEvents.class,
+                EscMeta.class,
+                Base64Data.class,
+                PersonCreatedEvent.class,
+                PersonDeletedEvent.class
+        );
     }
 
 }
