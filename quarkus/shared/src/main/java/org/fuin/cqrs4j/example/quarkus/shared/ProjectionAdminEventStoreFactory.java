@@ -25,15 +25,6 @@ public class ProjectionAdminEventStoreFactory {
 
     @Produces
     @ApplicationScoped
-    public ProjectionAdminEventStore getProjectionAdminEventStore(final Config config, final HttpClient httpClient) {
-        final String url = config.getEventStoreProtocol() + "://" + config.getEventStoreHost() + ":" + config.getEventStoreHttpPort();
-        try {
-            final ProjectionAdminEventStore es = new HttpProjectionAdminEventStore(httpClient, new URL(url));
-            es.open();
-            return es;
-        } catch (final MalformedURLException ex) {
-            throw new RuntimeException("Failed to create URL: " + url, ex);
-        }
     public ProjectionAdminEventStore getProjectionAdminEventStore(final Config config) {
 
         final EventStoreDBClientSettings settings = EventStoreDBClientSettings.builder()
