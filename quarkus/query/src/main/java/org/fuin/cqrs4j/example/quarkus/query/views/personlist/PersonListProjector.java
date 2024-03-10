@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.ObservesAsync;
 import jakarta.inject.Inject;
 import org.fuin.cqrs4j.example.quarkus.query.app.QryCheckForViewUpdatesEvent;
-import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.ddd4j.core.EventType;
 import org.fuin.esc.api.ProjectionAdminEventStore;
 import org.fuin.esc.api.TypeName;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
-import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
+import static org.fuin.utils4j.Utils4J.tryLocked;
 
 /**
  * Reads incoming events from an attached event store and dispatches them to the appropriate event handlers.

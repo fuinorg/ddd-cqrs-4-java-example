@@ -8,8 +8,6 @@ import org.eclipse.yasson.FieldAccessStrategy;
 import org.fuin.utils4j.Utils4J;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.util.Objects;

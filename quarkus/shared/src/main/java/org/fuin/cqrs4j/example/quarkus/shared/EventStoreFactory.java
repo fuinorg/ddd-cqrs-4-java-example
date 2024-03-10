@@ -5,10 +5,10 @@ import com.eventstore.dbclient.EventStoreDBClientSettings;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Disposes;
 import jakarta.enterprise.inject.Produces;
-import org.fuin.esc.esgrpc.ESGrpcEventStore;
-import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.fuin.esc.api.EnhancedMimeType;
 import org.fuin.esc.api.SerDeserializerRegistry;
+import org.fuin.esc.esgrpc.ESGrpcEventStore;
+import org.fuin.esc.esgrpc.IESGrpcEventStore;
 
 import java.nio.charset.StandardCharsets;
 

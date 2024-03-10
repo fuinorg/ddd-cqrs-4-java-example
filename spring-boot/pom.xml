@@ -21,6 +21,9 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<cqrs4j.version>0.6.0-SNAPSHOT</cqrs4j.version>
+		<ddd4j.version>0.6.0-SNAPSHOT</ddd4j.version>
+		<objects4j.version>0.10.0-SNAPSHOT</objects4j.version>
 		<esc.version>0.8.0-SNAPSHOT</esc.version>
 		<eventstore.version>21.10.1-bionic</eventstore.version>
 	</properties>
@@ -30,21 +33,27 @@
 		<dependencies>
 
 			<dependency>
-				<groupId>org.fuin</groupId>
-				<artifactId>ddd-4-java</artifactId>
-				<version>0.6.0-SNAPSHOT</version>
+				<groupId>org.fuin.ddd4j</groupId>
+				<artifactId>ddd-4-java-core</artifactId>
+				<version>${ddd4j.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>org.fuin</groupId>
-				<artifactId>cqrs-4-java</artifactId>
-				<version>0.6.0-SNAPSHOT</version>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-core</artifactId>
+				<version>${cqrs4j.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>org.fuin</groupId>
-				<artifactId>objects4j</artifactId>
-				<version>0.10.0-SNAPSHOT</version>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-esc</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.objects4j</groupId>
+				<artifactId>objects4j-core</artifactId>
+				<version>${objects4j.version}</version>
 			</dependency>
 
 			<dependency>
@@ -59,7 +68,13 @@
 				<version>${esc.version}</version>
 			</dependency>
 
-	        <dependency>
+			<dependency>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-jsonb</artifactId>
+				<version>${esc.version}</version>
+			</dependency>
+
+			<dependency>
 	            <groupId>org.fuin.esc</groupId>
 	            <artifactId>esc-esgrpc</artifactId>
 	            <version>${esc.version}</version>
@@ -83,7 +98,7 @@
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>units4j</artifactId>
-				<version>0.11.0</version>
+				<version>0.12.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>

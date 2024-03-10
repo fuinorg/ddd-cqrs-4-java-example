@@ -67,6 +67,16 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-esc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-jsonb</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-esgrpc</artifactId>
 		</dependency>

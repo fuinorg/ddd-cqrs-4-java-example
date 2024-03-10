@@ -3,10 +3,10 @@ package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import org.fuin.cqrs4j.EventHandler;
+import org.fuin.cqrs4j.core.EventHandler;
 import org.fuin.cqrs4j.example.shared.PersonDeletedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;
-import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.ddd4j.core.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

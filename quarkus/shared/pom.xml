@@ -26,18 +26,23 @@
         </dependency>
 
         <dependency>
-            <groupId>org.fuin</groupId>
-            <artifactId>ddd-4-java</artifactId>
+            <groupId>org.fuin.ddd4j</groupId>
+            <artifactId>ddd-4-java-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.fuin</groupId>
-            <artifactId>cqrs-4-java</artifactId>
+            <groupId>org.fuin.cqrs4j</groupId>
+            <artifactId>cqrs-4-java-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.fuin</groupId>
-            <artifactId>objects4j</artifactId>
+            <groupId>org.fuin.objects4j</groupId>
+            <artifactId>objects4j-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.fuin.esc</groupId>
+            <artifactId>esc-jsonb</artifactId>
         </dependency>
 
         <dependency>

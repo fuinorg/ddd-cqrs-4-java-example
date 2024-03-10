@@ -2,9 +2,9 @@ package org.fuin.cqrs4j.example.shared;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.validation.constraints.NotNull;
-import org.fuin.ddd4j.ddd.AbstractDomainEvent;
-import org.fuin.ddd4j.ddd.AggregateVersion;
-import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.ddd4j.jsonb.AbstractDomainEvent;
+import org.fuin.ddd4j.core.AggregateVersion;
+import org.fuin.ddd4j.core.EventType;
 import org.fuin.esc.api.HasSerializedDataTypeConstant;
 import org.fuin.esc.api.SerializedDataType;
 import org.fuin.objects4j.common.Immutable;

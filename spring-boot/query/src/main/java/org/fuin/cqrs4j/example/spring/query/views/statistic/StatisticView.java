@@ -4,11 +4,10 @@ import jakarta.persistence.EntityManager;
 import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.shared.PersonDeletedEvent;
 import org.fuin.cqrs4j.example.shared.View;
-import org.fuin.ddd4j.ddd.Event;
-import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.ddd4j.core.Event;
+import org.fuin.ddd4j.core.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

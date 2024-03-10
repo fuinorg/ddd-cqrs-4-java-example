@@ -8,13 +8,16 @@ import jakarta.validation.Payload;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.objects4j.common.ConstraintViolationException;
 import org.fuin.objects4j.common.Immutable;
+import org.fuin.objects4j.core.AbstractStringValueObject;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
-import org.fuin.objects4j.vo.AbstractStringValueObject;
-import org.fuin.objects4j.vo.ValueObjectConverter;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Name of a person.
@@ -27,7 +30,9 @@ public final class PersonName extends AbstractStringValueObject {
 
     private static final long serialVersionUID = 1000L;
 
-    /** Max length of a person's name. */
+    /**
+     * Max length of a person's name.
+     */
     public static final int MAX_LENGTH = 100;
 
     @NotNull
@@ -43,9 +48,8 @@ public final class PersonName extends AbstractStringValueObject {
 
     /**
      * Constructor with mandatory data.
-     * 
-     * @param value
-     *            Value.
+     *
+     * @param value Value.
      */
     public PersonName(final String value) {
         super();
@@ -65,10 +69,8 @@ public final class PersonName extends AbstractStringValueObject {
 
     /**
      * Verifies that a given string can be converted into the type.
-     * 
-     * @param value
-     *            Value to validate.
-     * 
+     *
+     * @param value Value to validate.
      * @return Returns <code>true</code> if it's a valid type else <code>false</code>.
      */
     public static boolean isValid(final String value) {
@@ -87,14 +89,10 @@ public final class PersonName extends AbstractStringValueObject {
 
     /**
      * Verifies if the argument is valid and throws an exception if this is not the case.
-     * 
-     * @param name
-     *            Name of the value for a possible error message.
-     * @param value
-     *            Value to check.
-     * 
-     * @throws ConstraintViolationException
-     *             The value was not valid.
+     *
+     * @param name  Name of the value for a possible error message.
+     * @param value Value to check.
+     * @throws ConstraintViolationException The value was not valid.
      */
     public static void requireArgValid(@NotNull final String name, @NotNull final String value) throws ConstraintViolationException {
 
@@ -107,15 +105,15 @@ public final class PersonName extends AbstractStringValueObject {
     /**
      * Ensures that the string can be converted into the type.
      */
-    @Target({ ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
+    @Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
     @Retention(RetentionPolicy.RUNTIME)
-    @Constraint(validatedBy = { Validator.class })
+    @Constraint(validatedBy = {Validator.class})
     @Documented
     public static @interface PersonNameStr {
 
         String message()
 
-        default "{org.fuin.cqrs4j.example.javasecdi.PersonName.message}";
+                default "{org.fuin.cqrs4j.example.javasecdi.PersonName.message}";
 
         Class<?>[] groups() default {};
 
@@ -143,51 +141,22 @@ public final class PersonName extends AbstractStringValueObject {
     /**
      * Converts the value object from/to string.
      */
-    public static final class Converter implements ValueObjectConverter<String, PersonName>, JsonbAdapter<PersonName, String> {
-
-        // Attribute Converter
-
-        @Override
-        public final Class<String> getBaseTypeClass() {
-            return String.class;
-        }
-
-        @Override
-        public final Class<PersonName> getValueObjectClass() {
-            return PersonName.class;
-        }
-
-        @Override
-        public boolean isValid(final String value) {
-            return PersonName.isValid(value);
-        }
-
-        @Override
-        public final PersonName toVO(final String value) {
-            if (value == null) {
-                return null;
-            }
-            return new PersonName(value);
-        }
-
-        @Override
-        public final String fromVO(final PersonName value) {
-            if (value == null) {
-                return null;
-            }
-            return value.asBaseType();
-        }
-
-        // JSONB Adapter
+    public static final class Adapter implements JsonbAdapter<PersonName, String> {
 
         @Override
         public final String adaptToJson(final PersonName obj) throws Exception {
-            return fromVO(obj);
+            if (obj == null) {
+                return null;
+            }
+            return obj.asBaseType();
         }
 
         @Override
         public final PersonName adaptFromJson(final String str) throws Exception {
-            return toVO(str);
+            if (str == null) {
+                return null;
+            }
+            return new PersonName(str);
         }
 
     }

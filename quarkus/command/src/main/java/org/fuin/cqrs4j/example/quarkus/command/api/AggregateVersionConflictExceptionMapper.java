@@ -6,8 +6,8 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
-import org.fuin.cqrs4j.SimpleResult;
-import org.fuin.ddd4j.ddd.AggregateVersionConflictException;
+import org.fuin.cqrs4j.jsonb.SimpleResult;
+import org.fuin.ddd4j.core.AggregateVersionConflictException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

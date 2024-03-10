@@ -5,10 +5,10 @@ import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.shared.PersonDeletedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
-import org.fuin.ddd4j.ddd.AbstractAggregateRoot;
-import org.fuin.ddd4j.ddd.AggregateDeletedException;
-import org.fuin.ddd4j.ddd.ApplyEvent;
-import org.fuin.ddd4j.ddd.EntityType;
+import org.fuin.ddd4j.core.AbstractAggregateRoot;
+import org.fuin.ddd4j.core.AggregateDeletedException;
+import org.fuin.ddd4j.core.ApplyEvent;
+import org.fuin.ddd4j.core.EntityType;
 import org.fuin.objects4j.common.Contract;
 
 import java.io.Serializable;

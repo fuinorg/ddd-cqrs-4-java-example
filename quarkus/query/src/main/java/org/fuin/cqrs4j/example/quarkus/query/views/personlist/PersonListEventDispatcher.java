@@ -2,10 +2,10 @@ package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.constraints.NotNull;
-import org.fuin.cqrs4j.EventDispatcher;
-import org.fuin.cqrs4j.SimpleEventDispatcher;
-import org.fuin.ddd4j.ddd.Event;
-import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.cqrs4j.esc.EventDispatcher;
+import org.fuin.cqrs4j.esc.SimpleEventDispatcher;
+import org.fuin.ddd4j.core.Event;
+import org.fuin.ddd4j.core.EventType;
 import org.fuin.esc.api.CommonEvent;
 
 import java.util.List;

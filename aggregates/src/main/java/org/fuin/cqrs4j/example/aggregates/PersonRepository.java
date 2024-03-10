@@ -1,7 +1,7 @@
 package org.fuin.cqrs4j.example.aggregates;
 
 import org.fuin.cqrs4j.example.shared.PersonId;
-import org.fuin.ddd4j.ddd.Repository;
+import org.fuin.ddd4j.core.Repository;
 
 /**
  * Event sourced repository for storing a {@link Person} aggregate.

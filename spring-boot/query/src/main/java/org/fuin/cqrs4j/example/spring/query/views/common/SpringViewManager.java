@@ -1,12 +1,16 @@
 package org.fuin.cqrs4j.example.spring.query.views.common;
 
-import org.fuin.cqrs4j.ProjectionService;
+import org.fuin.cqrs4j.esc.ProjectionService;
 import org.fuin.cqrs4j.example.shared.SharedUtils;
 import org.fuin.cqrs4j.example.shared.View;
 import org.fuin.cqrs4j.example.spring.query.views.statistic.StatisticView;
-import org.fuin.ddd4j.ddd.Event;
-import org.fuin.ddd4j.ddd.EventType;
-import org.fuin.esc.api.*;
+import org.fuin.ddd4j.core.Event;
+import org.fuin.ddd4j.core.EventType;
+import org.fuin.esc.api.CommonEvent;
+import org.fuin.esc.api.ProjectionAdminEventStore;
+import org.fuin.esc.api.ProjectionStreamId;
+import org.fuin.esc.api.StreamEventsSlice;
+import org.fuin.esc.api.TypeName;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +33,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
-import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
+import static org.fuin.utils4j.Utils4J.tryLocked;
 
 /**
  * Creates scheduler update tasks for all classes implementing the {@link View} interface.

@@ -1,7 +1,11 @@
 package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

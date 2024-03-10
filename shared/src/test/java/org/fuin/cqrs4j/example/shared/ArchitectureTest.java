@@ -2,11 +2,11 @@ package org.fuin.cqrs4j.example.shared;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
-import org.fuin.cqrs4j.AggregateCommand;
-import org.fuin.ddd4j.ddd.AggregateRootUuid;
-import org.fuin.ddd4j.ddd.DomainEvent;
-import org.fuin.ddd4j.ddd.EntityId;
-import org.fuin.ddd4j.ddd.HasEntityTypeConstant;
+import org.fuin.cqrs4j.core.AggregateCommand;
+import org.fuin.ddd4j.core.AggregateRootUuid;
+import org.fuin.ddd4j.core.DomainEvent;
+import org.fuin.ddd4j.core.EntityId;
+import org.fuin.ddd4j.core.HasEntityTypeConstant;
 import org.fuin.esc.api.HasSerializedDataTypeConstant;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
 import org.fuin.utils4j.Utils4J;

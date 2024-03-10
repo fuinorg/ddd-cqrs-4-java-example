@@ -2,10 +2,24 @@ package org.fuin.cqrs4j.example.shared;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
 import jakarta.json.bind.config.PropertyVisibilityStrategy;
-import org.fuin.ddd4j.ddd.EventIdConverter;
-import org.fuin.ddd4j.ddd.*;
-import org.fuin.esc.api.*;
-import org.fuin.esc.spi.*;
+import org.fuin.ddd4j.core.EntityIdFactory;
+import org.fuin.ddd4j.core.EventType;
+import org.fuin.ddd4j.core.JandexEntityIdFactory;
+import org.fuin.ddd4j.jsonb.AggregateVersionJsonbAdapter;
+import org.fuin.ddd4j.jsonb.EntityIdJsonbAdapter;
+import org.fuin.ddd4j.jsonb.EntityIdPathJsonbAdapter;
+import org.fuin.ddd4j.jsonb.EventIdJsonbAdapter;
+import org.fuin.esc.client.JandexSerializedDataTypeRegistry;
+import org.fuin.esc.api.SerDeserializerRegistry;
+import org.fuin.esc.api.SerializedDataType;
+import org.fuin.esc.api.SerializedDataTypeRegistry;
+import org.fuin.esc.api.SimpleSerializerDeserializerRegistry;
+import org.fuin.esc.jsonb.Base64Data;
+import org.fuin.esc.jsonb.EscEvent;
+import org.fuin.esc.jsonb.EscEvents;
+import org.fuin.esc.jsonb.EscJsonbUtils;
+import org.fuin.esc.jsonb.EscMeta;
+import org.fuin.esc.jsonb.JsonbDeSerializer;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -43,12 +57,12 @@ public final class SharedUtils {
         if (JSONB_ADAPTERS == null) {
             final EntityIdFactory entityIdFactory = new JandexEntityIdFactory(); // Scans classes
             JSONB_ADAPTERS = List.of(
-                    new EventIdConverter(),
-                    new EntityIdPathConverter(entityIdFactory),
-                    new EntityIdConverter(entityIdFactory),
-                    new AggregateVersionConverter(),
+                    new EventIdJsonbAdapter(),
+                    new EntityIdPathJsonbAdapter(entityIdFactory),
+                    new EntityIdJsonbAdapter(entityIdFactory),
+                    new AggregateVersionJsonbAdapter(),
                     new PersonId.Converter(),
-                    new PersonName.Converter()
+                    new PersonName.Adapter()
             );
         }
         return JSONB_ADAPTERS.toArray(new JsonbAdapter<?, ?>[0]);
@@ -119,8 +133,8 @@ public final class SharedUtils {
      */
     public static JsonbDeSerializer createJsonbDeSerializer() {
 
-        return JsonbDeSerializer.builder().withSerializers(EscSpiUtils.createEscJsonbSerializers())
-                .withDeserializers(EscSpiUtils.createEscJsonbDeserializers()).withAdapters(getJsonbAdapters())
+        return JsonbDeSerializer.builder().withSerializers(EscJsonbUtils.createEscJsonbSerializers())
+                .withDeserializers(EscJsonbUtils.createEscJsonbDeserializers()).withAdapters(getJsonbAdapters())
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy()).withEncoding(StandardCharsets.UTF_8).build();
 
     }

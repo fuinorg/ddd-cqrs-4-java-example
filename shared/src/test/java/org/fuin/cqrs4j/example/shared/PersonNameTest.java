@@ -32,8 +32,8 @@ public final class PersonNameTest {
         final PersonName testee = new PersonName(str);
 
         // TEST & VERIFY
-        assertThat(new PersonName.Converter().adaptToJson(testee)).isEqualTo(str);
-        assertThat(new PersonName.Converter().adaptToJson(null)).isNull();
+        assertThat(new PersonName.Adapter().adaptToJson(testee)).isEqualTo(str);
+        assertThat(new PersonName.Adapter().adaptToJson(null)).isNull();
 
     }
 
@@ -45,8 +45,8 @@ public final class PersonNameTest {
         final PersonName testee = new PersonName(str);
 
         // TEST & VERIFY
-        assertThat(new PersonName.Converter().adaptFromJson(str)).isEqualTo(testee);
-        assertThat(new PersonName.Converter().adaptFromJson(null)).isNull();
+        assertThat(new PersonName.Adapter().adaptFromJson(str)).isEqualTo(testee);
+        assertThat(new PersonName.Adapter().adaptFromJson(null)).isNull();
 
     }
 
@@ -59,7 +59,7 @@ public final class PersonNameTest {
         assertThat(PersonName.isValid("")).isFalse();
         assertThat(PersonName.isValid(
                 "123456789.123456789.123456789.123456789.123456789." + "123456789.123456789.123456789.123456789.123456789." + "12345"))
-                        .isFalse();
+                .isFalse();
 
     }
 
@@ -97,20 +97,6 @@ public final class PersonNameTest {
         assertThat(new PersonName.Validator().isValid(
                 "123456789.123456789.123456789.123456789.123456789." + "123456789.123456789.123456789.123456789.123456789." + "12345",
                 null)).isFalse();
-
-    }
-
-    @Test
-    public void testValueObjectConverter() {
-
-        assertThat(new PersonName.Converter().getBaseTypeClass()).isEqualTo(String.class);
-        assertThat(new PersonName.Converter().getValueObjectClass()).isEqualTo(PersonName.class);
-        assertThat(new PersonName.Converter().isValid(null)).isTrue();
-        assertThat(new PersonName.Converter().isValid("Peter Parker")).isTrue();
-
-        assertThat(new PersonName.Converter().isValid(
-                "123456789.123456789.123456789.123456789.123456789." + "123456789.123456789.123456789.123456789.123456789." + "12345"))
-                        .isFalse();
 
     }
 

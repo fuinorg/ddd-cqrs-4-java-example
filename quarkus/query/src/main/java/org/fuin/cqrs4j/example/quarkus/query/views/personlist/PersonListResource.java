@@ -8,7 +8,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.fuin.objects4j.vo.UUIDStrValidator;
+import org.fuin.objects4j.core.UUIDStrValidator;
 
 import java.util.List;
 

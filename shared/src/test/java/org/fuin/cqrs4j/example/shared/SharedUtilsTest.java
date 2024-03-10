@@ -1,11 +1,11 @@
 package org.fuin.cqrs4j.example.shared;
 
-import org.fuin.ddd4j.ddd.EventType;
-import org.fuin.esc.api.JandexSerializedDataTypeRegistry;
-import org.fuin.esc.spi.Base64Data;
-import org.fuin.esc.spi.EscEvent;
-import org.fuin.esc.spi.EscEvents;
-import org.fuin.esc.spi.EscMeta;
+import org.fuin.ddd4j.core.EventType;
+import org.fuin.esc.client.JandexSerializedDataTypeRegistry;
+import org.fuin.esc.jsonb.Base64Data;
+import org.fuin.esc.jsonb.EscEvent;
+import org.fuin.esc.jsonb.EscEvents;
+import org.fuin.esc.jsonb.EscMeta;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;

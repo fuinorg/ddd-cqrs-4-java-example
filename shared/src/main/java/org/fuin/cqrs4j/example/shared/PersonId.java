@@ -2,17 +2,15 @@ package org.fuin.cqrs4j.example.shared;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
 import jakarta.validation.constraints.NotNull;
-import org.fuin.ddd4j.ddd.AggregateRootUuid;
-import org.fuin.ddd4j.ddd.EntityType;
-import org.fuin.ddd4j.ddd.HasEntityTypeConstant;
-import org.fuin.ddd4j.ddd.StringBasedEntityType;
-import org.fuin.objects4j.common.HasPublicStaticIsValidMethod;
+import org.fuin.ddd4j.core.AggregateRootUuid;
+import org.fuin.ddd4j.core.EntityType;
+import org.fuin.ddd4j.core.HasEntityTypeConstant;
+import org.fuin.ddd4j.core.StringBasedEntityType;
 import org.fuin.objects4j.common.HasPublicStaticValueOfMethod;
 import org.fuin.objects4j.common.Immutable;
 import org.fuin.objects4j.ui.Label;
 import org.fuin.objects4j.ui.ShortLabel;
 import org.fuin.objects4j.ui.Tooltip;
-import org.fuin.objects4j.vo.ValueObjectConverter;
 
 import java.util.UUID;
 
@@ -80,51 +78,22 @@ public final class PersonId extends AggregateRootUuid {
     /**
      * Converts the value object from/to UUID.
      */
-    public static final class Converter implements ValueObjectConverter<UUID, PersonId>, JsonbAdapter<PersonId, UUID> {
-
-        // Attribute Converter
-
-        @Override
-        public final Class<UUID> getBaseTypeClass() {
-            return UUID.class;
-        }
-
-        @Override
-        public final Class<PersonId> getValueObjectClass() {
-            return PersonId.class;
-        }
-
-        @Override
-        public boolean isValid(final UUID value) {
-            return true;
-        }
-
-        @Override
-        public final PersonId toVO(final UUID value) {
-            if (value == null) {
-                return null;
-            }
-            return new PersonId(value);
-        }
-
-        @Override
-        public final UUID fromVO(final PersonId value) {
-            if (value == null) {
-                return null;
-            }
-            return value.asBaseType();
-        }
-
-        // JSONB Adapter
+    public static final class Converter implements JsonbAdapter<PersonId, UUID> {
 
         @Override
         public final UUID adaptToJson(final PersonId obj) throws Exception {
-            return fromVO(obj);
+            if (obj == null) {
+                return null;
+            }
+            return obj.asBaseType();
         }
 
         @Override
         public final PersonId adaptFromJson(final UUID value) throws Exception {
-            return toVO(value);
+            if (value == null) {
+                return null;
+            }
+            return new PersonId(value);
         }
 
     }

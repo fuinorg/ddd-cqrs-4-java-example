@@ -1,14 +1,10 @@
 package org.fuin.cqrs4j.example.shared;
 
-import org.fuin.cqrs4j.EventDispatcher;
-import org.fuin.ddd4j.ddd.Event;
-import org.fuin.ddd4j.ddd.EventType;
-import org.fuin.esc.api.ProjectionStreamId;
-import org.fuin.esc.api.TypeName;
+import org.fuin.ddd4j.core.Event;
+import org.fuin.ddd4j.core.EventType;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Semaphore;
 
 /**
  * Defines a unit that projects events read from the event store into another representation.

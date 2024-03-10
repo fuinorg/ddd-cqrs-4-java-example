@@ -1,7 +1,7 @@
 package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import jakarta.annotation.PreDestroy;
-import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.ddd4j.core.EventType;
 import org.fuin.esc.api.ProjectionAdminEventStore;
 import org.fuin.esc.api.TypeName;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
@@ -21,7 +21,7 @@ import java.util.Set;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static org.fuin.cqrs4j.Cqrs4JUtils.tryLocked;
+import static org.fuin.utils4j.Utils4J.tryLocked;
 
 /**
  * Reads incoming events from an event store projection and dispatches them to the appropriate event handlers. The event store projection

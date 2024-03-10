@@ -4,7 +4,7 @@ import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.shared.PersonDeletedEvent;
 import org.fuin.cqrs4j.example.shared.PersonId;
 import org.fuin.cqrs4j.example.shared.PersonName;
-import org.fuin.ddd4j.ddd.AggregateDeletedException;
+import org.fuin.ddd4j.core.AggregateDeletedException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

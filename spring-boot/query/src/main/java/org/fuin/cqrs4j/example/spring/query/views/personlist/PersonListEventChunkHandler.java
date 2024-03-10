@@ -1,8 +1,8 @@
 package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
-import org.fuin.cqrs4j.ProjectionService;
+import org.fuin.cqrs4j.esc.ProjectionService;
 import org.fuin.cqrs4j.example.shared.SharedUtils;
-import org.fuin.ddd4j.ddd.EventType;
+import org.fuin.ddd4j.core.EventType;
 import org.fuin.esc.api.ProjectionStreamId;
 import org.fuin.esc.api.StreamEventsSlice;
 import org.fuin.objects4j.common.NotThreadSafe;

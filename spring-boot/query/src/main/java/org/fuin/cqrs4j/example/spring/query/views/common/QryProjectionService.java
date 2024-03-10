@@ -3,7 +3,7 @@ package org.fuin.cqrs4j.example.spring.query.views.common;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.validation.constraints.NotNull;
-import org.fuin.cqrs4j.ProjectionService;
+import org.fuin.cqrs4j.esc.ProjectionService;
 import org.fuin.esc.api.StreamId;
 import org.fuin.objects4j.common.Contract;
 import org.springframework.stereotype.Repository;

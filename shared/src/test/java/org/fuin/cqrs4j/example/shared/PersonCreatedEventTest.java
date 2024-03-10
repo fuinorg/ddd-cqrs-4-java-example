@@ -7,8 +7,6 @@ import org.apache.commons.io.IOUtils;
 import org.eclipse.yasson.FieldAccessStrategy;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.UUID;
