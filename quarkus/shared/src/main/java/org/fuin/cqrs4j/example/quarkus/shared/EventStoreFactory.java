@@ -1,16 +1,19 @@
 package org.fuin.cqrs4j.example.quarkus.shared;
 
-import com.eventstore.dbclient.EventStoreDBClient;
-import com.eventstore.dbclient.EventStoreDBClientSettings;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Disposes;
-import jakarta.enterprise.inject.Produces;
+import java.nio.charset.StandardCharsets;
+
 import org.fuin.esc.api.EnhancedMimeType;
 import org.fuin.esc.api.SerDeserializerRegistry;
 import org.fuin.esc.esgrpc.ESGrpcEventStore;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
+import org.fuin.esc.jsonb.BaseTypeFactory;
 
-import java.nio.charset.StandardCharsets;
+import com.eventstore.dbclient.EventStoreDBClient;
+import com.eventstore.dbclient.EventStoreDBClientSettings;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Disposes;
+import jakarta.enterprise.inject.Produces;
 
 /**
  * CDI factory that creates an event store connection.
@@ -41,7 +44,10 @@ public class EventStoreFactory {
                 .buildConnectionSettings();
 
         final EventStoreDBClient client = EventStoreDBClient.create(setts);
-        final IESGrpcEventStore eventstore = new ESGrpcEventStore.Builder().eventStore(client).serDesRegistry(registry)
+        final IESGrpcEventStore eventstore = new ESGrpcEventStore.Builder()
+        		.eventStore(client)
+        		.serDesRegistry(registry)
+        		.baseTypeFactory(new BaseTypeFactory())
                 .targetContentType(EnhancedMimeType.create("application", "json", StandardCharsets.UTF_8))
                 .build();
 
