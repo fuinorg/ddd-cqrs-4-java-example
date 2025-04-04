@@ -16,7 +16,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <quarkus.version>3.8.3</quarkus.version>
+        <quarkus.version>3.21.1</quarkus.version>
         <eventstore.version>21.10.1-bionic</eventstore.version>
     </properties>
 

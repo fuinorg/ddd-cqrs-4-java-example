@@ -81,8 +81,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.json</artifactId>
+			<groupId>org.glassfish.expressly</groupId>
+			<artifactId>expressly</artifactId>
 		</dependency>
 
 		<dependency>
