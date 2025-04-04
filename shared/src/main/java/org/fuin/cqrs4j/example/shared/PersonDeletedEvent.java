@@ -35,12 +35,12 @@ public final class PersonDeletedEvent extends AbstractDomainEvent<PersonId> {
     /**
      * Protected default constructor for deserialization.
      */
-    private PersonDeletedEvent() {
+    protected PersonDeletedEvent() {
         super();
     }
 
     @Override
-    public EventType getEventType() {
+    public final EventType getEventType() {
         return PersonDeletedEvent.TYPE;
     }
 
@@ -50,12 +50,12 @@ public final class PersonDeletedEvent extends AbstractDomainEvent<PersonId> {
      * @return Current value.
      */
     @NotNull
-    public PersonName getName() {
+    public final PersonName getName() {
         return name;
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Deleted person '" + name + "' (" + getEntityId() + ") [Event " + getEventId() + "]";
     }
 

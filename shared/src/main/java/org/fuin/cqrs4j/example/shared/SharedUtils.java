@@ -1,28 +1,32 @@
 package org.fuin.cqrs4j.example.shared;
 
 import jakarta.json.bind.adapter.JsonbAdapter;
-import jakarta.validation.constraints.NotNull;
+import jakarta.json.bind.config.PropertyVisibilityStrategy;
 import org.fuin.ddd4j.core.EntityIdFactory;
+import org.fuin.ddd4j.core.EventType;
 import org.fuin.ddd4j.core.JandexEntityIdFactory;
 import org.fuin.ddd4j.jsonb.AggregateVersionJsonbAdapter;
 import org.fuin.ddd4j.jsonb.EntityIdJsonbAdapter;
 import org.fuin.ddd4j.jsonb.EntityIdPathJsonbAdapter;
 import org.fuin.ddd4j.jsonb.EventIdJsonbAdapter;
-import org.fuin.esc.api.IBase64Data;
-import org.fuin.esc.api.IEscEvent;
-import org.fuin.esc.api.IEscEvents;
-import org.fuin.esc.api.IEscMeta;
+import org.fuin.esc.client.JandexSerializedDataTypeRegistry;
 import org.fuin.esc.api.SerDeserializerRegistry;
 import org.fuin.esc.api.SerializedDataType;
 import org.fuin.esc.api.SerializedDataTypeRegistry;
 import org.fuin.esc.api.SimpleSerializerDeserializerRegistry;
-import org.fuin.esc.client.JandexSerializedDataTypeRegistry;
+import org.fuin.esc.jsonb.Base64Data;
+import org.fuin.esc.jsonb.EscEvent;
+import org.fuin.esc.jsonb.EscEvents;
 import org.fuin.esc.jsonb.EscJsonbUtils;
+import org.fuin.esc.jsonb.EscMeta;
 import org.fuin.esc.jsonb.JsonbDeSerializer;
-import org.fuin.objects4j.jsonb.FieldAccessStrategy;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.List;
+import java.util.zip.Adler32;
 
 /**
  * Utility code shared between command (write) and query (read) module.
@@ -32,9 +36,9 @@ public final class SharedUtils {
     private static final String APPLICATION_JSON = "application/json";
 
     /** All types that will be written into and read from the event store. */
-    private static final SerializedDataType[] USER_DEFINED_TYPES = new SerializedDataType[] {
-            PersonCreatedEvent.SER_TYPE,
-            PersonDeletedEvent.SER_TYPE
+    private static final TypeClass[] USER_DEFINED_TYPES = new TypeClass[] {
+            new TypeClass(PersonCreatedEvent.SER_TYPE, PersonCreatedEvent.class),
+            new TypeClass(PersonDeletedEvent.SER_TYPE, PersonDeletedEvent.class)
     };
 
     /** All JSON-B adapters from this module. */
@@ -57,8 +61,8 @@ public final class SharedUtils {
                     new EntityIdPathJsonbAdapter(entityIdFactory),
                     new EntityIdJsonbAdapter(entityIdFactory),
                     new AggregateVersionJsonbAdapter(),
-                    new PersonId.PersonIdJsonbAdapter(),
-                    new PersonName.PersonNameJsonbAdapter()
+                    new PersonId.Converter(),
+                    new PersonName.Adapter()
             );
         }
         return JSONB_ADAPTERS.toArray(new JsonbAdapter<?, ?>[0]);
@@ -70,7 +74,6 @@ public final class SharedUtils {
      * 
      * @return New instance.
      */
-    @NotNull
     public static SerializedDataTypeRegistry createTypeRegistry() {
         return new JandexSerializedDataTypeRegistry(); // Scans classes
     }
@@ -85,21 +88,20 @@ public final class SharedUtils {
      * 
      * @return New instance.
      */
-    @NotNull
     public static SerDeserializerRegistry createSerDeserializerRegistry(final SerializedDataTypeRegistry typeRegistry,
                                                                         final JsonbDeSerializer jsonbDeSer) {
 
         final SimpleSerializerDeserializerRegistry registry = new SimpleSerializerDeserializerRegistry();
 
         // Base types always needed
-        registry.add(IEscEvents.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
-        registry.add(IEscEvent.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
-        registry.add(IEscMeta.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
-        registry.add(IBase64Data.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
+        registry.add(EscEvents.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
+        registry.add(EscEvent.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
+        registry.add(EscMeta.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
+        registry.add(Base64Data.SER_TYPE, APPLICATION_JSON, jsonbDeSer);
 
         // User defined types
-        for (final SerializedDataType type : USER_DEFINED_TYPES) {
-            registry.add(type, APPLICATION_JSON, jsonbDeSer);
+        for (final TypeClass tc : USER_DEFINED_TYPES) {
+            registry.add(tc.getType(), APPLICATION_JSON, jsonbDeSer);
         }
         jsonbDeSer.init(typeRegistry, registry, registry);
 
@@ -114,13 +116,13 @@ public final class SharedUtils {
     public static SerDeserializerRegistry createRegistry() {
 
         // Knows about all types for usage with JSON-B
-        final SerializedDataTypeRegistry typeRegistry = createTypeRegistry();
+        final SerializedDataTypeRegistry typeRegistry = SharedUtils.createTypeRegistry();
 
         // Does the actual marshalling/unmarshalling
-        final JsonbDeSerializer jsonbDeSer = createJsonbDeSerializer();
+        final JsonbDeSerializer jsonbDeSer = SharedUtils.createJsonbDeSerializer();
 
         // Registry connects the type with the appropriate serializer and de-serializer
-        return createSerDeserializerRegistry(typeRegistry, jsonbDeSer);
+        return SharedUtils.createSerDeserializerRegistry(typeRegistry, jsonbDeSer);
 
     }
 
@@ -131,13 +133,82 @@ public final class SharedUtils {
      */
     public static JsonbDeSerializer createJsonbDeSerializer() {
 
-        return JsonbDeSerializer.builder()
-                .withSerializers(EscJsonbUtils.createEscJsonbSerializers())
-                .withDeserializers(EscJsonbUtils.createEscJsonbDeserializers())
-                .withAdapters(getJsonbAdapters())
-                .withPropertyVisibilityStrategy(new FieldAccessStrategy())
-                .withEncoding(StandardCharsets.UTF_8)
-                .build();
+        return JsonbDeSerializer.builder().withSerializers(EscJsonbUtils.createEscJsonbSerializers())
+                .withDeserializers(EscJsonbUtils.createEscJsonbDeserializers()).withAdapters(getJsonbAdapters())
+                .withPropertyVisibilityStrategy(new FieldAccessStrategy()).withEncoding(StandardCharsets.UTF_8).build();
+
+    }
+
+    /**
+     * Creates an Adler32 checksum based on event type names.
+     * 
+     * @param eventTypes
+     *            Types to calculate a checksum for.
+     * 
+     * @return Checksum based on all names.
+     */
+    public static long calculateChecksum(final Collection<EventType> eventTypes) {
+        final Adler32 checksum = new Adler32();
+        for (final EventType eventType : eventTypes) {
+            checksum.update(eventType.asBaseType().getBytes(StandardCharsets.US_ASCII));
+        }
+        return checksum.getValue();
+    }
+
+    private static class FieldAccessStrategy implements PropertyVisibilityStrategy {
+
+        @Override
+        public boolean isVisible(Field field) {
+            return true;
+        }
+
+        @Override
+        public boolean isVisible(Method method) {
+            return false;
+        }
+
+    }
+
+    /**
+     * Helper class for type/class combination.
+     */
+    private static final class TypeClass {
+
+        private final SerializedDataType type;
+
+        private final Class<?> clasz;
+
+        /**
+         * Constructor with all data.
+         * 
+         * @param type
+         *            Type.
+         * @param clasz
+         *            Class.
+         */
+        public TypeClass(final SerializedDataType type, final Class<?> clasz) {
+            super();
+            this.type = type;
+            this.clasz = clasz;
+        }
+
+        /**
+         * Returns the type.
+         * 
+         * @return Type.
+         */
+        public SerializedDataType getType() {
+            return type;
+        }
+
+        /**
+         * Returns the class.
+         * 
+         * @return Class.
+         */
+        public Class<?> getClasz() {
+            return clasz;
+        }
 
     }
 

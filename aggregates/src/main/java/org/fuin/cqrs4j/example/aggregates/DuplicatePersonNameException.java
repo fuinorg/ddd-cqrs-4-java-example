@@ -37,7 +37,7 @@ public final class DuplicatePersonNameException extends Exception implements Exc
      * 
      * @return Identifier.
      */
-    public PersonId getPersonId() {
+    public final PersonId getPersonId() {
         return personId;
     }
 
@@ -46,12 +46,12 @@ public final class DuplicatePersonNameException extends Exception implements Exc
      * 
      * @return Name.
      */
-    public PersonName getName() {
+    public final PersonName getName() {
         return name;
     }
 
     @Override
-    public String getShortId() {
+    public final String getShortId() {
         return SHORT_ID;
     }
 

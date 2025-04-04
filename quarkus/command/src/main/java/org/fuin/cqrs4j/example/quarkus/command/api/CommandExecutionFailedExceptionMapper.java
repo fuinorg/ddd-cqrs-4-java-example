@@ -27,7 +27,8 @@ public class CommandExecutionFailedExceptionMapper implements ExceptionMapper<Co
     public Response toResponse(final CommandExecutionFailedException ex) {
 
         final String shortId;
-        if (ex.getCause() instanceof ExceptionShortIdentifable esi) {
+        if (ex.getCause() instanceof ExceptionShortIdentifable) {
+            final ExceptionShortIdentifable esi = (ExceptionShortIdentifable) ex.getCause();
             shortId = esi.getShortId();
         } else {
             shortId = ex.getCause().getClass().getName();

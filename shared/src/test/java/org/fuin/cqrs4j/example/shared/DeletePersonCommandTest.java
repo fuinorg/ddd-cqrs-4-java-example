@@ -21,7 +21,7 @@ public final class DeletePersonCommandTest {
     private static final String PERSON_UUID = "84565d62-115e-4502-b7c9-38ad69c64b05";
 
     @Test
-    public void testSerializeDeserialize() {
+    public final void testSerializeDeserialize() {
 
         // PREPARE
         final DeletePersonCommand original = createTestee();
@@ -38,7 +38,7 @@ public final class DeletePersonCommandTest {
     }
 
     @Test
-    public void testMarshalUnmarshalJson() throws Exception {
+    public final void testMarshalUnmarshalJson() throws Exception {
 
         // PREPARE
         final DeletePersonCommand original = createTestee();
@@ -62,7 +62,7 @@ public final class DeletePersonCommandTest {
     }
 
     @Test
-    public void testUnmarshalJsonFromFile() throws Exception {
+    public final void testUnmarshalJsonFromFile() throws Exception {
 
         // PREPARE
         final String json = IOUtils.toString(Objects.requireNonNull(this.getClass().getResourceAsStream("/commands/DeletePersonCommand.json")),

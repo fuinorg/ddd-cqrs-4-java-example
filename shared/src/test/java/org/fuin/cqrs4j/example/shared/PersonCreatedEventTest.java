@@ -19,7 +19,7 @@ import static org.fuin.utils4j.Utils4J.serialize;
 public final class PersonCreatedEventTest {
 
     @Test
-    public void testSerializeDeserialize() {
+    public final void testSerializeDeserialize() {
 
         // PREPARE
         final PersonCreatedEvent original = createTestee();
@@ -34,7 +34,7 @@ public final class PersonCreatedEventTest {
     }
 
     @Test
-    public void testMarshalUnmarshalJson() throws Exception {
+    public final void testMarshalUnmarshalJson() throws Exception {
 
         // PREPARE
         final PersonCreatedEvent original = createTestee();
@@ -55,7 +55,7 @@ public final class PersonCreatedEventTest {
     }
 
     @Test
-    public void testUnmarshalJson() throws Exception {
+    public final void testUnmarshalJson() throws Exception {
 
         // PREPARE
         final PersonCreatedEvent original = createTestee();
@@ -76,7 +76,7 @@ public final class PersonCreatedEventTest {
     }
 
     @Test
-    public void testToString() {
+    public final void testToString() {
         final PersonCreatedEvent testee = createTestee();
         assertThat(testee)
                 .hasToString("Person 'Peter Parker' (" + testee.getEntityId() + ") was created [Event " + testee.getEventId() + "]");

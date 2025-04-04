@@ -19,7 +19,7 @@ import java.util.Set;
 @Component
 public class PersonListEventDispatcher implements EventDispatcher {
 
-    private final SimpleEventDispatcher delegate;
+    private SimpleEventDispatcher delegate;
 
     /**
      * Default constructor.

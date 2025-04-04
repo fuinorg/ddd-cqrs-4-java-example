@@ -35,7 +35,7 @@ public final class PersonId extends AggregateRootUuid {
     /**
      * Default constructor.
      */
-    private PersonId() {
+    protected PersonId() {
         super(PersonId.TYPE);
     }
 
@@ -78,10 +78,10 @@ public final class PersonId extends AggregateRootUuid {
     /**
      * Converts the value object from/to UUID.
      */
-    public static final class PersonIdJsonbAdapter implements JsonbAdapter<PersonId, UUID> {
+    public static final class Converter implements JsonbAdapter<PersonId, UUID> {
 
         @Override
-        public UUID adaptToJson(final PersonId obj) throws Exception {
+        public final UUID adaptToJson(final PersonId obj) throws Exception {
             if (obj == null) {
                 return null;
             }
@@ -89,7 +89,7 @@ public final class PersonId extends AggregateRootUuid {
         }
 
         @Override
-        public PersonId adaptFromJson(final UUID value) throws Exception {
+        public final PersonId adaptFromJson(final UUID value) throws Exception {
             if (value == null) {
                 return null;
             }
