@@ -25,7 +25,7 @@
 		<ddd4j.version>0.6.0-SNAPSHOT</ddd4j.version>
 		<objects4j.version>0.10.0-SNAPSHOT</objects4j.version>
 		<esc.version>0.8.0-SNAPSHOT</esc.version>
-		<eventstore.version>24.10</eventstore.version>
+		<eventstore.version>21.10.1-bionic</eventstore.version>
 	</properties>
 	
 	<dependencyManagement>
