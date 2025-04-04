@@ -189,7 +189,7 @@
 						</image>
 
 						<image>
-							<name>mariadb:10.4</name>
+							<name>mariadb:10.6</name>
 							<run>
 								<network>
 									<mode>bridge</mode>

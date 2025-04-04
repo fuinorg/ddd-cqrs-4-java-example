@@ -29,7 +29,7 @@ services:
 #      - cqrs4j-quarkus-example-net
 
   mariadb:
-    image: mariadb:10.4
+    image: mariadb:10.6
     container_name: "cqrs4j-quarkus-example-mariadb"
     environment:
       MYSQL_ROOT_PASSWORD: xyz
