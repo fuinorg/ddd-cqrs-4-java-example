@@ -34,12 +34,12 @@ public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId
     /**
      * Protected default constructor for deserialization.
      */
-    protected CreatePersonCommand() {
+    private CreatePersonCommand() {
         super();
     }
 
     @Override
-    public final EventType getEventType() {
+    public EventType getEventType() {
         return CreatePersonCommand.TYPE;
     }
 
@@ -49,12 +49,12 @@ public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId
      * @return Current value.
      */
     @NotNull
-    public final PersonName getName() {
+    public PersonName getName() {
         return name;
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         return "Create person '" + name + "' with identifier '" + getAggregateRootId() + "'";
     }
 

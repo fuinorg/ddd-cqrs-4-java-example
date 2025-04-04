@@ -94,8 +94,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<SimpleResult> exception(final CommandExecutionFailedException ex) {
 
         final String shortId;
-        if (ex.getCause() instanceof ExceptionShortIdentifable) {
-            final ExceptionShortIdentifable esi = (ExceptionShortIdentifable) ex.getCause();
+        if (ex.getCause() instanceof ExceptionShortIdentifable esi) {
             shortId = esi.getShortId();
         } else {
             shortId = ex.getCause().getClass().getName();

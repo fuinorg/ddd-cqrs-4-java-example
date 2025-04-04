@@ -19,8 +19,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import java.lang.annotation.*;
-
 /**
  * Name of a person.
  */
@@ -44,7 +42,7 @@ public final class PersonName extends AbstractStringValueObject {
     /**
      * Protected default constructor for deserialization.
      */
-    protected PersonName() {
+    private PersonName() {
         super();
     }
 
@@ -60,12 +58,12 @@ public final class PersonName extends AbstractStringValueObject {
     }
 
     @Override
-    public final String asBaseType() {
+    public String asBaseType() {
         return value;
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         return value;
     }
 
@@ -83,10 +81,7 @@ public final class PersonName extends AbstractStringValueObject {
             return false;
         }
         final String trimmed = value.trim();
-        if (trimmed.length() > PersonName.MAX_LENGTH) {
-            return false;
-        }
-        return true;
+        return trimmed.length() <= PersonName.MAX_LENGTH;
     }
 
     /**
@@ -111,7 +106,7 @@ public final class PersonName extends AbstractStringValueObject {
     @Retention(RetentionPolicy.RUNTIME)
     @Constraint(validatedBy = {Validator.class})
     @Documented
-    public static @interface PersonNameStr {
+    public @interface PersonNameStr {
 
         String message()
 
@@ -129,12 +124,12 @@ public final class PersonName extends AbstractStringValueObject {
     public static final class Validator implements ConstraintValidator<PersonNameStr, String> {
 
         @Override
-        public final void initialize(final PersonNameStr annotation) {
+        public void initialize(final PersonNameStr annotation) {
             // Not used
         }
 
         @Override
-        public final boolean isValid(final String value, final ConstraintValidatorContext context) {
+        public boolean isValid(final String value, final ConstraintValidatorContext context) {
             return PersonName.isValid(value);
         }
 
@@ -143,10 +138,10 @@ public final class PersonName extends AbstractStringValueObject {
     /**
      * Converts the value object from/to string.
      */
-    public static final class Adapter implements JsonbAdapter<PersonName, String> {
+    public static final class PersonNameJsonbAdapter implements JsonbAdapter<PersonName, String> {
 
         @Override
-        public final String adaptToJson(final PersonName obj) throws Exception {
+        public String adaptToJson(final PersonName obj) throws Exception {
             if (obj == null) {
                 return null;
             }
@@ -154,7 +149,7 @@ public final class PersonName extends AbstractStringValueObject {
         }
 
         @Override
-        public final PersonName adaptFromJson(final String str) throws Exception {
+        public PersonName adaptFromJson(final String str) throws Exception {
             if (str == null) {
                 return null;
             }

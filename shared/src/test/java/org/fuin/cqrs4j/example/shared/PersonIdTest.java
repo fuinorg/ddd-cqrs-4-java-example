@@ -44,13 +44,13 @@ public final class PersonIdTest {
     }
 
     @Test
-    public final void testConverterUnmarshal() throws Exception {
+    public void testConverterUnmarshal() throws Exception {
 
         // PREPARE
         final String personIdValue = PERSON_UUID;
 
         // TEST
-        final PersonId personId = new PersonId.Converter().adaptFromJson(UUID.fromString(PERSON_UUID));
+        final PersonId personId = new PersonId.PersonIdJsonbAdapter().adaptFromJson(UUID.fromString(PERSON_UUID));
 
         // VERIFY
         assertThat(personId.asString()).isEqualTo(personIdValue);
@@ -62,7 +62,7 @@ public final class PersonIdTest {
         final PersonId personId = PersonId.valueOf(PERSON_UUID);
 
         // TEST
-        final UUID uuid = new PersonId.Converter().adaptToJson(personId);
+        final UUID uuid = new PersonId.PersonIdJsonbAdapter().adaptToJson(personId);
 
         // VERIFY
         assertThat(uuid).isEqualTo(UUID.fromString(PERSON_UUID));

@@ -35,12 +35,12 @@ public final class DeletePersonCommand extends AbstractAggregateCommand<PersonId
     /**
      * Protected default constructor for deserialization.
      */
-    protected DeletePersonCommand() {
+    private DeletePersonCommand() {
         super();
     }
 
     @Override
-    public final EventType getEventType() {
+    public EventType getEventType() {
         return DeletePersonCommand.TYPE;
     }
 
@@ -50,12 +50,12 @@ public final class DeletePersonCommand extends AbstractAggregateCommand<PersonId
      * @return Current value.
      */
     @NotNull
-    public final PersonName getName() {
+    public PersonName getName() {
         return name;
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         return "Delete person '" + name + "' with identifier '" + getAggregateRootId() + "'";
     }
 

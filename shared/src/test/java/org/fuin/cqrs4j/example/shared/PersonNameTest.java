@@ -32,8 +32,8 @@ public final class PersonNameTest {
         final PersonName testee = new PersonName(str);
 
         // TEST & VERIFY
-        assertThat(new PersonName.Adapter().adaptToJson(testee)).isEqualTo(str);
-        assertThat(new PersonName.Adapter().adaptToJson(null)).isNull();
+        assertThat(new PersonName.PersonNameJsonbAdapter().adaptToJson(testee)).isEqualTo(str);
+        assertThat(new PersonName.PersonNameJsonbAdapter().adaptToJson(null)).isNull();
 
     }
 
@@ -45,8 +45,8 @@ public final class PersonNameTest {
         final PersonName testee = new PersonName(str);
 
         // TEST & VERIFY
-        assertThat(new PersonName.Adapter().adaptFromJson(str)).isEqualTo(testee);
-        assertThat(new PersonName.Adapter().adaptFromJson(null)).isNull();
+        assertThat(new PersonName.PersonNameJsonbAdapter().adaptFromJson(str)).isEqualTo(testee);
+        assertThat(new PersonName.PersonNameJsonbAdapter().adaptFromJson(null)).isNull();
 
     }
 

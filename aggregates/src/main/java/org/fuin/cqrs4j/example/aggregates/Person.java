@@ -106,7 +106,7 @@ public class Person extends AbstractAggregateRoot<PersonId> implements Serializa
     /**
      * Service for the constructor.
      */
-    public static interface CreatePersonService {
+    public interface CreatePersonService {
 
         /**
          * Loads the person's identifier for a given name.
@@ -116,7 +116,7 @@ public class Person extends AbstractAggregateRoot<PersonId> implements Serializa
          * 
          * @return Office identifier or empty if not found.
          */
-        public Optional<PersonId> loadPersonIdByName(@NotNull PersonName name);
+        Optional<PersonId> loadPersonIdByName(@NotNull PersonName name);
 
     }
 
