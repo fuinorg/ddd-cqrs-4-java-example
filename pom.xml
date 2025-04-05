@@ -24,7 +24,10 @@
 	<modules>
 		<module>shared</module>
 		<module>aggregates</module>
+		<!--
+		TODO Quarkus reads hang with new eventstore version and GRPC
 		<module>quarkus</module>
+		-->
 		<module>spring-boot</module>
 	</modules>
 

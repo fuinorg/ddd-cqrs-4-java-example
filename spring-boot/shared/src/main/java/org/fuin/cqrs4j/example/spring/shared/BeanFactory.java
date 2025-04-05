@@ -19,9 +19,9 @@ import org.fuin.esc.jsonb.BaseTypeFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import com.eventstore.dbclient.EventStoreDBClient;
-import com.eventstore.dbclient.EventStoreDBClientSettings;
-import com.eventstore.dbclient.EventStoreDBProjectionManagementClient;
+import io.kurrent.dbclient.KurrentDBClient;
+import io.kurrent.dbclient.KurrentDBClientSettings;
+import io.kurrent.dbclient.KurrentDBProjectionManagementClient;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
@@ -44,23 +44,23 @@ public class BeanFactory {
 
 
     @Bean
-    public EventStoreDBClient createEventStoreDBClient(final Config config) {
-        final EventStoreDBClientSettings settings = EventStoreDBClientSettings.builder()
+    public KurrentDBClient createKurrentDBClient(final Config config) {
+        final KurrentDBClientSettings settings = KurrentDBClientSettings.builder()
                 .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
                 .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
                 .tls(false)
                 .buildConnectionSettings();
-        return EventStoreDBClient.create(settings);
+        return KurrentDBClient.create(settings);
     }
 
     @Bean
-    public EventStoreDBProjectionManagementClient createEventStoreDBProjectionManagementClient(final Config config) {
-        final EventStoreDBClientSettings settings = EventStoreDBClientSettings.builder()
+    public KurrentDBProjectionManagementClient createKurrentDBProjectionManagementClient(final Config config) {
+        final KurrentDBClientSettings settings = KurrentDBClientSettings.builder()
                 .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
                 .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
                 .tls(false)
                 .buildConnectionSettings();
-        return EventStoreDBProjectionManagementClient.create(settings);
+        return KurrentDBProjectionManagementClient.create(settings);
     }
 
 
@@ -71,7 +71,7 @@ public class BeanFactory {
      * @return New event store instance.
      */
     @Bean(destroyMethod = "close")
-    public IESGrpcEventStore getESGrpcEventStore(final EventStoreDBClient client) {
+    public IESGrpcEventStore getESGrpcEventStore(final KurrentDBClient client) {
 
         final SerDeserializerRegistry registry = SharedUtils.createRegistry();
 
@@ -106,7 +106,7 @@ public class BeanFactory {
      * @return New event store instance.
      */
     @Bean(destroyMethod = "close")
-    public ProjectionAdminEventStore getProjectionAdminEventStore(final EventStoreDBProjectionManagementClient client) {
+    public ProjectionAdminEventStore getProjectionAdminEventStore(final KurrentDBProjectionManagementClient client) {
         return new GrpcProjectionAdminEventStore(client).open();
     }
 

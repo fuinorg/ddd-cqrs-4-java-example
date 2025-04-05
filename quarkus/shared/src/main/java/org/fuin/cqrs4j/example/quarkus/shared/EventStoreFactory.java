@@ -8,8 +8,8 @@ import org.fuin.esc.esgrpc.ESGrpcEventStore;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.fuin.esc.jsonb.BaseTypeFactory;
 
-import com.eventstore.dbclient.EventStoreDBClient;
-import com.eventstore.dbclient.EventStoreDBClientSettings;
+import io.kurrent.dbclient.KurrentDBClient;
+import io.kurrent.dbclient.KurrentDBClientSettings;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Disposes;
@@ -37,13 +37,13 @@ public class EventStoreFactory {
     @ApplicationScoped
     public IESGrpcEventStore createEventStore(final Config config, final SerDeserializerRegistry registry) {
 
-        final EventStoreDBClientSettings setts = EventStoreDBClientSettings.builder()
+        final KurrentDBClientSettings setts = KurrentDBClientSettings.builder()
                 .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
                 .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
                 .tls(false)
                 .buildConnectionSettings();
 
-        final EventStoreDBClient client = EventStoreDBClient.create(setts);
+        final KurrentDBClient client = KurrentDBClient.create(setts);
         final IESGrpcEventStore eventstore = new ESGrpcEventStore.Builder()
         		.eventStore(client)
         		.serDesRegistry(registry)

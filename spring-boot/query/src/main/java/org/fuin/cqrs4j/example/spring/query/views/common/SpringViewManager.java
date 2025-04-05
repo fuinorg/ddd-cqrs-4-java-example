@@ -6,11 +6,7 @@ import org.fuin.cqrs4j.example.shared.View;
 import org.fuin.cqrs4j.example.spring.query.views.statistic.StatisticView;
 import org.fuin.ddd4j.core.Event;
 import org.fuin.ddd4j.core.EventType;
-import org.fuin.esc.api.CommonEvent;
-import org.fuin.esc.api.ProjectionAdminEventStore;
-import org.fuin.esc.api.ProjectionStreamId;
-import org.fuin.esc.api.StreamEventsSlice;
-import org.fuin.esc.api.TypeName;
+import org.fuin.esc.api.*;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,6 +112,7 @@ public class SpringViewManager implements ApplicationListener<ContextClosedEvent
         tryLocked(view.getLock(), () -> {
             new Thread(() -> {
                 try {
+                    // TODO Implement transaction handling!
                     readStreamEvents(view);
                 } catch (final RuntimeException ex) {
                     LOG.error("Error reading events from stream", ex);
@@ -131,7 +128,11 @@ public class SpringViewManager implements ApplicationListener<ContextClosedEvent
         if (!admin.projectionExists(view.getProjectionStreamId())) {
             final List<TypeName> typeNames = asTypeNames(view.getEventTypes());
             LOG.info("Create projection '{}' with events: {}", view.getProjectionStreamId(), typeNames);
-            admin.createProjection(view.getProjectionStreamId(), true, typeNames);
+            try {
+                admin.createProjection(view.getProjectionStreamId(), true, typeNames);
+            } catch (StreamAlreadyExistsException ex) {
+                LOG.info("Race condition: After projectionExists({}) create failed with 'already exists'", view.getProjectionStreamId());
+            }
         }
 
         // Read and dispatch events

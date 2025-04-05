@@ -8,8 +8,8 @@ import org.fuin.esc.api.ProjectionAdminEventStore;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.http.HttpClient;
-import com.eventstore.dbclient.EventStoreDBClientSettings;
-import com.eventstore.dbclient.EventStoreDBProjectionManagementClient;
+import io.kurrent.dbclient.KurrentDBClientSettings;
+import io.kurrent.dbclient.KurrentDBProjectionManagementClient;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Disposes;
 import jakarta.enterprise.inject.Produces;
@@ -27,12 +27,12 @@ public class ProjectionAdminEventStoreFactory {
     @ApplicationScoped
     public ProjectionAdminEventStore getProjectionAdminEventStore(final Config config) {
 
-        final EventStoreDBClientSettings settings = EventStoreDBClientSettings.builder()
+        final KurrentDBClientSettings settings = KurrentDBClientSettings.builder()
                 .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
                 .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
                 .tls(false)
                 .buildConnectionSettings();
-        final EventStoreDBProjectionManagementClient client = EventStoreDBProjectionManagementClient.create(settings);
+        final KurrentDBProjectionManagementClient client = KurrentDBProjectionManagementClient.create(settings);
         return new GrpcProjectionAdminEventStore(client).open();
 
     }
