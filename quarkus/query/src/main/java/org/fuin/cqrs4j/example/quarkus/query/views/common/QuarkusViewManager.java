@@ -81,16 +81,7 @@ public class QuarkusViewManager {
         tryLocked(view.getLock(), () -> {
             new Thread(() -> {
                 try {
-                    // TODO Fix the transaction handling!
                     readStreamEvents(view);
-                    /*
-                    QuarkusTransaction.requiringNew()
-                            .timeout(10)
-                            .call(() -> {
-                                readStreamEvents(view);
-                                return 0;
-                            });
-                     */
                 } catch (final RuntimeException ex) {
                     LOG.error("Error reading events from stream", ex);
                 }

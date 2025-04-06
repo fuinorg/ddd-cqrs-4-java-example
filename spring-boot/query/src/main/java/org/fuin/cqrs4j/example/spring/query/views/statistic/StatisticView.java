@@ -52,9 +52,9 @@ public class StatisticView implements View {
             if (event instanceof PersonCreatedEvent ev) {
                 handlePersonCreatedEvent(ev);
             } else if (event instanceof PersonDeletedEvent ev) {
-                    handlePersonDeletedEvent(ev);
+                handlePersonDeletedEvent(ev);
             } else {
-                throw new RuntimeException("Cannot handle event: " + event);
+                throw new IllegalStateException("Cannot handle event: " + event);
             }
         }
     }

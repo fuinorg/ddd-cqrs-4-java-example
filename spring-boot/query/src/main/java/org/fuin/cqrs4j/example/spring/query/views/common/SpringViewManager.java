@@ -112,7 +112,6 @@ public class SpringViewManager implements ApplicationListener<ContextClosedEvent
         tryLocked(view.getLock(), () -> {
             new Thread(() -> {
                 try {
-                    // TODO Implement transaction handling!
                     readStreamEvents(view);
                 } catch (final RuntimeException ex) {
                     LOG.error("Error reading events from stream", ex);
