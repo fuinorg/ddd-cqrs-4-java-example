@@ -1,5 +1,26 @@
 package org.fuin.cqrs4j.example.spring.shared;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.kurrent.dbclient.KurrentDBClient;
+import io.kurrent.dbclient.KurrentDBClientSettings;
+import io.kurrent.dbclient.KurrentDBProjectionManagementClient;
+import org.fuin.cqrs4j.example.shared.SharedUtils;
+import org.fuin.cqrs4j.jackson.Cqrs4JacksonAdapterModule;
+import org.fuin.ddd4j.core.EntityIdFactory;
+import org.fuin.ddd4j.core.JandexEntityIdFactory;
+import org.fuin.ddd4j.jackson.Ddd4JacksonAdapterModule;
+import org.fuin.esc.api.EnhancedMimeType;
+import org.fuin.esc.api.ProjectionAdminEventStore;
+import org.fuin.esc.api.SerDeserializerRegistry;
+import org.fuin.esc.esgrpc.ESGrpcEventStore;
+import org.fuin.esc.esgrpc.GrpcProjectionAdminEventStore;
+import org.fuin.esc.esgrpc.IESGrpcEventStore;
+import org.fuin.esc.jackson.BaseTypeFactory;
+import org.fuin.objects4j.jackson.Objects4JJacksonAdapterModule;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.net.http.HttpClient;
@@ -7,39 +28,23 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-import org.eclipse.yasson.FieldAccessStrategy;
-import org.fuin.cqrs4j.example.shared.SharedUtils;
-import org.fuin.esc.api.EnhancedMimeType;
-import org.fuin.esc.api.ProjectionAdminEventStore;
-import org.fuin.esc.api.SerDeserializerRegistry;
-import org.fuin.esc.esgrpc.ESGrpcEventStore;
-import org.fuin.esc.esgrpc.GrpcProjectionAdminEventStore;
-import org.fuin.esc.esgrpc.IESGrpcEventStore;
-import org.fuin.esc.jsonb.BaseTypeFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-
-import io.kurrent.dbclient.KurrentDBClient;
-import io.kurrent.dbclient.KurrentDBClientSettings;
-import io.kurrent.dbclient.KurrentDBProjectionManagementClient;
-
-import jakarta.json.bind.Jsonb;
-import jakarta.json.bind.JsonbBuilder;
-import jakarta.json.bind.JsonbConfig;
-
 @Component
 public class BeanFactory {
 
-    /**
-     * Creates a Jsonb instance.
-     *
-     * @return Fully configured instance.
-     */
     @Bean
-    public Jsonb createJsonb() {
-        final JsonbConfig config = new JsonbConfig().withAdapters(SharedUtils.getJsonbAdapters())
-                .withPropertyVisibilityStrategy(new FieldAccessStrategy());
-        return JsonbBuilder.create(config);
+    public EntityIdFactory entityIdFactory() {
+        return new JandexEntityIdFactory(); // Scans classes
+    }
+
+    @Bean
+    public ObjectMapper objectMapper(EntityIdFactory entityIdFactory) {
+        return new ObjectMapper()
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .registerModule(new ExampleJacksonAdapterModule(entityIdFactory))
+                .registerModule(new Objects4JJacksonAdapterModule())
+                //.registerModule(new EscJacksonAdapterModule())
+                .registerModule(new Ddd4JacksonAdapterModule(entityIdFactory))
+                .registerModule(new Cqrs4JacksonAdapterModule());
     }
 
 

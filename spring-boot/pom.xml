@@ -22,9 +22,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<cqrs4j.version>0.6.0-SNAPSHOT</cqrs4j.version>
-		<ddd4j.version>0.6.0-SNAPSHOT</ddd4j.version>
-		<objects4j.version>0.10.0-SNAPSHOT</objects4j.version>
-		<esc.version>0.8.0-SNAPSHOT</esc.version>
+		<ddd4j.version>0.7.0-SNAPSHOT</ddd4j.version>
+		<objects4j.version>0.11.0-SNAPSHOT</objects4j.version>
+		<esc.version>0.9.0-SNAPSHOT</esc.version>
+		<utils4j.version>0.15.0-SNAPSHOT</utils4j.version>
 		<eventstore.version>24.10</eventstore.version>
 	</properties>
 	
@@ -39,8 +40,26 @@
 			</dependency>
 
 			<dependency>
+				<groupId>org.fuin.ddd4j</groupId>
+				<artifactId>ddd-4-java-jackson</artifactId>
+				<version>${ddd4j.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>org.fuin.cqrs4j</groupId>
 				<artifactId>cqrs-4-java-core</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-jackson</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-springboot</artifactId>
 				<version>${cqrs4j.version}</version>
 			</dependency>
 
@@ -70,7 +89,7 @@
 
 			<dependency>
 				<groupId>org.fuin.esc</groupId>
-				<artifactId>esc-jsonb</artifactId>
+				<artifactId>esc-jackson</artifactId>
 				<version>${esc.version}</version>
 			</dependency>
 
@@ -84,15 +103,6 @@
 	            <groupId>org.glassfish.expressly</groupId>
 	            <artifactId>expressly</artifactId>
 	            <version>5.0.0</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.eclipse</groupId>
-				<artifactId>yasson</artifactId>
-				<!-- https://github.com/eclipse-ee4j/yasson/issues/604
-				<version>3.0.3</version>
-				-->
-				<version>3.0.2</version>
 			</dependency>
 
 			<dependency>

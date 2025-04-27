@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import org.fuin.cqrs4j.core.CommandExecutionFailedException;
-import org.fuin.cqrs4j.jsonb.SimpleResult;
+import org.fuin.cqrs4j.jackson.SimpleResult;
 import org.fuin.cqrs4j.example.aggregates.DuplicatePersonNameException;
 import org.fuin.cqrs4j.example.aggregates.Person;
 import org.fuin.cqrs4j.example.aggregates.PersonRepository;
@@ -28,9 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-
-import java.util.Optional;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/persons")

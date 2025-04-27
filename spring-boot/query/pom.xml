@@ -21,12 +21,6 @@
 		<!-- compile -->
 
 		<dependency>
-			<groupId>org.fuin.cqrs4j.example</groupId>
-			<artifactId>cqrs4j-example-shared</artifactId>
-			<version>0.5.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.fuin.cqrs4j.example.spring</groupId>
 			<artifactId>cqrs4j-spring-example-shared</artifactId>
 			<version>0.5.0-SNAPSHOT</version>
@@ -69,7 +63,7 @@
 
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
-			<artifactId>esc-jsonb</artifactId>
+			<artifactId>esc-jackson</artifactId>
 		</dependency>
 
 		<dependency>

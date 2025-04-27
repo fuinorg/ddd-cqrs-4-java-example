@@ -1,7 +1,7 @@
 package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import jakarta.persistence.EntityManager;
-import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.spring.shared.PersonId;
 import org.fuin.ddd4j.core.AggregateNotFoundException;
 import org.fuin.objects4j.core.UUIDStr;
 import org.slf4j.Logger;

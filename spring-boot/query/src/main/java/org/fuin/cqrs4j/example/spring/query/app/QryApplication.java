@@ -15,12 +15,16 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import java.util.concurrent.Executor;
 
 @SpringBootApplication(scanBasePackages = {
+        "org.fuin.cqrs4j.springboot.view",
         "org.fuin.cqrs4j.example.spring.query.app",
         "org.fuin.cqrs4j.example.spring.shared",
         "org.fuin.cqrs4j.example.spring.query.views"
 })
-@EnableJpaRepositories("org.fuin.cqrs4j.example.spring.query.views.common")
-@EntityScan({"org.fuin.cqrs4j.example.spring.query.views"})
+@EnableJpaRepositories("org.fuin.cqrs4j.")
+@EntityScan({
+        "org.fuin.cqrs4j.springboot.view",
+        "org.fuin.cqrs4j.example.spring.query.views"
+})
 @EnableScheduling
 @EnableAsync
 public class QryApplication {

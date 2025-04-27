@@ -1,9 +1,9 @@
 package org.fuin.cqrs4j.example.spring.query.views.statistic;
 
 import jakarta.persistence.EntityManager;
-import org.fuin.cqrs4j.example.shared.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.shared.PersonDeletedEvent;
-import org.fuin.cqrs4j.example.shared.View;
+import org.fuin.cqrs4j.core.View;
+import org.fuin.cqrs4j.example.spring.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.spring.shared.PersonDeletedEvent;
 import org.fuin.ddd4j.core.Event;
 import org.fuin.ddd4j.core.EventType;
 import org.slf4j.Logger;

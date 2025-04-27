@@ -16,14 +16,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<cqrs4j.version>0.6.0-SNAPSHOT</cqrs4j.version>
-		<ddd4j.version>0.6.0-SNAPSHOT</ddd4j.version>
-		<objects4j.version>0.10.0-SNAPSHOT</objects4j.version>
-		<esc.version>0.8.0-SNAPSHOT</esc.version>
+		<ddd4j.version>0.7.0-SNAPSHOT</ddd4j.version>
+		<objects4j.version>0.11.0-SNAPSHOT</objects4j.version>
+		<esc.version>0.9.0-SNAPSHOT</esc.version>
+		<utils4j.version>0.15.0-SNAPSHOT</utils4j.version>
+		<jackson.version>2.18.2</jackson.version>
 	</properties>
 
 	<modules>
-		<module>shared</module>
-		<module>aggregates</module>
 		<!--
 		TODO Quarkus reads hang with new eventstore version and GRPC
 		<module>quarkus</module>
@@ -67,8 +67,20 @@
 
 			<dependency>
 				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-jackson</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.cqrs4j</groupId>
 				<artifactId>cqrs-4-java-esc</artifactId>
 				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.objects4j</groupId>
+				<artifactId>utils4j</artifactId>
+				<version>${utils4j.version}</version>
 			</dependency>
 
 			<dependency>
@@ -262,6 +274,13 @@
 				<artifactId>archunit</artifactId>
 				<version>1.4.0</version>
 			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+
 
 		</dependencies>
 

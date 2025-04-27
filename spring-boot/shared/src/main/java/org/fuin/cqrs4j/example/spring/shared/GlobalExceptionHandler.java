@@ -3,7 +3,7 @@ package org.fuin.cqrs4j.example.spring.shared;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.fuin.cqrs4j.core.CommandExecutionFailedException;
-import org.fuin.cqrs4j.jsonb.SimpleResult;
+import org.fuin.cqrs4j.jackson.SimpleResult;
 import org.fuin.ddd4j.core.AggregateAlreadyExistsException;
 import org.fuin.ddd4j.core.AggregateDeletedException;
 import org.fuin.ddd4j.core.AggregateNotFoundException;

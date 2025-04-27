@@ -21,18 +21,6 @@
 		<!-- compile -->
 
 		<dependency>
-			<groupId>org.fuin.cqrs4j.example</groupId>
-			<artifactId>cqrs4j-example-shared</artifactId>
-			<version>0.5.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.fuin.cqrs4j.example</groupId>
-			<artifactId>cqrs4j-example-aggregates</artifactId>
-			<version>0.5.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.fuin.cqrs4j.example.spring</groupId>
 			<artifactId>cqrs4j-spring-example-shared</artifactId>
 			<version>0.5.0-SNAPSHOT</version>
@@ -54,13 +42,38 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-jackson</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-springboot</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-spi</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.fuin.esc</groupId>
-			<artifactId>esc-jsonb</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 
 		<dependency>
