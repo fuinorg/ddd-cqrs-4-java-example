@@ -16,14 +16,12 @@ Here is an overview of how such an application looks like:
 
 [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/doc/cqrs-overview-small.png)](doc/cqrs-overview.png)
 
-## Components
-- **[Shared](shared)** - Common code for all demo applications (commands, events, value objects and utilities).
-- **[Aggregates](aggregates)** - DDD related code for all demo applications (aggregates, entities and business exceptions).
-- **[Quarkus](quarkus)** - Two microservices (Command & Query) based on [Quarkus](https://quarkus.io/).
+## Modules
+- **Quarkus** - *Currently BROKEN* Two microservices (Command & Query) based on [Quarkus](https://quarkus.io/).
 - **[Spring Boot](spring-boot)** - Two microservices (Command & Query) based on [Spring Boot](https://spring.io/projects/spring-boot/).
 
 ## Getting started
-The following instructions are tested on Linux (Ubuntu 22)
+The following instructions are tested on Linux (Ubuntu 24)
 
 **CAUTION:** Building and running on Windows will require some (small) changes.
 
@@ -32,7 +30,6 @@ Make sure you have the following tools installed/configured:
 * [git](https://git-scm.com/) (VCS)
 * [Docker CE](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/)
 * [Docker Compose](https://docs.docker.com/compose/)
-* *OPTIONAL* [GraalVM](https://www.graalvm.org/)
 * Hostname should be set in /etc/hosts (See [Find and Change Your Hostname in Ubuntu](https://helpdeskgeek.com/linux-tips/find-and-change-your-hostname-in-ubuntu/) for more information)
 
 ### Clone and install project 
@@ -57,55 +54,14 @@ docker-compose up
 ### Start command / query implementations
 Start one query service and then one command service.
 You can mix Quarkus & Spring Boot if you want to!
-
-#### Quarkus Microservices
-
-##### Quarkus Query Service (Console window 2)
-1. Start the Quarkus query service:
-   ```
-   cd ddd-cqrs-4-java-example/quarkus/query
-   ./mvnw quarkus:dev
-   ```
-2. Opening [http://localhost:8080/](http://localhost:8080/) should show the query welcome page
-
-For more details see [quarkus/query](quarkus/query).
-
-##### Quarkus Command Service (Console window 3)
-1. Start the Quarkus command service:   
-   ```
-   cd ddd-cqrs-4-java-example/quarkus/command
-   ./mvnw quarkus:dev
-   ```
-2. Opening [http://localhost:8081/](http://localhost:8081/) should show the command welcome page
-
-For more details see [quarkus/command](quarkus/command).
-
-#### Spring Boot Microservices
-
-##### Spring Boot Query Service (Console window 2)
-1. Start the Spring Boot query service:   
-   ```
-   cd ddd-cqrs-4-java-example/spring-boot/query
-   ./mvnw spring-boot:run
-   ```
-2. Opening [http://localhost:8080/](http://localhost:8080/) should show the query welcome page
-
-For more details see [spring-boot/query](spring-boot/query).
-
-##### Spring Boot Command Service (Console window 3)
-1. Start the Spring Boot command service:   
-   ```
-   cd ddd-cqrs-4-java-example/spring-boot/command
-   ./mvnw spring-boot:run
-   ```
-2. Opening [http://localhost:8081/](http://localhost:8081/) should show the command welcome page
-
-For more details see [spring-boot/command](spring-boot/command).
+* Quarkus *currently broken*
+* [Spring Boot](spring-boot.md)
 
 ### Verify projection and query data
-1. Open [http://localhost:2113/](http://localhost:2113/) to access the event store UI (User: admin / Password: changeit)
+1. Open http://localhost:2113/ to access the event store UI (User: admin / Password: changeit)
    You should see a projection named "qry-person-stream" when you click on "Projections" in the top menu.
-2. Opening [http://localhost:8080/persons](http://localhost:8080/persons) should show an empty JSON array
+2. Opening http://localhost:8080/persons should show an empty JSON array
+3. Opening http://localhost:8080/statistics should show an empty JSON array 
 
 ### Execute some create commands (Console window 4)
 Change into the demo directory and execute the command using cURL (See [shell script](demo/create-persons.sh) and JSON files with commands in [demo](demo)) 
@@ -127,7 +83,7 @@ Handle PersonCreatedEvent: Person 'Peter Parker' (84565d62-115e-4502-b7c9-38ad69
 ```    
 
 ### Verify the query data was updated
-1. Refreshing [http://localhost:8080/persons](http://localhost:8080/persons) should show
+1. Refreshing http://localhost:8080/persons should show
     ```json
     [
        {
@@ -144,10 +100,15 @@ Handle PersonCreatedEvent: Person 'Peter Parker' (84565d62-115e-4502-b7c9-38ad69
        }
     ]
     ```
-2. Opening [http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05) should show
+2. Opening http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05 should show
     ```json
     {"id":"84565d62-115e-4502-b7c9-38ad69c64b05","name":"Peter Parker"}
-3. The event sourced data of the person aggregate could be found in a stream named [PERSON-84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:2113/web/index.html#/streams/PERSON-84565d62-115e-4502-b7c9-38ad69c64b05)
+   ```
+3. Opening http://localhost:8080/statistics should show
+   ```json
+   [ { "type": "person", "count": 3 }  ]
+   ```
+4. The event sourced data of the person aggregate could be found in a stream named [PERSON-84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:2113/web/index.html#/streams/PERSON-84565d62-115e-4502-b7c9-38ad69c64b05)
 
 ### Execute a delete command (Console window 4)
 Change into the demo directory and execute the command using cURL (See [shell script](demo/create-persons.sh) and JSON files with commands in [demo](demo))
@@ -156,7 +117,7 @@ cd ddd-cqrs-4-java-example/demo
 ./delete-harry-osborn.sh
 ```   
 ### Verify the query data was updated
-1. Refreshing [http://localhost:8080/persons](http://localhost:8080/persons) should show
+1. Refreshing http://localhost:8080/persons should show
     ```json
     [
        {
@@ -170,6 +131,10 @@ cd ddd-cqrs-4-java-example/demo
     ]
     ```
     "Harry Osborn" should no longer be present in the list.
+2. Opening http://localhost:8080/statistics should show
+   ```json
+   [ { "type": "person", "count": 2 }  ]
+   ```
 
 ### Stop Event Store and Maria DB and clean up
 1. Stop Docker Compose (Ubuntu shortcut = ctrl c)

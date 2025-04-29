@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.spring.query.views.statistic;
+package org.fuin.cqrs4j.example.spring.query.views.statistics;
 
 import jakarta.persistence.EntityManager;
 import org.slf4j.Logger;
@@ -20,9 +20,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/statistics")
 @Transactional(readOnly = true)
-public class QryStatisticResource {
+public class QryStatisticController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(QryStatisticResource.class);
+    private static final Logger LOG = LoggerFactory.getLogger(QryStatisticController.class);
 
     @Autowired
     EntityManager em;

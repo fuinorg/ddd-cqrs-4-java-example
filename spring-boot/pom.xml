@@ -41,6 +41,12 @@
 
 			<dependency>
 				<groupId>org.fuin.ddd4j</groupId>
+				<artifactId>ddd-4-java-esc</artifactId>
+				<version>${ddd4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.ddd4j</groupId>
 				<artifactId>ddd-4-java-jackson</artifactId>
 				<version>${ddd4j.version}</version>
 			</dependency>
@@ -76,6 +82,12 @@
 			</dependency>
 
 			<dependency>
+				<groupId>org.fuin.objects4j</groupId>
+				<artifactId>objects4j-jackson</artifactId>
+				<version>${objects4j.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>org.fuin.esc</groupId>
 				<artifactId>esc-api</artifactId>
 				<version>${esc.version}</version>
@@ -98,7 +110,13 @@
 	            <artifactId>esc-esgrpc</artifactId>
 	            <version>${esc.version}</version>
 	        </dependency>
-	
+
+			<dependency>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-client</artifactId>
+				<version>${esc.version}</version>
+			</dependency>
+
 			<dependency>
 	            <groupId>org.glassfish.expressly</groupId>
 	            <artifactId>expressly</artifactId>
@@ -138,6 +156,21 @@
 	                <artifactId>docker-maven-plugin</artifactId>
 	                <version>0.43.4</version>
 				</plugin>
+
+				<plugin>
+					<groupId>io.smallrye</groupId>
+					<artifactId>jandex-maven-plugin</artifactId>
+					<version>3.2.7</version>
+					<executions>
+						<execution>
+							<id>make-index</id>
+							<goals>
+								<goal>jandex</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
 
 			</plugins>
 			

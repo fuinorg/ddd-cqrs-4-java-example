@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.spring.query.views.statistic;
+package org.fuin.cqrs4j.example.spring.query.views.statistics;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +15,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "SPRING_STATISTIC")
 @NamedQuery(name = StatisticEntity.FIND_ALL,
-        query = "SELECT new org.fuin.cqrs4j.example.spring.query.views.statistic.Statistic(s.type, s.count) FROM StatisticEntity s")
+        query = "SELECT new org.fuin.cqrs4j.example.spring.query.views.statistics.Statistic(s.type, s.count) FROM StatisticEntity s")
 public class StatisticEntity {
 
     public static final String FIND_ALL = "StatisticEntity.findAll";
@@ -44,6 +44,11 @@ public class StatisticEntity {
         this.count = 1;
     }
 
+    /**
+     * Returns the statistic as "DTO" instance.
+     *
+     * @return Statistic record.
+     */
     public Statistic toDto() {
         return new Statistic(type, count);
     }

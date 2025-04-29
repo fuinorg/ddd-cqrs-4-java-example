@@ -60,6 +60,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.fuin.objects4j</groupId>
+			<artifactId>objects4j-jackson</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-spi</artifactId>
 		</dependency>
@@ -72,6 +77,11 @@
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-esgrpc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-client</artifactId>
 		</dependency>
 
 		<dependency>
@@ -142,5 +152,18 @@
 		</dependency>
 
 	</dependencies>
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>io.smallrye</groupId>
+				<artifactId>jandex-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+
+	</build>
 
 </project>

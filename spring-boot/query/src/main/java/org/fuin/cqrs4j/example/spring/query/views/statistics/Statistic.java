@@ -1,6 +1,6 @@
-package org.fuin.cqrs4j.example.spring.query.views.statistic;
+package org.fuin.cqrs4j.example.spring.query.views.statistics;
 
-import jakarta.json.bind.annotation.JsonbCreator;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 /**
  * DTO class sent back to the client. We could also serialize the entity instead.
@@ -10,10 +10,7 @@ import jakarta.json.bind.annotation.JsonbCreator;
  * @param type  Unique type name.
  * @param count Number of instances the type currently has.
  */
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public record Statistic(String type, int count) {
-
-    @JsonbCreator
-    public Statistic {
-    }
 
 }

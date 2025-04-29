@@ -1,21 +1,28 @@
-package org.fuin.cqrs4j.example.spring.shared;
+package org.fuin.cqrs4j.example.spring.command.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
+import org.fuin.cqrs4j.example.spring.shared.PersonId;
+import org.fuin.cqrs4j.example.spring.shared.PersonName;
 import org.fuin.cqrs4j.jackson.AbstractAggregateCommand;
 import org.fuin.ddd4j.core.DomainEventExpectedEntityIdPath;
 import org.fuin.ddd4j.core.EventType;
+import org.fuin.esc.api.HasSerializedDataTypeConstant;
 import org.fuin.esc.api.SerializedDataType;
-import org.fuin.objects4j.common.Immutable;
+
+import javax.annotation.concurrent.Immutable;
+import java.io.Serial;
 
 /**
  * A new person should be created in the system.
  */
 @Immutable
+@HasSerializedDataTypeConstant
 @DomainEventExpectedEntityIdPath(PersonId.class)
 public final class CreatePersonCommand extends AbstractAggregateCommand<PersonId, PersonId> {
 
+    @Serial
     private static final long serialVersionUID = 1000L;
 
     /**

@@ -8,7 +8,8 @@ import org.fuin.ddd4j.core.AggregateVersion;
 import org.fuin.ddd4j.core.EventType;
 import org.fuin.esc.api.HasSerializedDataTypeConstant;
 import org.fuin.esc.api.SerializedDataType;
-import org.fuin.objects4j.common.Immutable;
+
+import javax.annotation.concurrent.Immutable;
 
 /**
  * A person was deleted from the system.

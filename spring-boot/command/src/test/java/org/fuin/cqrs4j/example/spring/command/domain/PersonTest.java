@@ -1,7 +1,5 @@
 package org.fuin.cqrs4j.example.spring.command.domain;
 
-import org.fuin.cqrs4j.example.aggregates.DuplicatePersonNameException;
-import org.fuin.cqrs4j.example.aggregates.Person;
 import org.fuin.cqrs4j.example.spring.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.spring.shared.PersonDeletedEvent;
 import org.fuin.cqrs4j.example.spring.shared.PersonId;
@@ -16,19 +14,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Test for the {@link org.fuin.cqrs4j.example.aggregates.Person} class.
+ * Test for the {@link Person} class.
  */
-public class PersonTest {
+class PersonTest {
 
     @Test
-    public final void testCreateOK() throws org.fuin.cqrs4j.example.aggregates.DuplicatePersonNameException {
+    void testCreateOK() throws DuplicatePersonNameException {
 
         // PREPARE
         final PersonId personId = new PersonId(UUID.fromString("f645969a-402d-41a9-882b-d2d8000d0f43"));
         final PersonName personName = new PersonName("Peter Parker");
 
         // TEST
-        final org.fuin.cqrs4j.example.aggregates.Person testee = new org.fuin.cqrs4j.example.aggregates.Person(personId, personName, pid -> {
+        final Person testee = new Person(personId, personName, pid -> {
             return Optional.empty();
         });
 
@@ -43,7 +41,7 @@ public class PersonTest {
     }
 
     @Test
-    public final void testCreateDuplicateName() {
+    void testCreateDuplicateName() {
 
         // PREPARE
         final PersonId personId = new PersonId(UUID.randomUUID());
@@ -52,24 +50,24 @@ public class PersonTest {
 
         // TEST & VERIFY
         try {
-            new org.fuin.cqrs4j.example.aggregates.Person(personId, personName, pid -> {
+            new Person(personId, personName, pid -> {
                 return Optional.of(otherId);
             });
             fail("Excpected duplicate name exception");
-        } catch (final org.fuin.cqrs4j.example.aggregates.DuplicatePersonNameException ex) {
+        } catch (final DuplicatePersonNameException ex) {
             assertThat(ex.getMessage()).isEqualTo("The name 'Peter Parker' already exists: " + otherId);
         }
 
     }
 
     @Test
-    public void testDeleteOK() throws DuplicatePersonNameException, AggregateDeletedException {
+    void testDeleteOK() throws DuplicatePersonNameException, AggregateDeletedException {
 
         // PREPARE
         final PersonId personId = new PersonId(UUID.randomUUID());
         final PersonName personName = new PersonName("Peter Parker");
         final PersonId otherId = new PersonId(UUID.randomUUID());
-        final org.fuin.cqrs4j.example.aggregates.Person testee = new Person(personId, personName, pid -> {
+        final Person testee = new Person(personId, personName, pid -> {
             return Optional.empty();
         });
         testee.markChangesAsCommitted();

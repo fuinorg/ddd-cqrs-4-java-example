@@ -49,6 +49,15 @@ public class PersonListEntry {
     }
 
     /**
+     * Returns the person as "DTO" instance.
+     *
+     * @return Person record.
+     */
+    public Person toDto() {
+        return new Person(id, name);
+    }
+
+    /**
      * Returns the unique person identifier.
      * 
      * @return Aggregate ID.

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.fuin.ddd4j.core.EntityId;
 import org.fuin.ddd4j.core.EntityIdFactory;
 import org.fuin.ddd4j.jackson.EntityIdJacksonDeserializer;
 import org.fuin.ddd4j.jackson.EntityIdJacksonSerializer;
@@ -20,7 +19,7 @@ import java.util.Objects;
  * Module that registers the adapters for the package.
  */
 @TestOmitted("Tested with other tests")
-public class ExampleJacksonAdapterModule extends Module {
+public class SharedJacksonModule extends Module {
 
     private final EntityIdFactory entityIdFactory;
 
@@ -29,7 +28,7 @@ public class ExampleJacksonAdapterModule extends Module {
      *
      * @param entityIdFactory Factory to use.
      */
-    public ExampleJacksonAdapterModule(EntityIdFactory entityIdFactory) {
+    public SharedJacksonModule(EntityIdFactory entityIdFactory) {
         this.entityIdFactory = Objects.requireNonNull(entityIdFactory, "entityIdFactory==null");
     }
 
@@ -60,7 +59,8 @@ public class ExampleJacksonAdapterModule extends Module {
 
     @Override
     public Version version() {
-        return new Version(0, 5, 0, "SNAPSHOT");
+        return new Version(0, 5, 0, "SNAPSHOT",
+                "org.fuin.cqrs4j.example.spring", "cqrs4j-spring-example-shared");
     }
 
 }

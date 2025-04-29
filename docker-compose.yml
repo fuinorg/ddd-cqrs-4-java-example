@@ -10,6 +10,7 @@ services:
       EVENTSTORE_RUN_PROJECTIONS: "All"
       EVENTSTORE_INSECURE: "true"
       EVENTSTORE_LOG: "/tmp/log-eventstore"
+      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: "true"
     ports:
       - "2113:2113"
     networks:

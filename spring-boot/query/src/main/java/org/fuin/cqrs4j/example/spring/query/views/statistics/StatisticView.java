@@ -1,34 +1,25 @@
-package org.fuin.cqrs4j.example.spring.query.views.statistic;
+package org.fuin.cqrs4j.example.spring.query.views.statistics;
 
 import jakarta.persistence.EntityManager;
-import org.fuin.cqrs4j.core.View;
+import org.fuin.cqrs4j.core.JpaView;
 import org.fuin.cqrs4j.example.spring.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.spring.shared.PersonDeletedEvent;
 import org.fuin.ddd4j.core.Event;
 import org.fuin.ddd4j.core.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 /**
  * Handles the events required to maintain the statistic database view.
  */
-@Component
-public class StatisticView implements View {
+public class StatisticView implements JpaView {
 
     private static final Logger LOG = LoggerFactory.getLogger(StatisticView.class);
 
     private static final EntityType PERSON = new EntityType("person");
-
-    private final EntityManager em;
-
-    public StatisticView(EntityManager em) {
-        this.em = Objects.requireNonNull(em, "em==null");
-    }
 
     @Override
     public String getName() {
@@ -47,19 +38,19 @@ public class StatisticView implements View {
     }
 
     @Override
-    public void handleEvents(final List<Event> events) {
+    public void handleEvents(final EntityManager em, final List<Event> events) {
         for (final Event event : events) {
             if (event instanceof PersonCreatedEvent ev) {
-                handlePersonCreatedEvent(ev);
+                handlePersonCreatedEvent(em, ev);
             } else if (event instanceof PersonDeletedEvent ev) {
-                handlePersonDeletedEvent(ev);
+                handlePersonDeletedEvent(em, ev);
             } else {
                 throw new IllegalStateException("Cannot handle event: " + event);
             }
         }
     }
 
-    private void handlePersonCreatedEvent(final PersonCreatedEvent event) {
+    private void handlePersonCreatedEvent(final EntityManager em, final PersonCreatedEvent event) {
         LOG.info("Handle {}: {}", event.getClass().getSimpleName(), event);
         final StatisticEntity entity = em.find(StatisticEntity.class, PERSON.name());
         if (entity == null) {
@@ -69,7 +60,7 @@ public class StatisticView implements View {
         }
     }
 
-    private void handlePersonDeletedEvent(final PersonDeletedEvent event) {
+    private void handlePersonDeletedEvent(final EntityManager em, final PersonDeletedEvent event) {
         LOG.info("Handle {}: {}", event.getClass().getSimpleName(), event);
         final StatisticEntity entity = em.find(StatisticEntity.class, PERSON.name());
         if (entity != null) {

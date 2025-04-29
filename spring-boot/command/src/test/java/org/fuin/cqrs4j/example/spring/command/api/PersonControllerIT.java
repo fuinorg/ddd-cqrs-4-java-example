@@ -1,23 +1,24 @@
 package org.fuin.cqrs4j.example.spring.command.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import jakarta.json.bind.Jsonb;
 import org.fuin.cqrs4j.core.ResultType;
-import org.fuin.cqrs4j.jackson.SimpleResult;
-import org.fuin.cqrs4j.example.shared.CreatePersonCommand;
-import org.fuin.cqrs4j.example.shared.DeletePersonCommand;
+import org.fuin.cqrs4j.example.spring.command.app.CmdApplication;
+import org.fuin.cqrs4j.example.spring.command.domain.CreatePersonCommand;
+import org.fuin.cqrs4j.example.spring.command.domain.DeletePersonCommand;
 import org.fuin.cqrs4j.example.spring.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.spring.shared.PersonDeletedEvent;
 import org.fuin.cqrs4j.example.spring.shared.PersonId;
 import org.fuin.cqrs4j.example.spring.shared.PersonName;
-import org.fuin.cqrs4j.example.spring.command.app.CmdApplication;
+import org.fuin.cqrs4j.jackson.SimpleResult;
 import org.fuin.esc.api.CommonEvent;
 import org.fuin.esc.api.SimpleStreamId;
 import org.fuin.esc.api.StreamEventsSlice;
 import org.fuin.esc.api.TypeName;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
+import org.fuin.objects4j.jackson.ImmutableObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ class PersonControllerIT {
     IESGrpcEventStore eventStore;
 
     @Autowired
-    Jsonb jsonb;
+    ImmutableObjectMapper.Provider mapperProvider;
 
     @BeforeEach
     public void initRestAssuredMockMvcStandalone() {
@@ -55,13 +56,13 @@ class PersonControllerIT {
     }
 
     @Test
-    void testCreate() {
+    void testCreate() throws JsonProcessingException {
 
         // PREPARE
         final PersonId personId = new PersonId(UUID.randomUUID());
         final PersonName personName = new PersonName("Peter Parker");
         final CreatePersonCommand cmd = new CreatePersonCommand.Builder().id(personId).name(personName).build();
-        final String json = jsonb.toJson(cmd);
+        final String json = mapperProvider.writer().writeValueAsString(cmd);
 
         // TEST & VERIFY
         final SimpleResult result =
@@ -90,13 +91,13 @@ class PersonControllerIT {
     }
 
     @Test
-    void testDelete() {
+    void testDelete() throws JsonProcessingException {
 
         // PREPARE
         final PersonId personId = new PersonId(UUID.randomUUID());
         final PersonName personName = new PersonName("Delete Me");
         final CreatePersonCommand createCmd = new CreatePersonCommand.Builder().id(personId).name(personName).build();
-        final String jsonCreateCmd = jsonb.toJson(createCmd);
+        final String jsonCreateCmd = mapperProvider.writer().writeValueAsString(createCmd);
         final SimpleResult createResult =
                 given()
                         .accept(ContentType.JSON)
@@ -110,7 +111,7 @@ class PersonControllerIT {
         assertThat(createResult.getType()).isEqualTo(ResultType.OK);
 
         final DeletePersonCommand deleteCmd = new DeletePersonCommand.Builder().id(personId).name(personName).version(0).build();
-        final String jsonDeleteCmd = jsonb.toJson(deleteCmd);
+        final String jsonDeleteCmd = mapperProvider.writer().writeValueAsString(deleteCmd);
 
         // TEST & VERIFY
         final SimpleResult deleteResult =

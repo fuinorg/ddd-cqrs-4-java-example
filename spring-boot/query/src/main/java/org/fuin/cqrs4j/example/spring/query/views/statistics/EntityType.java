@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.spring.query.views.statistic;
+package org.fuin.cqrs4j.example.spring.query.views.statistics;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
