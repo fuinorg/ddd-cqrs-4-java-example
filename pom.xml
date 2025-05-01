@@ -6,7 +6,7 @@
 
 	<groupId>org.fuin.cqrs4j.example</groupId>
 	<artifactId>cqrs4j-example-root</artifactId>
-	<version>0.5.0</version>
+	<version>0.6.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -19,7 +19,7 @@
 		<ddd4j.version>0.7.0</ddd4j.version>
 		<objects4j.version>0.11.0</objects4j.version>
 		<esc.version>0.9.0</esc.version>
-		<utils4j.version>0.15.0-SNAPSHOT</utils4j.version>
+		<utils4j.version>0.15.0</utils4j.version>
 		<jackson.version>2.18.2</jackson.version>
 	</properties>
 
@@ -146,7 +146,7 @@
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>ext4logback</artifactId>
-				<version>0.5.0</version>
+				<version>0.6.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
