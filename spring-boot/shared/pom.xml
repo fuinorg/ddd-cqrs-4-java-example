@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.fuin.cqrs4j.example.spring</groupId>
 		<artifactId>cqrs4j-spring-example-root</artifactId>
-		<version>0.4.0</version>
+		<version>0.6.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -20,12 +20,6 @@
 		<!-- Compile -->
 
 		<dependency>
-			<groupId>org.fuin.cqrs4j.example</groupId>
-			<artifactId>cqrs4j-example-shared</artifactId>
-			<version>0.4.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
@@ -36,18 +30,38 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.fuin</groupId>
-			<artifactId>ddd-4-java</artifactId>
+			<groupId>org.fuin.ddd4j</groupId>
+			<artifactId>ddd-4-java-core</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.fuin</groupId>
-			<artifactId>cqrs-4-java</artifactId>
+			<groupId>org.fuin.ddd4j</groupId>
+			<artifactId>ddd-4-java-jackson</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.fuin</groupId>
-			<artifactId>objects4j</artifactId>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-jackson</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-springboot</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.objects4j</groupId>
+			<artifactId>objects4j-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.objects4j</groupId>
+			<artifactId>objects4j-jackson</artifactId>
 		</dependency>
 
 		<dependency>
@@ -57,7 +71,17 @@
 
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-jackson</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-esgrpc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-client</artifactId>
 		</dependency>
 
 		<dependency>
@@ -71,18 +95,23 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>jakarta.json.bind</groupId>
-		    <artifactId>jakarta.json.bind-api</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.json</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>yasson</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 
 		<dependency>
@@ -123,5 +152,18 @@
 		</dependency>
 
 	</dependencies>
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>io.smallrye</groupId>
+				<artifactId>jandex-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+
+	</build>
 
 </project>

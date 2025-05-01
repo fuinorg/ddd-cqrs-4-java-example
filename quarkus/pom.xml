@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.fuin.cqrs4j.example</groupId>
         <artifactId>cqrs4j-example-root</artifactId>
-        <version>0.4.0</version>
+        <version>0.6.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -16,8 +16,8 @@
     <packaging>pom</packaging>
 
     <properties>
-        <quarkus.version>3.6.4</quarkus.version>
-        <eventstore.version>21.10.1-bionic</eventstore.version>
+        <quarkus.version>3.21.1</quarkus.version>
+        <eventstore.version>24.10</eventstore.version>
     </properties>
 
     <dependencyManagement>

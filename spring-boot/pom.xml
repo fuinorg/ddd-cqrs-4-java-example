@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.2</version>
+		<version>3.4.4</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>org.fuin.cqrs4j.example.spring</groupId>
 	<artifactId>cqrs4j-spring-example-root</artifactId>
-	<version>0.4.0</version>
+	<version>0.6.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -21,8 +21,12 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<esc.version>0.7.0</esc.version>
-		<eventstore.version>21.10.1-bionic</eventstore.version>
+		<cqrs4j.version>0.6.0-SNAPSHOT</cqrs4j.version>
+		<ddd4j.version>0.7.0-SNAPSHOT</ddd4j.version>
+		<objects4j.version>0.11.0-SNAPSHOT</objects4j.version>
+		<esc.version>0.9.0-SNAPSHOT</esc.version>
+		<utils4j.version>0.15.0-SNAPSHOT</utils4j.version>
+		<eventstore.version>24.10</eventstore.version>
 	</properties>
 	
 	<dependencyManagement>
@@ -30,21 +34,57 @@
 		<dependencies>
 
 			<dependency>
-				<groupId>org.fuin</groupId>
-				<artifactId>ddd-4-java</artifactId>
-				<version>0.5.0</version>
+				<groupId>org.fuin.ddd4j</groupId>
+				<artifactId>ddd-4-java-core</artifactId>
+				<version>${ddd4j.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>org.fuin</groupId>
-				<artifactId>cqrs-4-java</artifactId>
-				<version>0.5.0</version>
+				<groupId>org.fuin.ddd4j</groupId>
+				<artifactId>ddd-4-java-esc</artifactId>
+				<version>${ddd4j.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>org.fuin</groupId>
-				<artifactId>objects4j</artifactId>
-				<version>0.9.0</version>
+				<groupId>org.fuin.ddd4j</groupId>
+				<artifactId>ddd-4-java-jackson</artifactId>
+				<version>${ddd4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-core</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-jackson</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-springboot</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-esc</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.objects4j</groupId>
+				<artifactId>objects4j-core</artifactId>
+				<version>${objects4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.objects4j</groupId>
+				<artifactId>objects4j-jackson</artifactId>
+				<version>${objects4j.version}</version>
 			</dependency>
 
 			<dependency>
@@ -59,31 +99,34 @@
 				<version>${esc.version}</version>
 			</dependency>
 
-	        <dependency>
+			<dependency>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-jackson</artifactId>
+				<version>${esc.version}</version>
+			</dependency>
+
+			<dependency>
 	            <groupId>org.fuin.esc</groupId>
 	            <artifactId>esc-esgrpc</artifactId>
 	            <version>${esc.version}</version>
 	        </dependency>
-	
+
 			<dependency>
-	            <groupId>org.glassfish</groupId>
-	            <artifactId>jakarta.json</artifactId>
-	            <version>2.0.1</version>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-client</artifactId>
+				<version>${esc.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>org.eclipse</groupId>
-				<artifactId>yasson</artifactId>
-				<!-- https://github.com/eclipse-ee4j/yasson/issues/604
-				<version>3.0.3</version>
-				-->
-				<version>3.0.2</version>
+	            <groupId>org.glassfish.expressly</groupId>
+	            <artifactId>expressly</artifactId>
+	            <version>5.0.0</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.fuin</groupId>
 				<artifactId>units4j</artifactId>
-				<version>0.11.0</version>
+				<version>0.12.0-SNAPSHOT</version>
 			</dependency>
 
 			<dependency>
@@ -113,6 +156,21 @@
 	                <artifactId>docker-maven-plugin</artifactId>
 	                <version>0.43.4</version>
 				</plugin>
+
+				<plugin>
+					<groupId>io.smallrye</groupId>
+					<artifactId>jandex-maven-plugin</artifactId>
+					<version>3.2.7</version>
+					<executions>
+						<execution>
+							<id>make-index</id>
+							<goals>
+								<goal>jandex</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
 
 			</plugins>
 			

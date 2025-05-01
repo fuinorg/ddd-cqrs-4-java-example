@@ -1,8 +1,10 @@
 package org.fuin.cqrs4j.example.spring.query.app;
 
+import org.fuin.cqrs4j.springboot.base.EventstoreConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.TaskScheduler;
@@ -15,12 +17,17 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import java.util.concurrent.Executor;
 
 @SpringBootApplication(scanBasePackages = {
-        "org.fuin.cqrs4j.example.spring.query.app",
+        "org.fuin.cqrs4j.springboot.view",
         "org.fuin.cqrs4j.example.spring.shared",
+        "org.fuin.cqrs4j.example.spring.query.app",
         "org.fuin.cqrs4j.example.spring.query.views"
 })
-@EnableJpaRepositories("org.fuin.cqrs4j.example.spring.query.views.common")
-@EntityScan({"org.fuin.cqrs4j.example.spring.query.views"})
+@EnableConfigurationProperties(EventstoreConfig.class)
+@EnableJpaRepositories("org.fuin.cqrs4j.")
+@EntityScan({
+        "org.fuin.cqrs4j.springboot.view",
+        "org.fuin.cqrs4j.example.spring.query.views"
+})
 @EnableScheduling
 @EnableAsync
 public class QryApplication {
@@ -31,7 +38,7 @@ public class QryApplication {
         executor.setCorePoolSize(1);
         executor.setMaxPoolSize(5);
         executor.setQueueCapacity(500);
-        executor.setThreadNamePrefix("person-");
+        executor.setThreadNamePrefix("qry-app-");
         executor.initialize();
         return executor;
     }

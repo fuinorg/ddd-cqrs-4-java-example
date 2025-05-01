@@ -1,5 +1,13 @@
 # cqrs4j-spring-example-query
-Query microservice that uses [Spring Boot](https://spring.io/projects/spring-boot/), [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libraries. Events are stored in an [EventStore](https://eventstore.org/) and the query data is retrieved from a [MariaDB](https://mariadb.org/) database.
+Query microservice that uses [Spring Boot](https://spring.io/projects/spring-boot/), [ddd-4-java](https://github.com/fuinorg/ddd-4-java) and [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java) libraries. 
+Events are stored in an [EventStore](https://eventstore.org/) and the query data is retrieved from a [MariaDB](https://mariadb.org/) database.
+
+## CQRS Views
+* [personlist](src/main/java/org/fuin/cqrs4j/example/spring/query/views/personlist)
+  * [PersonListView](src/main/java/org/fuin/cqrs4j/example/spring/query/views/personlist/PersonListView.java) - Defines a view with a list of persons. It maps incoming events to the database entities.
+  * [PersonListEntry](src/main/java/org/fuin/cqrs4j/example/spring/query/views/personlist/PersonListEntry.java) - JPA Entity to store a person in the database
+  * [PersonListController](src/main/java/org/fuin/cqrs4j/example/spring/query/views/personlist/PersonListController.java) - Spring Rest Controller to return the persons
+* [statistics](src/main/java/org/fuin/cqrs4j/example/spring/query/views/statistics)
 
 ## Prerequisites
 Make sure you installed everything as described [here](../../../../).

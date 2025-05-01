@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.fuin.cqrs4j.example.spring</groupId>
 		<artifactId>cqrs4j-spring-example-root</artifactId>
-		<version>0.4.0</version>
+		<version>0.6.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -21,15 +21,9 @@
 		<!-- compile -->
 
 		<dependency>
-			<groupId>org.fuin.cqrs4j.example</groupId>
-			<artifactId>cqrs4j-example-shared</artifactId>
-			<version>0.4.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.fuin.cqrs4j.example.spring</groupId>
 			<artifactId>cqrs4j-spring-example-shared</artifactId>
-			<version>0.4.0</version>
+			<version>0.6.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
@@ -53,13 +47,23 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.fuin</groupId>
-			<artifactId>cqrs-4-java</artifactId>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-esc</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-spi</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-jackson</artifactId>
 		</dependency>
 
 		<dependency>
@@ -127,6 +131,11 @@
 		<plugins>
 
 			<plugin>
+				<groupId>io.smallrye</groupId>
+				<artifactId>jandex-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
@@ -179,7 +188,7 @@
 						</image>
 
 						<image>
-							<name>mariadb:10.4</name>
+							<name>mariadb:10.6</name>
 							<run>
 								<network>
 									<mode>bridge</mode>

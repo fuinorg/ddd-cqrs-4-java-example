@@ -3,14 +3,14 @@ version: '2.4'
 services:
 
   eventstore:
-    image: eventstore/eventstore:21.10.1-bionic
+    image: eventstore/eventstore:24.10
     container_name: "cqrs4j-quarkus-example-eventstore"
     environment:
       EVENTSTORE_MEM_DB: "true"
       EVENTSTORE_RUN_PROJECTIONS: "All"
       EVENTSTORE_INSECURE: "true"
-      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: "true"
       EVENTSTORE_LOG: "/tmp/log-eventstore"
+      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: "true"
     ports:
       - "2113:2113"
     networks:
@@ -29,7 +29,7 @@ services:
 #      - cqrs4j-quarkus-example-net
 
   mariadb:
-    image: mariadb:10.4
+    image: mariadb:10.6
     container_name: "cqrs4j-quarkus-example-mariadb"
     environment:
       MYSQL_ROOT_PASSWORD: xyz

@@ -1,9 +1,9 @@
 package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import jakarta.persistence.EntityManager;
-import org.fuin.cqrs4j.example.shared.PersonId;
-import org.fuin.ddd4j.ddd.AggregateNotFoundException;
-import org.fuin.objects4j.vo.UUIDStr;
+import org.fuin.cqrs4j.example.spring.shared.PersonId;
+import org.fuin.ddd4j.core.AggregateNotFoundException;
+import org.fuin.objects4j.core.UUIDStr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * REST controller providing the persons.
@@ -37,10 +38,10 @@ public class PersonListController {
      * @return the list
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PersonListEntry> getAllPersons() {
+    public List<Person> getAllPersons() {
         final List<PersonListEntry> persons = em.createNamedQuery(PersonListEntry.FIND_ALL, PersonListEntry.class).getResultList();
         LOG.info("getAllPersons() = {}", persons.size());
-        return persons;
+        return persons.stream().map(PersonListEntry::toDto).toList();
     }
 
     /**
@@ -55,7 +56,7 @@ public class PersonListController {
      *             A person with the given identifier is unknown.
      */
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PersonListEntry> getPersonById(@PathVariable(value = "id") @UUIDStr String personId)
+    public ResponseEntity<Person> getPersonById(@PathVariable(value = "id") @UUIDStr String personId)
             throws AggregateNotFoundException {
 
         final PersonListEntry person = em.find(PersonListEntry.class, personId);
@@ -63,7 +64,7 @@ public class PersonListController {
             throw new AggregateNotFoundException(PersonId.TYPE, new PersonId(UUID.fromString(personId)));
         }
         LOG.info("getPersonById({}) = {}", personId, person);
-        return ResponseEntity.ok().body(person);
+        return ResponseEntity.ok().body(person.toDto());
     }
 
 }

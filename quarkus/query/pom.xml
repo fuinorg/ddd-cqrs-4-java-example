@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.fuin.cqrs4j.example.quarkus</groupId>
 		<artifactId>cqrs4j-quarkus-example-root</artifactId>
-		<version>0.4.0</version>
+		<version>0.6.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -55,15 +55,19 @@
         </dependency>
 
 		<dependency>
-			<groupId>org.fuin.cqrs4j.example</groupId>
-			<artifactId>cqrs4j-example-aggregates</artifactId>
-			<version>0.4.0</version>
+			<groupId>org.fuin.cqrs4j.example.quarkus</groupId>
+			<artifactId>cqrs4j-quarkus-example-shared</artifactId>
+			<version>0.6.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.fuin.cqrs4j.example.quarkus</groupId>
-			<artifactId>cqrs4j-quarkus-example-shared</artifactId>
-			<version>0.4.0</version>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-esc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-jsonb</artifactId>
 		</dependency>
 
 		<dependency>
@@ -190,7 +194,7 @@
 						</image>
 
 						<image>
-							<name>mariadb:10.4</name>
+							<name>mariadb:10.6</name>
 							<run>
 								<network>
 									<mode>bridge</mode>

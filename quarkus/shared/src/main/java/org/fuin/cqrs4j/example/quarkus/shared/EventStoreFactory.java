@@ -1,16 +1,19 @@
 package org.fuin.cqrs4j.example.quarkus.shared;
 
-import com.eventstore.dbclient.EventStoreDBClient;
-import com.eventstore.dbclient.EventStoreDBClientSettings;
+import java.nio.charset.StandardCharsets;
+
+import org.fuin.esc.api.EnhancedMimeType;
+import org.fuin.esc.api.SerDeserializerRegistry;
+import org.fuin.esc.esgrpc.ESGrpcEventStore;
+import org.fuin.esc.esgrpc.IESGrpcEventStore;
+import org.fuin.esc.jsonb.BaseTypeFactory;
+
+import io.kurrent.dbclient.KurrentDBClient;
+import io.kurrent.dbclient.KurrentDBClientSettings;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Disposes;
 import jakarta.enterprise.inject.Produces;
-import org.fuin.esc.esgrpc.ESGrpcEventStore;
-import org.fuin.esc.esgrpc.IESGrpcEventStore;
-import org.fuin.esc.spi.EnhancedMimeType;
-import org.fuin.esc.spi.SerDeserializerRegistry;
-
-import java.nio.charset.StandardCharsets;
 
 /**
  * CDI factory that creates an event store connection.
@@ -34,14 +37,17 @@ public class EventStoreFactory {
     @ApplicationScoped
     public IESGrpcEventStore createEventStore(final Config config, final SerDeserializerRegistry registry) {
 
-        final EventStoreDBClientSettings setts = EventStoreDBClientSettings.builder()
+        final KurrentDBClientSettings setts = KurrentDBClientSettings.builder()
                 .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
                 .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
                 .tls(false)
                 .buildConnectionSettings();
 
-        final EventStoreDBClient client = EventStoreDBClient.create(setts);
-        final IESGrpcEventStore eventstore = new ESGrpcEventStore.Builder().eventStore(client).serDesRegistry(registry)
+        final KurrentDBClient client = KurrentDBClient.create(setts);
+        final IESGrpcEventStore eventstore = new ESGrpcEventStore.Builder()
+        		.eventStore(client)
+        		.serDesRegistry(registry)
+        		.baseTypeFactory(new BaseTypeFactory())
                 .targetContentType(EnhancedMimeType.create("application", "json", StandardCharsets.UTF_8))
                 .build();
 

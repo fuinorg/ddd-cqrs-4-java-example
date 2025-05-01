@@ -2,8 +2,8 @@ package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import org.fuin.cqrs4j.example.shared.PersonId;
-import org.fuin.cqrs4j.example.shared.PersonName;
+import org.fuin.cqrs4j.example.spring.shared.PersonId;
+import org.fuin.cqrs4j.example.spring.shared.PersonName;
 import org.fuin.objects4j.common.Contract;
 
 /**
@@ -46,6 +46,15 @@ public class PersonListEntry {
         Contract.requireArgNotNull("name", name);
         this.id = id.asString();
         this.name = name.asString();
+    }
+
+    /**
+     * Returns the person as "DTO" instance.
+     *
+     * @return Person record.
+     */
+    public Person toDto() {
+        return new Person(id, name);
     }
 
     /**

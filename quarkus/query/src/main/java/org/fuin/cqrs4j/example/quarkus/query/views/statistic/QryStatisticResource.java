@@ -8,11 +8,6 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.fuin.cqrs4j.example.quarkus.query.views.personlist.PersonListEntry;
-import org.fuin.cqrs4j.example.quarkus.query.views.statistic.EntityType;
-import org.fuin.cqrs4j.example.quarkus.query.views.statistic.Statistic;
-import org.fuin.cqrs4j.example.quarkus.query.views.statistic.StatisticEntity;
-import org.fuin.objects4j.vo.UUIDStrValidator;
 
 import java.util.List;
 
