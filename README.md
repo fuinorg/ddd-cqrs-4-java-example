@@ -17,7 +17,7 @@ Here is an overview of how such an application looks like:
 [![Overview](https://raw.github.com/fuinorg/ddd-cqrs-4-java-example/master/doc/cqrs-overview-small.png)](doc/cqrs-overview.png)
 
 ## Modules
-- **Quarkus** - *Currently BROKEN* Two microservices (Command & Query) based on [Quarkus](https://quarkus.io/).
+- **[Quarkus](quarkus)** - Two microservices (Command & Query) based on [Quarkus](https://quarkus.io/).
 - **[Spring Boot](spring-boot)** - Two microservices (Command & Query) based on [Spring Boot](https://spring.io/projects/spring-boot/).
 
 ## Getting started
