@@ -1,7 +1,7 @@
 package org.fuin.cqrs4j.example.spring.query.views.personlist;
 
 import jakarta.persistence.EntityManager;
-import org.fuin.cqrs4j.core.JpaEventHandler;
+import org.fuin.cqrs4j.core.EventHandler;
 import org.fuin.cqrs4j.example.spring.shared.PersonDeletedEvent;
 import org.fuin.cqrs4j.example.spring.shared.PersonId;
 import org.fuin.ddd4j.core.EventType;
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Handles the {@link PersonDeletedEvent}.
  */
-public class PersonDeletedEventHandler implements JpaEventHandler<PersonDeletedEvent> {
+public class PersonDeletedEventHandler implements EventHandler<PersonDeletedEvent> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonDeletedEventHandler.class);
 

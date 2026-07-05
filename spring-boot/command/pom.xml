@@ -47,11 +47,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.fuin.cqrs4j</groupId>
-			<artifactId>cqrs-4-java-springboot</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>org.fuin.ddd4j</groupId>
 			<artifactId>ddd-4-java-esc</artifactId>
 		</dependency>
@@ -60,6 +55,11 @@
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-spi</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-client</artifactId>
 		</dependency>
 
 		<dependency>
@@ -185,12 +185,13 @@
 						<image>
 							<name>eventstore/eventstore:${eventstore.version}</name>
 							<run>
+								<!-- Host networking: the container shares the host network namespace, so EventStoreDB
+								     binds 2113 directly on the host and there is no per-container rootless netns for
+								     Podman to tear down (avoids "rootless netns: kill network process: permission
+								     denied" on stop). Port mappings are not applicable with host mode. -->
 								<network>
-									<mode>bridge</mode>
+									<mode>host</mode>
 								</network>
-								<ports>
-									<port>2113:2113</port>
-								</ports>
 								<log>
 									<enabled>false</enabled>
 								</log>

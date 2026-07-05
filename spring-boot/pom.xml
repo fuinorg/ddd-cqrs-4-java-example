@@ -21,11 +21,11 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<cqrs4j.version>0.6.0-SNAPSHOT</cqrs4j.version>
-		<ddd4j.version>0.7.0-SNAPSHOT</ddd4j.version>
-		<objects4j.version>0.11.0-SNAPSHOT</objects4j.version>
-		<esc.version>0.9.0-SNAPSHOT</esc.version>
-		<utils4j.version>0.15.0-SNAPSHOT</utils4j.version>
+		<cqrs4j.version>0.7.0-SNAPSHOT</cqrs4j.version>
+		<ddd4j.version>0.8.0-SNAPSHOT</ddd4j.version>
+		<objects4j.version>0.12.0-SNAPSHOT</objects4j.version>
+		<esc.version>0.10.0-SNAPSHOT</esc.version>
+		<utils4j.version>0.15.1-SNAPSHOT</utils4j.version>
 		<eventstore.version>24.10</eventstore.version>
 	</properties>
 	
@@ -33,89 +33,67 @@
 
 		<dependencies>
 
+			<!-- Align all Spring Framework artifacts to a single version. A fuin BOM pulls
+			     spring-context/core at 6.2.18 while spring-boot-starter-parent 3.4.4 manages
+			     spring-beans at 6.2.5; the split causes a NoSuchMethodError
+			     (ConfigurableListableBeanFactory.prepareSingletonBootstrap) at context refresh.
+			     Importing the spring-framework-bom first keeps every spring-* artifact aligned. -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>6.2.18</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- Align all JUnit 5 artifacts to a single version. The fuin BOMs pull the
+			     junit-jupiter aggregator/engine at 5.12.x while spring-boot-starter-parent
+			     3.4.4 manages junit-jupiter-api at 5.11.4; importing the junit-bom first
+			     keeps api/params/engine/platform consistent and avoids a discovery-time
+			     NoClassDefFoundError. -->
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.12.2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- fuin library BOMs (manage all fuin artifact versions) -->
+
+			<dependency>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-bom</artifactId>
+				<version>${cqrs4j.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
 			<dependency>
 				<groupId>org.fuin.ddd4j</groupId>
-				<artifactId>ddd-4-java-core</artifactId>
+				<artifactId>ddd-4-java-bom</artifactId>
 				<version>${ddd4j.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
 			<dependency>
-				<groupId>org.fuin.ddd4j</groupId>
-				<artifactId>ddd-4-java-esc</artifactId>
-				<version>${ddd4j.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.fuin.ddd4j</groupId>
-				<artifactId>ddd-4-java-jackson</artifactId>
-				<version>${ddd4j.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.fuin.cqrs4j</groupId>
-				<artifactId>cqrs-4-java-core</artifactId>
-				<version>${cqrs4j.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.fuin.cqrs4j</groupId>
-				<artifactId>cqrs-4-java-jackson</artifactId>
-				<version>${cqrs4j.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.fuin.cqrs4j</groupId>
-				<artifactId>cqrs-4-java-springboot</artifactId>
-				<version>${cqrs4j.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.fuin.cqrs4j</groupId>
-				<artifactId>cqrs-4-java-esc</artifactId>
-				<version>${cqrs4j.version}</version>
+				<groupId>org.fuin.esc</groupId>
+				<artifactId>esc-bom</artifactId>
+				<version>${esc.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.fuin.objects4j</groupId>
-				<artifactId>objects4j-core</artifactId>
+				<artifactId>objects4j-bom</artifactId>
 				<version>${objects4j.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
-			<dependency>
-				<groupId>org.fuin.objects4j</groupId>
-				<artifactId>objects4j-jackson</artifactId>
-				<version>${objects4j.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.fuin.esc</groupId>
-				<artifactId>esc-api</artifactId>
-				<version>${esc.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.fuin.esc</groupId>
-				<artifactId>esc-spi</artifactId>
-				<version>${esc.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.fuin.esc</groupId>
-				<artifactId>esc-jackson</artifactId>
-				<version>${esc.version}</version>
-			</dependency>
-
-			<dependency>
-	            <groupId>org.fuin.esc</groupId>
-	            <artifactId>esc-esgrpc</artifactId>
-	            <version>${esc.version}</version>
-	        </dependency>
-
-			<dependency>
-				<groupId>org.fuin.esc</groupId>
-				<artifactId>esc-client</artifactId>
-				<version>${esc.version}</version>
-			</dependency>
+			<!-- artifacts not managed by a fuin BOM -->
 
 			<dependency>
 	            <groupId>org.glassfish.expressly</groupId>
@@ -171,6 +149,29 @@
 					</executions>
 				</plugin>
 
+				<!-- Byte Buddy 1.15.x (managed by spring-boot-starter-parent 3.4.4) rejects
+				     Java 25 (class file major 69) during test-time bytecode generation
+				     (Hibernate proxies, EqualsVerifier/Objenesis, Mockito). Allow it on the
+				     forked test JVMs until a Java-25-aware Byte Buddy is on the classpath. -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<systemPropertyVariables>
+							<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
+						</systemPropertyVariables>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<configuration>
+						<systemPropertyVariables>
+							<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
+						</systemPropertyVariables>
+					</configuration>
+				</plugin>
 
 			</plugins>
 			
@@ -181,9 +182,9 @@
 	<repositories>
 
 		<repository>
-			<id>sonatype.oss.snapshots</id>
-			<name>Sonatype OSS Snapshot Repository</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<id>central-snapshots</id>
+			<name>Central Portal Snapshots</name>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>

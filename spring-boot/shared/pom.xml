@@ -50,8 +50,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.fuin.cqrs4j</groupId>
-			<artifactId>cqrs-4-java-springboot</artifactId>
+			<groupId>org.fuin.ddd4j</groupId>
+			<artifactId>ddd-4-java-esc</artifactId>
 		</dependency>
 
 		<dependency>

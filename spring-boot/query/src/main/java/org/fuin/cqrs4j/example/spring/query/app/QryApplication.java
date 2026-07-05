@@ -1,12 +1,11 @@
 package org.fuin.cqrs4j.example.spring.query.app;
 
-import org.fuin.cqrs4j.springboot.base.EventstoreConfig;
+import org.fuin.cqrs4j.example.spring.shared.EventstoreConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -16,18 +15,19 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 import java.util.concurrent.Executor;
 
+/**
+ * Query side application. The projection/view engine is auto-configured by the
+ * {@code cqrs-4-java-springboot-query-starter} (see its {@code Cqrs4jConfig}); the application only needs
+ * to expose its own {@code View} beans (scanned from the {@code views} package) plus the event store /
+ * serializer wiring from {@code SharedConfig}.
+ */
 @SpringBootApplication(scanBasePackages = {
-        "org.fuin.cqrs4j.springboot.view",
         "org.fuin.cqrs4j.example.spring.shared",
         "org.fuin.cqrs4j.example.spring.query.app",
         "org.fuin.cqrs4j.example.spring.query.views"
 })
 @EnableConfigurationProperties(EventstoreConfig.class)
-@EnableJpaRepositories("org.fuin.cqrs4j.")
-@EntityScan({
-        "org.fuin.cqrs4j.springboot.view",
-        "org.fuin.cqrs4j.example.spring.query.views"
-})
+@EntityScan("org.fuin.cqrs4j.example.spring.query.views")
 @EnableScheduling
 @EnableAsync
 public class QryApplication {

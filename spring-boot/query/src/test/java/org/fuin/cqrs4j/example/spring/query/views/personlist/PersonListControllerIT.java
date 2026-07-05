@@ -76,7 +76,7 @@ class PersonListControllerIT {
         final SimpleStreamId personStreamId = new SimpleStreamId(PersonId.TYPE + "-" + personId);
         final PersonCreatedEvent event = new PersonCreatedEvent.Builder().id(personId).name(personName).version(0).build();
         final CommonEvent ce = new SimpleCommonEvent(new EventId(event.getEventId().asBaseType()),
-                new TypeName(event.getEventType().asBaseType()), event);
+                new TypeName(event.getEventType().asBaseType()), event, null);
         eventStore.appendToStream(personStreamId, ce);
 
         await().atMost(5, SECONDS).until(() -> findPerson(personId));
@@ -119,13 +119,13 @@ class PersonListControllerIT {
 
         final PersonCreatedEvent createdEvent = new PersonCreatedEvent.Builder().id(personId).name(personName).version(0).build();
         final CommonEvent commonCreatedEvent = new SimpleCommonEvent(new EventId(createdEvent.getEventId().asBaseType()),
-                new TypeName(createdEvent.getEventType().asBaseType()), createdEvent);
+                new TypeName(createdEvent.getEventType().asBaseType()), createdEvent, null);
         eventStore.appendToStream(personStreamId, commonCreatedEvent);
         await().atMost(5, SECONDS).until(() -> findPerson(personId));
 
         final PersonDeletedEvent deletedEvent = new PersonDeletedEvent.Builder().id(personId).name(personName).version(0).build();
         final CommonEvent commonDeletedEvent = new SimpleCommonEvent(new EventId(deletedEvent.getEventId().asBaseType()),
-                new TypeName(deletedEvent.getEventType().asBaseType()), deletedEvent);
+                new TypeName(deletedEvent.getEventType().asBaseType()), deletedEvent, null);
         eventStore.appendToStream(personStreamId, commonDeletedEvent);
         await().atMost(5, SECONDS).until(() -> !findPerson(personId));
 

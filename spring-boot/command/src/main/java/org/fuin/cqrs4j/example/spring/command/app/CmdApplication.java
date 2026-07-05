@@ -2,7 +2,7 @@ package org.fuin.cqrs4j.example.spring.command.app;
 
 import org.fuin.cqrs4j.example.spring.command.domain.EventStorePersonRepository;
 import org.fuin.cqrs4j.example.spring.command.domain.PersonRepository;
-import org.fuin.cqrs4j.springboot.base.EventstoreConfig;
+import org.fuin.cqrs4j.example.spring.shared.EventstoreConfig;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

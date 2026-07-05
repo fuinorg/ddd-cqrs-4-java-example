@@ -9,7 +9,6 @@ import io.kurrent.dbclient.KurrentDBClient;
 import io.kurrent.dbclient.KurrentDBClientSettings;
 import io.kurrent.dbclient.KurrentDBProjectionManagementClient;
 import org.fuin.cqrs4j.jackson.Cqrs4JacksonModule;
-import org.fuin.cqrs4j.springboot.base.EventstoreConfig;
 import org.fuin.ddd4j.core.EntityIdFactory;
 import org.fuin.ddd4j.core.JandexEntityIdFactory;
 import org.fuin.ddd4j.jackson.Ddd4JacksonModule;
@@ -155,7 +154,7 @@ public class SharedConfig {
     @SuppressWarnings("java:S2095") // Spring will correctly close it by calling "close()" on instance
     @Bean(destroyMethod = "close")
     public ProjectionAdminEventStore getProjectionAdminEventStore(final KurrentDBProjectionManagementClient client) {
-        return new GrpcProjectionAdminEventStore(client).open();
+        return new GrpcProjectionAdminEventStore(client, null).open();
     }
 
     @Bean
