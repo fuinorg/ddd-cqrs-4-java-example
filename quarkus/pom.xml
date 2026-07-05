@@ -24,6 +24,19 @@
 
         <dependencies>
 
+            <!-- Align gRPC to the version the KurrentDB client (kurrentdb-client 1.2.0) is built
+                 against (1.71.0). quarkus-bom pins gRPC 1.69.1; unary RPCs (append/read) work across
+                 that gap but the server-streaming subscribe RPC used by the projection push
+                 subscriptions did not deliver events. Imported BEFORE quarkus-bom so it wins for the
+                 io.grpc:* artifacts. -->
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-bom</artifactId>
+                <version>1.71.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-bom</artifactId>
@@ -32,7 +45,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- The KurrentDB client (kurrentdb-client 1.0.0) generates its gRPC/protobuf stubs
+            <!-- The KurrentDB client (kurrentdb-client 1.2.0) generates its gRPC/protobuf stubs
                  against protobuf-java 4.28.2 (needs com.google.protobuf.RuntimeVersion). quarkus-bom
                  pins the older 3.25.x line, so the generated code fails at runtime with
                  NoClassDefFoundError RuntimeVersion$RuntimeDomain. A direct dependencyManagement

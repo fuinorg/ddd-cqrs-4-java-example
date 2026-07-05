@@ -26,21 +26,34 @@ import static org.awaitility.Awaitility.await;
 
 /**
  * End-to-end projection test. Disabled: the read model is never updated so {@code await} times out.
- * The write path works (events are appended to the {@code PERSON-<id>} streams), the app starts with
- * the library's push-mode subscriptions ("Projection push mode enabled"), and — verified directly
- * against {@code kurrentplatform/kurrentdb:26.1.0} — the server-side projection the library creates
- * ({@code fromAll().foreachStream().when({...linkTo(targetStream)})}) runs and DOES link the domain
- * events into the view's projection stream. What does not work is the library's client-side
- * subscription/read of that projection stream delivering the linked events to the {@code View}
- * (neither {@code push} nor {@code poll}), so {@code handleEvents} is never called. Upgrading the
- * server from eventstore 24.10 to KurrentDB 26.1.0 did not change this. This is the same
- * Quarkus + GRPC projection-consumption issue the library's own reference test
- * ({@code cqrs-4-java/test/quarkus/.../QuarkusAppTest}) is {@code @Disabled} for. The command side
- * ({@code PersonResourceIT}) — write plus synchronous read — passes.
+ * <p>
+ * Everything up to the read model works and has been verified: the write path appends the domain
+ * events to the {@code PERSON-<id>} streams, the command IT ({@code PersonResourceIT}) passes
+ * (write + synchronous read), the app starts with the push subscriptions ("Projection push mode
+ * enabled"), and — checked manually against {@code kurrentplatform/kurrentdb:26.1.0} — the
+ * server-side projection the library creates ({@code fromAll().foreachStream().when({...
+ * linkTo(targetStream)})}) runs and DOES link the events into the view's projection stream
+ * ({@code 0@PERSON-<id>}). What fails is the library's client-side consumption of that projection
+ * stream: the streaming subscription's callback never fires, so {@code View.handleEvents} is never
+ * called and nothing is persisted.
+ * <p>
+ * Ruled out as the cause (none changed the behaviour): eventstore 24.10 → KurrentDB 26.1.0;
+ * gRPC 1.69.1 → 1.71.0 (aligning to the version {@code kurrentdb-client} is built against);
+ * opening the async store's channel eagerly; {@code push} vs {@code poll} projection mode.
+ * <p>
+ * Isolated with {@link org.fuin.cqrs4j.example.quarkus.query.KurrentDbDirectSubscriptionIT}: using the
+ * <em>raw</em> KurrentDB client under this same Quarkus runtime, both a regular-stream subscription and
+ * a projection link-stream subscription (with {@code resolveLinkTos} — the library's exact mechanism)
+ * DO deliver events. So Quarkus + kurrentdb-client + grpc-netty-shaded server-streaming works; the
+ * defect is in the fuin library's higher-level subscription wiring ({@code QuarkusViewManager} /
+ * {@code ViewSubscriptions}), not in Quarkus, the client, the gRPC version, or the eventstore. Same
+ * area the library's own reference test ({@code cqrs-4-java/test/quarkus/.../QuarkusAppTest}) is
+ * {@code @Disabled} for.
  */
-@Disabled("Read model never updates: server-side projection links events correctly (verified on "
-        + "KurrentDB 26.1.0), but the library's client-side subscription to the projection stream "
-        + "does not deliver them to the View. Same known issue the reference QuarkusAppTest is @Disabled for.")
+@Disabled("Read model never updates. Isolated (see KurrentDbDirectSubscriptionIT): the raw KurrentDB "
+        + "client — regular AND projection link-stream subscriptions — delivers events fine under this "
+        + "Quarkus runtime, so the defect is in the fuin library's QuarkusViewManager/ViewSubscriptions "
+        + "wiring, not Quarkus, the client, grpc-netty-shaded, the gRPC version, or the eventstore.")
 @QuarkusTest
 class PersonListResourceIT {
 
