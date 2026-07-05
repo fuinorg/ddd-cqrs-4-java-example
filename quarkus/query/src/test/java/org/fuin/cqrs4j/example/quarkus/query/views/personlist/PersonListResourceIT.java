@@ -14,7 +14,6 @@ import org.fuin.esc.api.SimpleCommonEvent;
 import org.fuin.esc.api.SimpleStreamId;
 import org.fuin.esc.api.TypeName;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -25,35 +24,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
 /**
- * End-to-end projection test. Disabled: the read model is never updated so {@code await} times out.
- * <p>
- * Everything up to the read model works and has been verified: the write path appends the domain
- * events to the {@code PERSON-<id>} streams, the command IT ({@code PersonResourceIT}) passes
- * (write + synchronous read), the app starts with the push subscriptions ("Projection push mode
- * enabled"), and — checked manually against {@code kurrentplatform/kurrentdb:26.1.0} — the
- * server-side projection the library creates ({@code fromAll().foreachStream().when({...
- * linkTo(targetStream)})}) runs and DOES link the events into the view's projection stream
- * ({@code 0@PERSON-<id>}). What fails is the library's client-side consumption of that projection
- * stream: the streaming subscription's callback never fires, so {@code View.handleEvents} is never
- * called and nothing is persisted.
- * <p>
- * Ruled out as the cause (none changed the behaviour): eventstore 24.10 → KurrentDB 26.1.0;
- * gRPC 1.69.1 → 1.71.0 (aligning to the version {@code kurrentdb-client} is built against);
- * opening the async store's channel eagerly; {@code push} vs {@code poll} projection mode.
- * <p>
- * Isolated with {@link org.fuin.cqrs4j.example.quarkus.query.KurrentDbDirectSubscriptionIT}: using the
- * <em>raw</em> KurrentDB client under this same Quarkus runtime, both a regular-stream subscription and
- * a projection link-stream subscription (with {@code resolveLinkTos} — the library's exact mechanism)
- * DO deliver events. So Quarkus + kurrentdb-client + grpc-netty-shaded server-streaming works; the
- * defect is in the fuin library's higher-level subscription wiring ({@code QuarkusViewManager} /
- * {@code ViewSubscriptions}), not in Quarkus, the client, the gRPC version, or the eventstore. Same
- * area the library's own reference test ({@code cqrs-4-java/test/quarkus/.../QuarkusAppTest}) is
- * {@code @Disabled} for.
+ * End-to-end push-mode projection test: appends {@code PersonCreatedEvent} / {@code PersonDeletedEvent}
+ * to the {@code PERSON-<id>} streams and awaits the library's projection engine updating the JPA read
+ * model, then asserts the REST endpoints. Exercises the full write → server-side projection → push
+ * subscription → view dispatch path against a real KurrentDB + MariaDB.
  */
-@Disabled("Read model never updates. Isolated (see KurrentDbDirectSubscriptionIT): the raw KurrentDB "
-        + "client — regular AND projection link-stream subscriptions — delivers events fine under this "
-        + "Quarkus runtime, so the defect is in the fuin library's QuarkusViewManager/ViewSubscriptions "
-        + "wiring, not Quarkus, the client, grpc-netty-shaded, the gRPC version, or the eventstore.")
 @QuarkusTest
 class PersonListResourceIT {
 
@@ -85,7 +60,7 @@ class PersonListResourceIT {
                 new TypeName(event.getEventType().asBaseType()), event, null);
         eventStore.appendToStream(personStreamId, ce);
 
-        await().atMost(20, SECONDS).until(() -> findPerson(personId));
+        await().atMost(5, SECONDS).until(() -> findPerson(personId));
 
         // TEST & VERIFY
 
@@ -127,13 +102,13 @@ class PersonListResourceIT {
         final CommonEvent commonCreatedEvent = new SimpleCommonEvent(new EventId(createdEvent.getEventId().asBaseType()),
                 new TypeName(createdEvent.getEventType().asBaseType()), createdEvent, null);
         eventStore.appendToStream(personStreamId, commonCreatedEvent);
-        await().atMost(20, SECONDS).until(() -> findPerson(personId));
+        await().atMost(5, SECONDS).until(() -> findPerson(personId));
 
         final PersonDeletedEvent  deletedEvent = new PersonDeletedEvent.Builder().id(personId).name(personName).version(0).build();
         final CommonEvent commonDeletedEvent = new SimpleCommonEvent(new EventId(deletedEvent.getEventId().asBaseType()),
                 new TypeName(deletedEvent.getEventType().asBaseType()), deletedEvent, null);
         eventStore.appendToStream(personStreamId, commonDeletedEvent);
-        await().atMost(20, SECONDS).until(() -> !findPerson(personId));
+        await().atMost(5, SECONDS).until(() -> !findPerson(personId));
 
         // TEST & VERIFY
         given()
