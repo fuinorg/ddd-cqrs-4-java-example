@@ -51,90 +51,21 @@ cd ddd-cqrs-4-java-example
 docker-compose up
 ```
 
-### Start command / query implementations
-Start one query service and then one command service.
-You can mix Quarkus & Spring Boot if you want to!
-* Quarkus *currently broken*
-* [Spring Boot](spring-boot.md)
+## Run the examples
+With the services above running, start **one** query service and **one** command service. You can mix
+Quarkus and Spring Boot, because the two services integrate only through the event store:
+- **[Spring Boot](spring-boot.md)** - command & query on Spring Boot
+- **[Quarkus](quarkus.md)** - command & query on Quarkus
 
-### Verify projection and query data
-1. Open http://localhost:2113/ to access the event store UI (User: admin / Password: changeit)
-   You should see a projection named "qry-person-stream" when you click on "Projections" in the top menu.
-2. Opening http://localhost:8080/persons should show an empty JSON array
-3. Opening http://localhost:8080/statistics should show an empty JSON array 
+Then drive and verify the running system with the demos.
 
-### Execute some create commands (Console window 4)
-Change into the demo directory and execute the command using cURL (See [shell script](demo/create-persons.sh) and JSON files with commands in [demo](demo)) 
-```
-cd ddd-cqrs-4-java-example/demo
-./create-persons.sh
-```   
-Command service (Console window 3) should show something like
-```
-Update aggregate: id=PERSON 954177c4-aeb7-4d1e-b6d7-3e02fe9432cb, version=-1, nextVersion=0
-Update aggregate: id=PERSON 568df38c-fdc3-4f60-81aa-d3cce9ebfd7b, version=-1, nextVersion=0
-Update aggregate: id=PERSON 84565d62-115e-4502-b7c9-38ad69c64b05, version=-1, nextVersion=0
-```   
-Query service (Console window 2) should show something like
-```
-Handle PersonCreatedEvent: Person 'Harry Osborn' (954177c4-aeb7-4d1e-b6d7-3e02fe9432cb) was created
-Handle PersonCreatedEvent: Person 'Mary Jane Watson' (568df38c-fdc3-4f60-81aa-d3cce9ebfd7b) was created
-Handle PersonCreatedEvent: Person 'Peter Parker' (84565d62-115e-4502-b7c9-38ad69c64b05) was created
-```    
-
-### Verify the query data was updated
-1. Refreshing http://localhost:8080/persons should show
-    ```json
-    [
-       {
-           "id": "568df38c-fdc3-4f60-81aa-d3cce9ebfd7b",
-           "name": "Mary Jane Watson"
-       },
-       {
-           "id": "84565d62-115e-4502-b7c9-38ad69c64b05",
-           "name": "Peter Parker"
-       },
-       {
-           "id": "954177c4-aeb7-4d1e-b6d7-3e02fe9432cb",
-           "name": "Harry Osborn"
-       }
-    ]
-    ```
-2. Opening http://localhost:8080/persons/84565d62-115e-4502-b7c9-38ad69c64b05 should show
-    ```json
-    {"id":"84565d62-115e-4502-b7c9-38ad69c64b05","name":"Peter Parker"}
-   ```
-3. Opening http://localhost:8080/statistics should show
-   ```json
-   [ { "type": "person", "count": 3 }  ]
-   ```
-4. The event sourced data of the person aggregate could be found in a stream named [PERSON-84565d62-115e-4502-b7c9-38ad69c64b05](http://localhost:2113/web/index.html#/streams/PERSON-84565d62-115e-4502-b7c9-38ad69c64b05)
-
-### Execute a delete command (Console window 4)
-Change into the demo directory and execute the command using cURL (See [shell script](demo/create-persons.sh) and JSON files with commands in [demo](demo))
-```
-cd ddd-cqrs-4-java-example/demo
-./delete-harry-osborn.sh
-```   
-### Verify the query data was updated
-1. Refreshing http://localhost:8080/persons should show
-    ```json
-    [
-       {
-           "id": "568df38c-fdc3-4f60-81aa-d3cce9ebfd7b",
-           "name": "Mary Jane Watson"
-       },
-       {
-           "id": "84565d62-115e-4502-b7c9-38ad69c64b05",
-           "name": "Peter Parker"
-       }
-    ]
-    ```
-    "Harry Osborn" should no longer be present in the list.
-2. Opening http://localhost:8080/statistics should show
-   ```json
-   [ { "type": "person", "count": 2 }  ]
-   ```
+## Demos
+Each demo is self-contained in its own folder under [`demo/`](demo) with a `README.md` and its scripts:
+- **[End-to-end demo](demo/e2e/README.md)** - the full `command → event store → query` round trip, driven
+  by scripts and by an automated test, including mixing the Quarkus and Spring Boot stacks.
+- **[Demos roadmap](demos-roadmap.md)** - the full set of demos (the E2E demo above plus backend
+  portability, crypto-shredding, rolling-deploy event versioning, projection high-availability,
+  observability).
 
 ### Stop Event Store and Maria DB and clean up
 1. Stop Docker Compose (Ubuntu shortcut = ctrl c)

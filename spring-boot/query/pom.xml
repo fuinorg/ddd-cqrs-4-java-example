@@ -31,6 +31,18 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
+		<!-- test only: the end-to-end demo IT (PersonE2EIT) drives the command side's real Person
+		     aggregate + event-sourced repository to prove the command -> event-store -> query
+		     projection round trip. The two services otherwise integrate only through the event store.
+		     The query module's own application.properties shadows the command jar's, so there is no
+		     configuration collision. -->
+		<dependency>
+			<groupId>org.fuin.cqrs4j.example.spring</groupId>
+			<artifactId>cqrs4j-spring-example-command</artifactId>
+			<version>0.6.0-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>

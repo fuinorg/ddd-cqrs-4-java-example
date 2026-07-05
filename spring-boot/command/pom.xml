@@ -160,6 +160,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- Attach the executable (fat) jar under the "exec" classifier so the plain jar
+					     stays the main artifact and remains usable as a normal dependency. The query
+					     module's end-to-end demo IT depends on this module's domain classes; without
+					     this, the repackaged fat jar would hide them under BOOT-INF/classes. Run the
+					     app via "mvnw spring-boot:run" (unaffected) or the "-exec" jar. -->
+					<classifier>exec</classifier>
+				</configuration>
 			</plugin>
 
 			<plugin>

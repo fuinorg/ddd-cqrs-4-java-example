@@ -28,5 +28,5 @@ Make sure you installed everything as described [here](../../../../).
 In case you want to run the integration test inside your IDE (Eclipse or other), you need to start the Eventstore and MariaDB before.
 
 1. Start the Eventstore and MariaDB Docker container using the [docker-compose.yml](../../docker-compose.yml) script: `docker-compose up`
-2. Run the test: [PersonControllerIT.java](src/test/java/org/fuin/cqrs4j/example/spring/query/api/PersonControllerIT.java)
+2. Run the test: [PersonListControllerIT.java](src/test/java/org/fuin/cqrs4j/example/spring/query/views/personlist/PersonListControllerIT.java)
 3. Stop the containers in the console using CTRL+C and then remove the containers using again Docker Compose: `docker-compose rm`
