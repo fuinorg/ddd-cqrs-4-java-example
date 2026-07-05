@@ -3,14 +3,14 @@ version: '2.4'
 services:
 
   eventstore:
-    image: eventstore/eventstore:24.10
+    image: kurrentplatform/kurrentdb:26.1.0
     container_name: "cqrs4j-quarkus-example-eventstore"
     environment:
-      EVENTSTORE_MEM_DB: "true"
-      EVENTSTORE_RUN_PROJECTIONS: "All"
-      EVENTSTORE_INSECURE: "true"
-      EVENTSTORE_LOG: "/tmp/log-eventstore"
-      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: "true"
+      KURRENTDB_MEM_DB: "true"
+      KURRENTDB_RUN_PROJECTIONS: "All"
+      KURRENTDB_INSECURE: "true"
+      KURRENTDB_LOG: "/tmp/log-eventstore"
+      KURRENTDB_ENABLE_ATOM_PUB_OVER_HTTP: "true"
     ports:
       - "2113:2113"
     networks:

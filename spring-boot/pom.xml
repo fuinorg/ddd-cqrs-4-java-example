@@ -26,7 +26,7 @@
 		<objects4j.version>0.12.0-SNAPSHOT</objects4j.version>
 		<esc.version>0.10.0-SNAPSHOT</esc.version>
 		<utils4j.version>0.15.1-SNAPSHOT</utils4j.version>
-		<eventstore.version>24.10</eventstore.version>
+		<kurrentdb.version>26.1.0</kurrentdb.version>
 	</properties>
 	
 	<dependencyManagement>

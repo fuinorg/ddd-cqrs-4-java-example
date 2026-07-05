@@ -17,7 +17,7 @@
 
     <properties>
         <quarkus.version>3.21.1</quarkus.version>
-        <eventstore.version>24.10</eventstore.version>
+        <kurrentdb.version>26.1.0</kurrentdb.version>
     </properties>
 
     <dependencyManagement>

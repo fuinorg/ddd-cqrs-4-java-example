@@ -177,7 +177,7 @@
 
                     <images>
                         <image>
-                            <name>eventstore/eventstore:${eventstore.version}</name>
+                            <name>kurrentplatform/kurrentdb:${kurrentdb.version}</name>
                             <run>
                                 <!-- Host networking avoids the rootless-podman "kill network process:
                                      permission denied" teardown failure (no per-container netns). -->
@@ -188,10 +188,10 @@
                                     <enabled>false</enabled>
                                 </log>
                                 <env>
-									<EVENTSTORE_MEM_DB>TRUE</EVENTSTORE_MEM_DB>
-									<EVENTSTORE_RUN_PROJECTIONS>All</EVENTSTORE_RUN_PROJECTIONS>
-									<EVENTSTORE_INSECURE>true</EVENTSTORE_INSECURE>
-									<EVENTSTORE_LOG>/tmp/log-eventstore</EVENTSTORE_LOG>
+									<KURRENTDB_MEM_DB>TRUE</KURRENTDB_MEM_DB>
+									<KURRENTDB_RUN_PROJECTIONS>All</KURRENTDB_RUN_PROJECTIONS>
+									<KURRENTDB_INSECURE>true</KURRENTDB_INSECURE>
+									<KURRENTDB_LOG>/tmp/log-kurrentdb</KURRENTDB_LOG>
 								</env>
                                 <wait>
                                     <http>

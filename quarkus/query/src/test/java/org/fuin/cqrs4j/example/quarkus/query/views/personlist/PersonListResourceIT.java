@@ -25,19 +25,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
 /**
- * End-to-end projection test. Currently disabled: the write path works (events are appended to the
- * {@code PERSON-<id>} streams) and the app starts cleanly with the library's push-mode subscriptions
- * ("Projection push mode enabled"), but the server-side EventStoreDB projection that the library creates
- * to categorize the domain events by type into the view's projection stream does not emit them to that
- * stream against {@code eventstore/eventstore:24.10} + the KurrentDB GRPC client, so the read model is
- * never updated (neither {@code push} nor {@code poll} mode delivers). This is the same EventStoreDB /
- * GRPC projection-integration issue for which the library's own reference test
- * ({@code cqrs-4-java/test/quarkus/.../QuarkusAppTest}) is {@code @Disabled}. The command side
+ * End-to-end projection test. Disabled: the read model is never updated so {@code await} times out.
+ * The write path works (events are appended to the {@code PERSON-<id>} streams), the app starts with
+ * the library's push-mode subscriptions ("Projection push mode enabled"), and — verified directly
+ * against {@code kurrentplatform/kurrentdb:26.1.0} — the server-side projection the library creates
+ * ({@code fromAll().foreachStream().when({...linkTo(targetStream)})}) runs and DOES link the domain
+ * events into the view's projection stream. What does not work is the library's client-side
+ * subscription/read of that projection stream delivering the linked events to the {@code View}
+ * (neither {@code push} nor {@code poll}), so {@code handleEvents} is never called. Upgrading the
+ * server from eventstore 24.10 to KurrentDB 26.1.0 did not change this. This is the same
+ * Quarkus + GRPC projection-consumption issue the library's own reference test
+ * ({@code cqrs-4-java/test/quarkus/.../QuarkusAppTest}) is {@code @Disabled} for. The command side
  * ({@code PersonResourceIT}) — write plus synchronous read — passes.
  */
-@Disabled("Server-side EventStoreDB projection does not emit domain events into the view projection "
-        + "stream against eventstore 24.10 + KurrentDB GRPC (read model never updates); same known "
-        + "integration issue the library's own reference QuarkusAppTest is @Disabled for.")
+@Disabled("Read model never updates: server-side projection links events correctly (verified on "
+        + "KurrentDB 26.1.0), but the library's client-side subscription to the projection stream "
+        + "does not deliver them to the View. Same known issue the reference QuarkusAppTest is @Disabled for.")
 @QuarkusTest
 class PersonListResourceIT {
 
