@@ -15,19 +15,16 @@
 		<maven.compiler.parameters>true</maven.compiler.parameters>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<cqrs4j.version>0.6.0</cqrs4j.version>
-		<ddd4j.version>0.7.0</ddd4j.version>
-		<objects4j.version>0.11.0</objects4j.version>
-		<esc.version>0.9.0</esc.version>
-		<utils4j.version>0.15.0</utils4j.version>
+		<cqrs4j.version>0.7.0-SNAPSHOT</cqrs4j.version>
+		<ddd4j.version>0.8.0-SNAPSHOT</ddd4j.version>
+		<objects4j.version>0.12.0-SNAPSHOT</objects4j.version>
+		<esc.version>0.10.0-SNAPSHOT</esc.version>
+		<utils4j.version>0.15.1-SNAPSHOT</utils4j.version>
 		<jackson.version>2.18.2</jackson.version>
 	</properties>
 
 	<modules>
-		<!--
-		TODO Quarkus reads hang with new eventstore version and GRPC
 		<module>quarkus</module>
-		-->
 		<module>spring-boot</module>
 	</modules>
 
@@ -78,7 +75,25 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.fuin.objects4j</groupId>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-quarkus-common</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-quarkus-query</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin.cqrs4j</groupId>
+				<artifactId>cqrs-4-java-test-helper</artifactId>
+				<version>${cqrs4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.fuin</groupId>
 				<artifactId>utils4j</artifactId>
 				<version>${utils4j.version}</version>
 			</dependency>
@@ -360,12 +375,25 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>3.5.3</version>
+					<configuration>
+						<!-- JDK 25: Byte Buddy (used by Hibernate proxies and EqualsVerifier/Objenesis)
+						     rejects class-file major 69 without this. Set here on the reactor parent so
+						     every quarkus module's forked test JVM gets it. -->
+						<systemPropertyVariables>
+							<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
+						</systemPropertyVariables>
+					</configuration>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>3.2.3</version>
+					<configuration>
+						<systemPropertyVariables>
+							<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
+						</systemPropertyVariables>
+					</configuration>
 				</plugin>
 
 				<plugin>
@@ -454,9 +482,9 @@
 	<repositories>
 
 		<repository>
-			<id>sonatype.oss.snapshots</id>
-			<name>Sonatype OSS Snapshot Repository</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<id>central-snapshots</id>
+			<name>Central Portal Snapshots</name>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>

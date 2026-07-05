@@ -4,7 +4,9 @@ import java.nio.charset.StandardCharsets;
 
 import org.fuin.esc.api.EnhancedMimeType;
 import org.fuin.esc.api.SerDeserializerRegistry;
+import org.fuin.esc.api.SubscribableEventStoreAsync;
 import org.fuin.esc.esgrpc.ESGrpcEventStore;
+import org.fuin.esc.esgrpc.ESGrpcEventStoreAsync;
 import org.fuin.esc.esgrpc.IESGrpcEventStore;
 import org.fuin.esc.jsonb.BaseTypeFactory;
 
@@ -53,6 +55,37 @@ public class EventStoreFactory {
 
         eventstore.open();
         return eventstore;
+
+    }
+
+    /**
+     * Creates an asynchronous, subscribable GRPC event store used by the push-based projection mode
+     * (see {@code org.fuin.cqrs4j.projection.mode=push}). Using a push subscription instead of the
+     * synchronous {@code readAllEventsForward} poll loop avoids the read-hang that occurred with the
+     * current EventStoreDB/KurrentDB GRPC client.
+     *
+     * @param config   Configuration to use.
+     * @param registry Serialization registry.
+     *
+     * @return Application scoped subscribable async event store.
+     */
+    @Produces
+    @ApplicationScoped
+    public SubscribableEventStoreAsync createEventStoreAsync(final Config config, final SerDeserializerRegistry registry) {
+
+        final KurrentDBClientSettings setts = KurrentDBClientSettings.builder()
+                .addHost(config.getEventStoreHost(), config.getEventStoreHttpPort())
+                .defaultCredentials(config.getEventStoreUser(), config.getEventStorePassword())
+                .tls(false)
+                .buildConnectionSettings();
+
+        final KurrentDBClient client = KurrentDBClient.create(setts);
+        return new ESGrpcEventStoreAsync.Builder()
+                .eventStore(client)
+                .serDesRegistry(registry)
+                .baseTypeFactory(new BaseTypeFactory())
+                .targetContentType(EnhancedMimeType.create("application", "json", StandardCharsets.UTF_8))
+                .build();
 
     }
 

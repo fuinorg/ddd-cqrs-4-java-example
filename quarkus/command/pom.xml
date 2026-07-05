@@ -76,6 +76,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.fuin.cqrs4j</groupId>
+            <artifactId>cqrs-4-java-jsonb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.fuin.ddd4j</groupId>
+            <artifactId>ddd-4-java-esc</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>jakarta.mail</groupId>
             <artifactId>jakarta.mail-api</artifactId>
         </dependency>
@@ -135,6 +145,7 @@
                 <configuration>
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                        <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
                     </systemProperties>
                 </configuration>
             </plugin>
@@ -151,6 +162,7 @@
                         <configuration>
                             <systemProperties>
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                <net.bytebuddy.experimental>true</net.bytebuddy.experimental>
                             </systemProperties>
                         </configuration>
                     </execution>
@@ -167,12 +179,11 @@
                         <image>
                             <name>eventstore/eventstore:${eventstore.version}</name>
                             <run>
+                                <!-- Host networking avoids the rootless-podman "kill network process:
+                                     permission denied" teardown failure (no per-container netns). -->
                                 <network>
-                                    <mode>bridge</mode>
+                                    <mode>host</mode>
                                 </network>
-                                <ports>
-                                    <port>2113:2113</port>
-                                </ports>
                                 <log>
                                     <enabled>false</enabled>
                                 </log>

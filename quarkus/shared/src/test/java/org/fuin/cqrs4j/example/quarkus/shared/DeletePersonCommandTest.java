@@ -5,10 +5,10 @@ import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.yasson.FieldAccessStrategy;
-import org.fuin.cqrs4j.example.shared.DeletePersonCommand;
-import org.fuin.cqrs4j.example.shared.PersonId;
-import org.fuin.cqrs4j.example.shared.PersonName;
-import org.fuin.cqrs4j.example.shared.SharedUtils;
+import org.fuin.cqrs4j.example.quarkus.shared.DeletePersonCommand;
+import org.fuin.cqrs4j.example.quarkus.shared.PersonId;
+import org.fuin.cqrs4j.example.quarkus.shared.PersonName;
+import org.fuin.cqrs4j.example.quarkus.shared.SharedUtils;
 import org.fuin.utils4j.Utils4J;
 import org.junit.jupiter.api.Test;
 
@@ -28,10 +28,10 @@ public final class DeletePersonCommandTest {
     public final void testSerializeDeserialize() {
 
         // PREPARE
-        final org.fuin.cqrs4j.example.shared.DeletePersonCommand original = createTestee();
+        final org.fuin.cqrs4j.example.quarkus.shared.DeletePersonCommand original = createTestee();
 
         // TEST
-        final org.fuin.cqrs4j.example.shared.DeletePersonCommand copy = Utils4J.deserialize(Utils4J.serialize(original));
+        final org.fuin.cqrs4j.example.quarkus.shared.DeletePersonCommand copy = Utils4J.deserialize(Utils4J.serialize(original));
 
         // VERIFY
         assertThat(copy).isEqualTo(original);
@@ -45,15 +45,15 @@ public final class DeletePersonCommandTest {
     public final void testMarshalUnmarshalJson() throws Exception {
 
         // PREPARE
-        final org.fuin.cqrs4j.example.shared.DeletePersonCommand original = createTestee();
+        final org.fuin.cqrs4j.example.quarkus.shared.DeletePersonCommand original = createTestee();
 
-        final JsonbConfig config = new JsonbConfig().withAdapters(org.fuin.cqrs4j.example.shared.SharedUtils.getJsonbAdapters())
+        final JsonbConfig config = new JsonbConfig().withAdapters(org.fuin.cqrs4j.example.quarkus.shared.SharedUtils.getJsonbAdapters())
                 .withPropertyVisibilityStrategy(new FieldAccessStrategy());
         try (final Jsonb jsonb = JsonbBuilder.create(config)) {
 
             // TEST
-            final String json = jsonb.toJson(original, org.fuin.cqrs4j.example.shared.DeletePersonCommand.class);
-            final org.fuin.cqrs4j.example.shared.DeletePersonCommand copy = jsonb.fromJson(json, org.fuin.cqrs4j.example.shared.DeletePersonCommand.class);
+            final String json = jsonb.toJson(original, org.fuin.cqrs4j.example.quarkus.shared.DeletePersonCommand.class);
+            final org.fuin.cqrs4j.example.quarkus.shared.DeletePersonCommand copy = jsonb.fromJson(json, org.fuin.cqrs4j.example.quarkus.shared.DeletePersonCommand.class);
 
             // VERIFY
             assertThat(copy).isEqualTo(original);
@@ -76,7 +76,7 @@ public final class DeletePersonCommandTest {
         try (final Jsonb jsonb = JsonbBuilder.create(config)) {
 
             // TEST
-            final org.fuin.cqrs4j.example.shared.DeletePersonCommand copy = jsonb.fromJson(json, org.fuin.cqrs4j.example.shared.DeletePersonCommand.class);
+            final org.fuin.cqrs4j.example.quarkus.shared.DeletePersonCommand copy = jsonb.fromJson(json, org.fuin.cqrs4j.example.quarkus.shared.DeletePersonCommand.class);
 
             // VERIFY
             assertThat(copy.getEventId().asBaseType()).isEqualTo(UUID.fromString("109a77b2-1de2-46fc-aee1-97fa7740a552"));
@@ -89,9 +89,9 @@ public final class DeletePersonCommandTest {
 
     }
 
-    private org.fuin.cqrs4j.example.shared.DeletePersonCommand createTestee() {
-        final org.fuin.cqrs4j.example.shared.PersonId personId = new PersonId(UUID.fromString(PERSON_UUID));
-        final org.fuin.cqrs4j.example.shared.PersonName personName = new PersonName("Peter Parker");
+    private org.fuin.cqrs4j.example.quarkus.shared.DeletePersonCommand createTestee() {
+        final org.fuin.cqrs4j.example.quarkus.shared.PersonId personId = new PersonId(UUID.fromString(PERSON_UUID));
+        final org.fuin.cqrs4j.example.quarkus.shared.PersonName personName = new PersonName("Peter Parker");
         return new DeletePersonCommand.Builder().id(personId).name(personName).version(0).build();
     }
 

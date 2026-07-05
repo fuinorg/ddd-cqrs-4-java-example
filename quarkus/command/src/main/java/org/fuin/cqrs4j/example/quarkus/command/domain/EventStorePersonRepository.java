@@ -1,7 +1,7 @@
 package org.fuin.cqrs4j.example.quarkus.command.domain;
 
 import jakarta.validation.constraints.NotNull;
-import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.quarkus.shared.PersonId;
 import org.fuin.ddd4j.core.EntityType;
 import org.fuin.ddd4j.esc.EventStoreRepository;
 import org.fuin.esc.api.EventStore;

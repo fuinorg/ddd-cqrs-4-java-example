@@ -32,6 +32,23 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- The KurrentDB client (kurrentdb-client 1.0.0) generates its gRPC/protobuf stubs
+                 against protobuf-java 4.28.2 (needs com.google.protobuf.RuntimeVersion). quarkus-bom
+                 pins the older 3.25.x line, so the generated code fails at runtime with
+                 NoClassDefFoundError RuntimeVersion$RuntimeDomain. A direct dependencyManagement
+                 entry overrides the imported BOM and realigns protobuf for the KurrentDB client. -->
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>4.28.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>4.28.2</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>

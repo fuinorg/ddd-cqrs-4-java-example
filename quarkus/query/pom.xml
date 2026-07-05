@@ -65,6 +65,18 @@
 			<artifactId>cqrs-4-java-esc</artifactId>
 		</dependency>
 
+		<!-- Library projection/view engine: provides QuarkusViewManager, the ProjectionService /
+		     ProjectionLeaseService / ConverterRegistry beans, and drives the app's View beans. -->
+		<dependency>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-quarkus-query</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.cqrs4j</groupId>
+			<artifactId>cqrs-4-java-quarkus-common</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-jsonb</artifactId>
@@ -136,6 +148,7 @@
 				<configuration>
 					<systemProperties>
 						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+						<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
 					</systemProperties>
 				</configuration>
 			</plugin>
@@ -152,6 +165,7 @@
 						<configuration>
 							<systemProperties>
 								<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+								<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
 							</systemProperties>
 						</configuration>
 					</execution>
@@ -168,18 +182,18 @@
 						<image>
 							<name>eventstore/eventstore:${eventstore.version}</name>
 							<run>
+								<!-- Host networking avoids the rootless-podman "kill network process:
+								     permission denied" teardown failure (no per-container netns). -->
 								<network>
-									<mode>bridge</mode>
+									<mode>host</mode>
 								</network>
-								<ports>
-									<port>2113:2113</port>
-								</ports>
 								<log>
 									<enabled>false</enabled>
 								</log>
                                 <env>
 									<EVENTSTORE_MEM_DB>TRUE</EVENTSTORE_MEM_DB>
 									<EVENTSTORE_RUN_PROJECTIONS>All</EVENTSTORE_RUN_PROJECTIONS>
+									<EVENTSTORE_START_STANDARD_PROJECTIONS>true</EVENTSTORE_START_STANDARD_PROJECTIONS>
 									<EVENTSTORE_INSECURE>true</EVENTSTORE_INSECURE>
 									<EVENTSTORE_LOG>/tmp/log-eventstore</EVENTSTORE_LOG>
 								</env>
@@ -196,12 +210,10 @@
 						<image>
 							<name>mariadb:10.6</name>
 							<run>
+								<!-- Host networking (see EventStoreDB above). -->
 								<network>
-									<mode>bridge</mode>
+									<mode>host</mode>
 								</network>
-								<ports>
-									<port>3306:3306</port>
-								</ports>
 								<log>
 									<enabled>false</enabled>
 								</log>

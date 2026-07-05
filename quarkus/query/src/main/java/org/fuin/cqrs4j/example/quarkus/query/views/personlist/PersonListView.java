@@ -1,4 +1,4 @@
-package org.fuin.cqrs4j.example.quarkus.query.views.statistic;
+package org.fuin.cqrs4j.example.quarkus.query.views.personlist;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import org.fuin.cqrs4j.core.View;
 import org.fuin.cqrs4j.example.quarkus.shared.PersonCreatedEvent;
 import org.fuin.cqrs4j.example.quarkus.shared.PersonDeletedEvent;
+import org.fuin.cqrs4j.example.quarkus.shared.PersonId;
 import org.fuin.ddd4j.core.Event;
 import org.fuin.ddd4j.core.EventType;
 import org.fuin.objects4j.common.ThreadSafe;
@@ -17,23 +18,22 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Maintains the statistic database view. Discovered by the library's {@code QuarkusViewManager}
- * (cqrs-4-java-quarkus-query) as a {@code @Named} CDI bean implementing {@link View}.
+ * View with the list of persons. Discovered by the library's {@code QuarkusViewManager}
+ * (cqrs-4-java-quarkus-query) as a {@code @Named} CDI bean implementing {@link View}; the manager
+ * creates the event store projection and dispatches matching events to {@link #handleEvents(List)}.
  */
 @ThreadSafe
 @Dependent
-@Named(StatisticView.BEAN_NAME)
-public class StatisticView implements View {
+@Named(PersonListView.BEAN_NAME)
+public class PersonListView implements View {
 
-    private static final Logger LOG = LoggerFactory.getLogger(StatisticView.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PersonListView.class);
 
     /** Unique name of the view / projection. */
-    public static final String NAME = "quarkus-qry-statistic";
+    public static final String NAME = "quarkus-qry-personlist";
 
     /** Name of the CDI bean. */
-    public static final String BEAN_NAME = "StatisticView";
-
-    private static final EntityType PERSON = new EntityType("person");
+    public static final String BEAN_NAME = "PersonListView";
 
     private final EntityManager em;
 
@@ -43,7 +43,7 @@ public class StatisticView implements View {
      * @param em Entity manager used to store the read model.
      */
     @Inject
-    public StatisticView(final EntityManager em) {
+    public PersonListView(final EntityManager em) {
         this.em = em;
     }
 
@@ -59,7 +59,7 @@ public class StatisticView implements View {
 
     @Override
     public Class<? extends View> getBeanClass() {
-        return StatisticView.class;
+        return PersonListView.class;
     }
 
     @Override
@@ -88,19 +88,18 @@ public class StatisticView implements View {
 
     private void handlePersonCreatedEvent(final PersonCreatedEvent event) {
         LOG.info("Handle {}: {}", event.getClass().getSimpleName(), event);
-        final StatisticEntity entity = em.find(StatisticEntity.class, PERSON.name());
-        if (entity == null) {
-            em.persist(new StatisticEntity(PERSON));
-        } else {
-            entity.inc();
+        final PersonId personId = event.getEntityId();
+        if (em.find(PersonListEntry.class, personId.asString()) == null) {
+            em.persist(new PersonListEntry(personId, event.getName()));
         }
     }
 
     private void handlePersonDeletedEvent(final PersonDeletedEvent event) {
         LOG.info("Handle {}: {}", event.getClass().getSimpleName(), event);
-        final StatisticEntity entity = em.find(StatisticEntity.class, PERSON.name());
+        final PersonId personId = event.getEntityId();
+        final PersonListEntry entity = em.find(PersonListEntry.class, personId.asString());
         if (entity != null) {
-            entity.dec();
+            em.remove(entity);
         }
     }
 

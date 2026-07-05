@@ -2,7 +2,7 @@ package org.fuin.cqrs4j.example.quarkus.shared;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-import org.fuin.cqrs4j.example.shared.PersonId;
+import org.fuin.cqrs4j.example.quarkus.shared.PersonId;
 import org.fuin.ddd4j.core.EntityType;
 import org.fuin.ddd4j.core.StringBasedEntityType;
 import org.fuin.objects4j.common.ConstraintViolationException;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Test for {@link org.fuin.cqrs4j.example.shared.PersonId}.
+ * Test for {@link org.fuin.cqrs4j.example.quarkus.shared.PersonId}.
  */
 public final class PersonIdTest {
 
@@ -22,13 +22,13 @@ public final class PersonIdTest {
 
     @Test
     public void testEquals() {
-        EqualsVerifier.forClass(org.fuin.cqrs4j.example.shared.PersonId.class).suppress(Warning.NONFINAL_FIELDS).withNonnullFields("entityType", "uuid")
+        EqualsVerifier.forClass(org.fuin.cqrs4j.example.quarkus.shared.PersonId.class).suppress(Warning.NONFINAL_FIELDS).withNonnullFields("entityType", "uuid")
                 .withPrefabValues(EntityType.class, new StringBasedEntityType("A"), new StringBasedEntityType("B")).verify();
     }
 
     @Test
     public void testValueOf() {
-        final org.fuin.cqrs4j.example.shared.PersonId personId = org.fuin.cqrs4j.example.shared.PersonId.valueOf(PERSON_UUID);
+        final org.fuin.cqrs4j.example.quarkus.shared.PersonId personId = org.fuin.cqrs4j.example.quarkus.shared.PersonId.valueOf(PERSON_UUID);
 
         assertThat(personId.asString()).isEqualTo(PERSON_UUID);
 
@@ -37,7 +37,7 @@ public final class PersonIdTest {
     @Test
     public void testValueOfIllegalArgumentCharacter() {
         try {
-            org.fuin.cqrs4j.example.shared.PersonId.valueOf("abc");
+            org.fuin.cqrs4j.example.quarkus.shared.PersonId.valueOf("abc");
             fail();
         } catch (final ConstraintViolationException ex) {
             assertThat(ex.getMessage()).isEqualTo("The argument 'value' is not valid: 'abc'");
@@ -51,7 +51,7 @@ public final class PersonIdTest {
         final String personIdValue = PERSON_UUID;
 
         // TEST
-        final org.fuin.cqrs4j.example.shared.PersonId personId = new org.fuin.cqrs4j.example.shared.PersonId.Converter().adaptFromJson(UUID.fromString(PERSON_UUID));
+        final org.fuin.cqrs4j.example.quarkus.shared.PersonId personId = new org.fuin.cqrs4j.example.quarkus.shared.PersonId.Converter().adaptFromJson(UUID.fromString(PERSON_UUID));
 
         // VERIFY
         assertThat(personId.asString()).isEqualTo(personIdValue);
@@ -60,7 +60,7 @@ public final class PersonIdTest {
     @Test
     public void testConverterMarshal() throws Exception {
 
-        final org.fuin.cqrs4j.example.shared.PersonId personId = org.fuin.cqrs4j.example.shared.PersonId.valueOf(PERSON_UUID);
+        final org.fuin.cqrs4j.example.quarkus.shared.PersonId personId = org.fuin.cqrs4j.example.quarkus.shared.PersonId.valueOf(PERSON_UUID);
 
         // TEST
         final UUID uuid = new PersonId.Converter().adaptToJson(personId);

@@ -6,7 +6,7 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
 import org.eclipse.yasson.FieldAccessStrategy;
-import org.fuin.cqrs4j.example.shared.SharedUtils;
+import org.fuin.cqrs4j.example.quarkus.shared.SharedUtils;
 
 /**
  * CDI factory that creates a JSON-B instance.

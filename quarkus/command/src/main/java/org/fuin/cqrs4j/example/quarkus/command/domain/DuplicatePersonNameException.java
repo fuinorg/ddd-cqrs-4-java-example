@@ -1,8 +1,8 @@
 package org.fuin.cqrs4j.example.quarkus.command.domain;
 
 import jakarta.validation.constraints.NotNull;
-import org.fuin.cqrs4j.example.shared.PersonId;
-import org.fuin.cqrs4j.example.shared.PersonName;
+import org.fuin.cqrs4j.example.quarkus.shared.PersonId;
+import org.fuin.cqrs4j.example.quarkus.shared.PersonName;
 import org.fuin.objects4j.common.ExceptionShortIdentifable;
 
 /**
