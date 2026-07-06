@@ -1,12 +1,7 @@
 # Demo: Rolling-Deploy Event Versioning
 
-| Status | Effort | Depends on |
-|--------|--------|-----------|
-| 📋 planned — not yet implemented | M (2–4 days) | — |
-
 > **Scripts:** none yet. This demo is **self-contained** — its own scripts and versioned JSON payloads
-> land in this folder. See the [demos roadmap](../../demos-roadmap.md) for how this fits with the other
-> demos.
+> land in this folder.
 
 ## What it demonstrates
 

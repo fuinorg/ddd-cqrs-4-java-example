@@ -1,12 +1,7 @@
 # Demo: Observability
 
-| Status | Effort | Depends on |
-|--------|--------|-----------|
-| 📋 planned — not yet implemented | S–M | cqrs-4-java metrics hook |
-
 > **Scripts:** none yet. This demo is **self-contained** — it carries its own load-driver script, a
-> metrics-scraping script, and its own Prometheus/Grafana `docker-compose` overlay in this folder. See
-> the [demos roadmap](../../demos-roadmap.md) for how this fits with the other demos.
+> metrics-scraping script, and its own Prometheus/Grafana `docker-compose` overlay in this folder.
 
 ## What it demonstrates
 

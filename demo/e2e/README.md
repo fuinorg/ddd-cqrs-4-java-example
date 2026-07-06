@@ -1,8 +1,7 @@
 # End-to-End Demo: Command → Event Store → Query
 
 This walkthrough drives the **full CQRS / Event-Sourcing round trip** end to end and shows how the two
-microservices integrate. It is the first of the demos in the [demos roadmap](../../demos-roadmap.md); the
-other five are described there.
+microservices integrate.
 
 ```
    command REST (:8081)  ─POST/DELETE─▶  ┌───────────────┐  ─subscribe─▶  query projection  ─JPA─▶  query REST (:8080)
@@ -186,6 +185,3 @@ precisely *because* the two services share nothing but the event store:
   model is a *derived* view that can be rebuilt from those events at any time.
 - **Stack portability** — command and query can each be Spring Boot or Quarkus, because the event store is
   the only contract between them.
-
-For the remaining demos (backend portability, crypto-shredding, rolling-deploy versioning, projection-HA,
-observability) see the [demos roadmap](../../demos-roadmap.md).

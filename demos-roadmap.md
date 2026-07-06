@@ -2,8 +2,8 @@
 
 Six end-to-end demos show off what the fuin DDD/CQRS/Event-Sourcing stack (`event-store-commons`,
 `ddd-4-java`, `cqrs-4-java`, `objects4j`) can do. Each demo lives in its own subfolder under
-[`demo/`](demo) with a `README.md` and the scripts it needs. The first is **done**; the other five are
-scoped so they can be picked up incrementally.
+[`demo/`](demo) with a `README.md` and the scripts it needs. The first two are **done**; the other four
+are scoped so they can be picked up incrementally.
 
 > **Requirement — demos are independent of each other.** Every demo is self-contained: it has its own
 > folder, its own `README.md`, and its own copy of any scripts and payloads it needs. No demo depends on
@@ -14,7 +14,7 @@ scoped so they can be picked up incrementally.
 | # | Demo | Status | Effort | Depends on (library) |
 |---|------|--------|--------|----------------------|
 | 1 | [Cross-service command → query E2E](demo/e2e/README.md) | ✅ done | — | — |
-| 2 | [Backend portability (JPA / catch-up)](demo/backend-portability/README.md) | 📋 planned | M | — |
+| 2 | [Backend portability (JPA / catch-up)](demo/backend-portability/README.md) | ✅ done | M | — |
 | 3 | [Crypto-shredding (DDD-4)](demo/crypto-shredding/README.md) | 📋 planned | L | objects4j / ddd-4-java feature |
 | 4 | [Rolling-deploy event versioning](demo/event-versioning/README.md) | 📋 planned | M | — |
 | 5 | [Projection high-availability](demo/projection-ha/README.md) | 📋 planned | L | cqrs-4-java lease work |
@@ -39,8 +39,9 @@ REST` round trip, across the two microservices, including mixing the Quarkus and
 
 ## Suggested order
 
-1. **#2 backend portability** — no library gate, self-contained round-trip script, strongest "portable
-   SPI" message. Do first.
+1. ~~**#2 backend portability**~~ — ✅ done. Closed a real library gap along the way: the `esc-jpa`
+   store now serves projections as a type filter over the event log (a `ProjectionAdminEventStore` plus
+   catch-up read), so the cqrs-4-java `SpringViewManager` works unchanged over the relational backend.
 2. **#4 event versioning** — mostly example-level once the `esc` metadata seam is confirmed.
 3. **#6 observability (metrics + health first)** — low effort, mostly configuration.
 4. **#5 projection-HA** and **#3 crypto-shredding** — both likely need library features first

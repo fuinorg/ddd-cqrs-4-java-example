@@ -80,6 +80,25 @@
 		</dependency>
 
 		<dependency>
+			<!-- Relational event-store backend used by the "esc-jpa" backend-portability profile -->
+			<groupId>org.fuin.esc</groupId>
+			<artifactId>esc-jpa</artifactId>
+		</dependency>
+
+		<!-- Spring ORM/TX support so the "esc-jpa" profile config can obtain a shared entity manager and run
+		     mutating event-store operations in a transaction. The actual JPA runtime (Hibernate + datasource)
+		     is contributed by the command/query modules under that profile. -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.fuin.esc</groupId>
 			<artifactId>esc-client</artifactId>
 		</dependency>

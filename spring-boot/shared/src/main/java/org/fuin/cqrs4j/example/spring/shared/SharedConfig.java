@@ -31,6 +31,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
@@ -106,6 +107,7 @@ public class SharedConfig {
     }
 
     @Bean(destroyMethod = "shutdown")
+    @Profile("!esc-jpa")
     public KurrentDBClient createKurrentDBClient(final EventstoreConfig config) {
         final KurrentDBClientSettings settings = KurrentDBClientSettings.builder()
                 .addHost(config.getHost(), config.getPort())
@@ -116,6 +118,7 @@ public class SharedConfig {
     }
 
     @Bean
+    @Profile("!esc-jpa")
     public KurrentDBProjectionManagementClient createKurrentDBProjectionManagementClient(final EventstoreConfig config) {
         final KurrentDBClientSettings settings = KurrentDBClientSettings.builder()
                 .addHost(config.getHost(), config.getPort())
@@ -134,6 +137,7 @@ public class SharedConfig {
      */
     @SuppressWarnings("java:S2095") // Spring will correctly close it by calling "close()" on instance
     @Bean(destroyMethod = "close")
+    @Profile("!esc-jpa")
     public IESGrpcEventStore getESGrpcEventStore(final SerDeserializerRegistry registry,
                                                  final KurrentDBClient client) {
         return new ESGrpcEventStore.Builder()
@@ -153,6 +157,7 @@ public class SharedConfig {
      */
     @SuppressWarnings("java:S2095") // Spring will correctly close it by calling "close()" on instance
     @Bean(destroyMethod = "close")
+    @Profile("!esc-jpa")
     public ProjectionAdminEventStore getProjectionAdminEventStore(final KurrentDBProjectionManagementClient client) {
         return new GrpcProjectionAdminEventStore(client, null).open();
     }

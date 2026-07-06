@@ -36,6 +36,19 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- Relational event-store backend for the "esc-jpa" backend-portability profile. The datasource
+		     auto-configuration is excluded by default (see application.properties) so the KurrentDB command
+		     service still starts without a database. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.fuin.cqrs4j</groupId>
 			<artifactId>cqrs-4-java-core</artifactId>

@@ -1,12 +1,7 @@
 # Demo: Projection High-Availability
 
-| Status | Effort | Depends on |
-|--------|--------|-----------|
-| 📋 planned — not yet implemented | L (1 week+) | cqrs-4-java lease work |
-
 > **Scripts:** none yet. This demo is **self-contained** — it carries its own driver script (which starts
-> two query instances and simulates a failover) plus its own command payloads in this folder. See the
-> [demos roadmap](../../demos-roadmap.md) for how this fits with the other demos.
+> two query instances and simulates a failover) plus its own command payloads in this folder.
 
 ## What it demonstrates
 

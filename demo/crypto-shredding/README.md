@@ -1,12 +1,7 @@
 # Demo: Crypto-Shredding (DDD-4)
 
-| Status | Effort | Depends on |
-|--------|--------|-----------|
-| 📋 planned — not yet implemented | L (1 week+) | objects4j / ddd-4-java feature |
-
 > **Scripts:** none yet. Scripts (`create → query → forget → query`) land in this folder once the
-> library feature exists. See the [demos roadmap](../../demos-roadmap.md) for how this fits with the
-> other demos.
+> library feature exists.
 
 ## What it demonstrates
 

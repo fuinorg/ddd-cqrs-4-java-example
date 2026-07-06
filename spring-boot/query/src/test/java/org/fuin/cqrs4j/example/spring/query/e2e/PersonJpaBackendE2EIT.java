@@ -10,13 +10,14 @@ import org.fuin.cqrs4j.example.spring.query.app.QryApplication;
 import org.fuin.cqrs4j.example.spring.query.views.personlist.PersonListEntry;
 import org.fuin.cqrs4j.example.spring.shared.PersonId;
 import org.fuin.cqrs4j.example.spring.shared.PersonName;
-import org.fuin.esc.esgrpc.IESGrpcEventStore;
+import org.fuin.esc.api.EventStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -29,24 +30,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
 /**
- * End-to-end demo test — the full CQRS/Event-Sourcing round trip the command and query microservices
- * integrate through.
+ * Backend-portability integration test - the <b>same</b> round trip as {@link PersonE2EIT}, but with the
+ * event store swapped from KurrentDB (gRPC) to the relational {@code esc-jpa} backend via the {@code esc-jpa}
+ * Spring profile. Nothing in the {@code Person} aggregate, the event-sourced repository, the projection views
+ * or the REST layer changes - only the backend behind the {@code EventStore} SPI. On this backend the query
+ * side's projection catches up by <b>polling</b> the relational store (a projection is a type filter over the
+ * global event log) instead of a live gRPC subscription.
  * <p>
- * The command side creates/deletes a person through its <em>real</em> {@code Person} aggregate and
- * event-sourced {@link EventStorePersonRepository} (appending {@code PersonCreatedEvent} /
- * {@code PersonDeletedEvent} to the {@code PERSON-<id>} stream). The query side's projection consumes
- * those events into the JPA read model, which is served over REST. The two services never call each
- * other directly — they integrate <b>only through the shared event store</b> — so this in-process test
- * drives the command domain's write path against the query app's event-store connection to prove the
- * whole pipeline: <code>command aggregate → event store → query projection → query REST</code>.
- * <p>
- * The manual, cross-process (and cross-stack Quarkus&lt;-&gt;Spring) walkthrough is
- * {@code doc/demo-e2e.md}.
+ * Like {@link PersonE2EIT} it drives the command domain in-process against the query application's own
+ * event-store connection, because the two services integrate only through the shared event store. Appends
+ * are transactional through the {@code esc-jpa} event store bean (see {@code EscJpaConfig}), so no explicit
+ * transaction management is needed here.
  */
+// The two E2E ITs run a background projection view manager against the shared MariaDB. Close the context
+// after the class so only one view manager is ever polling the database at a time (avoids the two contexts
+// clobbering each other's shared projection position rows).
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = QryApplication.class)
+@ActiveProfiles("esc-jpa")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class PersonE2EIT {
+class PersonJpaBackendE2EIT {
 
     @LocalServerPort
     int port;
@@ -54,9 +57,9 @@ class PersonE2EIT {
     @Autowired
     WebApplicationContext wac;
 
-    /** The query application's own event-store connection — the integration seam between the services. */
+    /** The query application's own event-store connection - here the relational esc-jpa store. */
     @Autowired
-    IESGrpcEventStore eventStore;
+    EventStore eventStore;
 
     @Autowired
     EntityManager em;
@@ -79,10 +82,10 @@ class PersonE2EIT {
         final PersonId personId = new PersonId(UUID.randomUUID());
         final PersonName personName = new PersonName("Gwen Stacy");
         final Person person = new Person(personId, personName, name -> Optional.empty());
-        repo.add(person); // appends PersonCreatedEvent to the event store
+        repo.add(person); // appends PersonCreatedEvent to the relational event store
 
-        // ---- QUERY SIDE: the projection catches up; the person appears in the read model + REST ----
-        await().atMost(10, SECONDS).until(() -> findPerson(personId));
+        // ---- QUERY SIDE: the polling projection catches up; the person appears in the read model + REST ----
+        await().atMost(15, SECONDS).until(() -> findPerson(personId));
 
         final PersonListEntry byId = given()
                 .pathParam("id", personId.asString())
@@ -107,7 +110,7 @@ class PersonE2EIT {
         repo.update(loaded); // appends PersonDeletedEvent
 
         // ---- QUERY SIDE: the projection removes it from the read model ----
-        await().atMost(10, SECONDS).until(() -> !findPerson(personId));
+        await().atMost(15, SECONDS).until(() -> !findPerson(personId));
         given()
                 .pathParam("id", personId.asString())
                 .when().get("/persons/{id}")
