@@ -208,7 +208,7 @@
 						</image>
 
 						<image>
-							<name>mariadb:10.6</name>
+							<name>mariadb:12.3</name>
 							<run>
 								<!-- Host networking (see KurrentDB above). -->
 								<network>

@@ -1,38 +1,39 @@
-package org.fuin.cqrs4j.example.spring.query.views.statistics;
+package org.fuin.cqrs4j.example.quarkus.query.views.statistic;
 
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import org.fuin.cqrs4j.core.View;
-import org.fuin.cqrs4j.example.spring.shared.PersonCreatedEvent;
-import org.fuin.cqrs4j.example.spring.shared.PersonDeletedEvent;
+import org.fuin.cqrs4j.example.quarkus.shared.PersonCreatedEvent;
+import org.fuin.cqrs4j.example.quarkus.shared.PersonDeletedEvent;
 import org.fuin.ddd4j.core.Event;
 import org.fuin.ddd4j.core.EventType;
 import org.fuin.objects4j.common.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Set;
 
-import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
-
 /**
- * Maintains the statistic database view. Discovered by the query-starter's {@code SpringViewManager} as a
- * prototype-scoped bean; a fresh instance (with an injected {@link EntityManager}) is created per projection run.
+ * Maintains the "per entity type" statistic by selecting the <b>concrete</b> domain events (creation and
+ * deletion) and counting the live instances per entity type. This is the event-type based counterpart of
+ * {@link StatisticViewCategories}. Discovered by the library's {@code QuarkusViewManager}
+ * (cqrs-4-java-quarkus-query) as a {@code @Named} CDI bean implementing {@link View}.
  */
 @ThreadSafe
-@Component(StatisticView.BEAN_NAME)
-@Scope(SCOPE_PROTOTYPE)
-public class StatisticView implements View {
+@Dependent
+@Named(StatisticViewEvents.BEAN_NAME)
+public class StatisticViewEvents implements View {
 
-    private static final Logger LOG = LoggerFactory.getLogger(StatisticView.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StatisticViewEvents.class);
 
     /** Unique name of the view / projection. */
-    public static final String NAME = "spring-qry-statistic";
+    public static final String NAME = "quarkus-qry-statistic-events";
 
-    /** Name of the Spring bean. */
-    public static final String BEAN_NAME = "StatisticView";
+    /** Name of the CDI bean. */
+    public static final String BEAN_NAME = "StatisticViewEvents";
 
     private static final EntityType PERSON = new EntityType("person");
 
@@ -43,7 +44,8 @@ public class StatisticView implements View {
      *
      * @param em Entity manager used to store the read model.
      */
-    public StatisticView(final EntityManager em) {
+    @Inject
+    public StatisticViewEvents(final EntityManager em) {
         this.em = em;
     }
 
@@ -59,18 +61,25 @@ public class StatisticView implements View {
 
     @Override
     public Class<? extends View> getBeanClass() {
-        return StatisticView.class;
+        return StatisticViewEvents.class;
     }
 
     @Override
     public Set<EventType> getEventTypes() {
+        // Selects the concrete event types (as opposed to StatisticViewCategories, which selects by category).
         return Set.of(PersonCreatedEvent.TYPE, PersonDeletedEvent.TYPE);
     }
 
     @Override
+    public Set<Class<?>> getEventCategories() {
+        // This view selects purely by event type (see getEventTypes) - no categories.
+        return Set.of();
+    }
+
+    @Override
     public String getCron() {
-        // Every second
-        return "* * * * * *";
+        // Every second (used only in poll mode; push mode subscribes instead)
+        return "* * * * * ?";
     }
 
     @Override
@@ -88,9 +97,9 @@ public class StatisticView implements View {
 
     private void handlePersonCreatedEvent(final PersonCreatedEvent event) {
         LOG.info("Handle {}: {}", event.getClass().getSimpleName(), event);
-        final StatisticEntity entity = em.find(StatisticEntity.class, PERSON.name());
+        final StatisticEventsEntity entity = em.find(StatisticEventsEntity.class, PERSON.name());
         if (entity == null) {
-            em.persist(new StatisticEntity(PERSON));
+            em.persist(new StatisticEventsEntity(PERSON));
         } else {
             entity.inc();
         }
@@ -98,7 +107,7 @@ public class StatisticView implements View {
 
     private void handlePersonDeletedEvent(final PersonDeletedEvent event) {
         LOG.info("Handle {}: {}", event.getClass().getSimpleName(), event);
-        final StatisticEntity entity = em.find(StatisticEntity.class, PERSON.name());
+        final StatisticEventsEntity entity = em.find(StatisticEventsEntity.class, PERSON.name());
         if (entity != null) {
             entity.dec();
         }

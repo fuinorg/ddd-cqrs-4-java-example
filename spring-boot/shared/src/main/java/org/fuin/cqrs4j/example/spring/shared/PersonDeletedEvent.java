@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import org.fuin.ddd4j.jackson.AbstractDomainEvent;
 import org.fuin.ddd4j.core.AggregateVersion;
 import org.fuin.ddd4j.core.EventType;
+import org.fuin.ddd4j.core.ExodusEvent;
 import org.fuin.esc.api.HasSerializedDataTypeConstant;
 import org.fuin.esc.api.SerializedDataType;
 
@@ -16,7 +17,7 @@ import javax.annotation.concurrent.Immutable;
  */
 @Immutable
 @HasSerializedDataTypeConstant
-public final class PersonDeletedEvent extends AbstractDomainEvent<PersonId> {
+public final class PersonDeletedEvent extends AbstractDomainEvent<PersonId> implements ExodusEvent {
 
     private static final long serialVersionUID = 1000L;
 

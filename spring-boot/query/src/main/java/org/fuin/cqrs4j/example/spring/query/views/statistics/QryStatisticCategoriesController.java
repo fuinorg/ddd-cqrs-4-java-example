@@ -15,31 +15,31 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * REST controller providing the statistics.
+ * REST controller providing the category based statistic ({@link StatisticViewCategories}).
  */
 @RestController
-@RequestMapping("/statistics")
+@RequestMapping("/statistics-categories")
 @Transactional(readOnly = true)
-public class QryStatisticController {
+public class QryStatisticCategoriesController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(QryStatisticController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(QryStatisticCategoriesController.class);
 
     @Autowired
     EntityManager em;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Statistic> getAll() {
-        final List<Statistic> statistics = em.createNamedQuery(StatisticEntity.FIND_ALL, Statistic.class).getResultList();
+    public List<CategoryStatistic> getAll() {
+        final List<CategoryStatistic> statistics = em.createNamedQuery(StatisticCategoriesEntity.FIND_ALL, CategoryStatistic.class).getResultList();
         LOG.info("getAll() = {}", statistics.size());
         return statistics;
     }
 
-    @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getByName(@PathVariable(value = "name") String name) {
-        if (!EntityType.isValid(name)) {
-            return ResponseEntity.badRequest().body("Invalid entity type name");
+    @GetMapping(path = "/{category}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getByCategory(@PathVariable(value = "category") String category) {
+        if (category == null || category.isEmpty() || category.length() > StatisticCategoriesEntity.MAX_LENGTH) {
+            return ResponseEntity.badRequest().body("Invalid category name");
         }
-        final StatisticEntity entity = em.find(StatisticEntity.class, name);
+        final StatisticCategoriesEntity entity = em.find(StatisticCategoriesEntity.class, category);
         if (entity == null) {
             return ResponseEntity.notFound().build();
         }

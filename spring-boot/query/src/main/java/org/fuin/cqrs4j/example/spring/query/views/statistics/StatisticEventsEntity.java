@@ -10,15 +10,16 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * Represents a statistic record that will be stored in the database.
+ * Read model of the {@link StatisticViewEvents} projection: the number of live instances per entity type,
+ * counted from the concrete domain events (created / deleted).
  */
 @Entity
-@Table(name = "SPRING_STATISTIC")
-@NamedQuery(name = StatisticEntity.FIND_ALL,
-        query = "SELECT new org.fuin.cqrs4j.example.spring.query.views.statistics.Statistic(s.type, s.count) FROM StatisticEntity s")
-public class StatisticEntity {
+@Table(name = "STATISTIC_EVENTS")
+@NamedQuery(name = StatisticEventsEntity.FIND_ALL,
+        query = "SELECT new org.fuin.cqrs4j.example.spring.query.views.statistics.Statistic(s.type, s.count) FROM StatisticEventsEntity s")
+public class StatisticEventsEntity {
 
-    public static final String FIND_ALL = "StatisticEntity.findAll";
+    public static final String FIND_ALL = "StatisticEventsEntity.findAll";
 
     @Id
     @Column(name = "TYPE", nullable = false, length = EntityType.MAX_LENGTH, updatable = false)
@@ -31,15 +32,15 @@ public class StatisticEntity {
     /**
      * JPA default constructor.
      */
-    protected StatisticEntity() {
+    protected StatisticEventsEntity() {
     }
 
     /**
-     * Constrcutor with a given type that sets the number of instances to one.
+     * Constructor with a given type that sets the number of instances to one.
      *
      * @param type Unique type ID.
      */
-    public StatisticEntity(@NotNull EntityType type) {
+    public StatisticEventsEntity(@NotNull EntityType type) {
         this.type = Objects.requireNonNull(type, "type==null").name();
         this.count = 1;
     }
@@ -71,7 +72,7 @@ public class StatisticEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StatisticEntity that = (StatisticEntity) o;
+        StatisticEventsEntity that = (StatisticEventsEntity) o;
         return Objects.equals(type, that.type);
     }
 
@@ -82,7 +83,7 @@ public class StatisticEntity {
 
     @Override
     public String toString() {
-        return "StatisticEntity{" +
+        return "StatisticEventsEntity{" +
                 "type='" + type + '\'' +
                 ", count=" + count +
                 '}';

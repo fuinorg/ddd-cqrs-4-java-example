@@ -98,8 +98,9 @@ class PersonE2EIT {
                 .extract().as(PersonListEntry[].class);
         assertThat(all).anyMatch(p -> p.getId().equals(personId));
 
-        // the statistics projection is served too
-        given().when().get("/statistics").then().statusCode(200);
+        // both statistics projections (event-type based and category based) are served too
+        given().when().get("/statistics-events").then().statusCode(200);
+        given().when().get("/statistics-categories").then().statusCode(200);
 
         // ---- COMMAND SIDE: delete the person via the aggregate ----
         final Person loaded = repo.read(personId);

@@ -213,7 +213,7 @@
 						</image>
 
 						<image>
-							<name>mariadb:10.6</name>
+							<name>mariadb:12.3</name>
 							<run>
 								<!-- Host networking (see EventStoreDB above): MariaDB binds 3306 directly on the
 								     host, avoiding the rootless-netns teardown failure. -->

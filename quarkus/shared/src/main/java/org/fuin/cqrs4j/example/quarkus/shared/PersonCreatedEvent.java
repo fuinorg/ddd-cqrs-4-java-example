@@ -4,6 +4,7 @@ import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.validation.constraints.NotNull;
 import org.fuin.ddd4j.core.AggregateVersion;
 import org.fuin.ddd4j.core.EventType;
+import org.fuin.ddd4j.core.GenesisEvent;
 import org.fuin.ddd4j.jsonb.AbstractDomainEvent;
 import org.fuin.esc.api.HasSerializedDataTypeConstant;
 import org.fuin.esc.api.SerializedDataType;
@@ -14,7 +15,7 @@ import org.fuin.objects4j.common.Immutable;
  */
 @Immutable
 @HasSerializedDataTypeConstant
-public final class PersonCreatedEvent extends AbstractDomainEvent<PersonId> {
+public final class PersonCreatedEvent extends AbstractDomainEvent<PersonId> implements GenesisEvent {
 
     private static final long serialVersionUID = 1000L;
 

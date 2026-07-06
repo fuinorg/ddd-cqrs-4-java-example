@@ -37,9 +37,9 @@ Nothing in the domain, the projection views or the REST layer. Only wiring, all 
   store has no live subscription;
 - both services point at the same relational database.
 
-Everything else — the `Person` aggregate, `EventStorePersonRepository`, `PersonListView` /
-`StatisticView`, and the `/persons` + `/statistics` REST endpoints — is shared, byte-for-byte, with
-demo #1.
+Everything else — the `Person` aggregate, `EventStorePersonRepository`, `PersonListView`,
+`StatisticViewEvents` / `StatisticViewCategories`, and the `/persons` + `/statistics-events` +
+`/statistics-categories` REST endpoints — is shared, byte-for-byte, with demo #1.
 
 ## A. Manual walkthrough
 
@@ -84,7 +84,7 @@ step (`COMMAND_URL`, `QUERY_URL`, `TIMEOUT_SECONDS` overrides are honoured):
 3. **Create** — POSTs the three `create-*-command.json` commands to the command service.
 4. **Project** — polls the query service until all three persons appear — the command → relational
    event store → catch-up projection propagation happening live.
-5. **Query** — reads them back over REST (`/persons`, `/persons/{id}`, `/statistics`).
+5. **Query** — reads them back over REST (`/persons`, `/persons/{id}`, `/statistics-events`, `/statistics-categories`).
 6. **Delete** — sends `delete-harry-osborn-command.json`.
 7. **Project + verify** — polls until "Harry Osborn" is gone (`GET /persons/{id}` → `404`).
 
@@ -113,7 +113,7 @@ cd ddd-cqrs-4-java-example
 Like `PersonE2EIT` it drives the command side's **real** `Person` aggregate and event-sourced
 `EventStorePersonRepository` in-process against the query application's own event-store connection,
 then `await()`s until the query projection has caught up and asserts `GET /persons/{id}`,
-`GET /persons` and `GET /statistics` over REST — proving the read model still converges when the
+`GET /persons`, `GET /statistics-events`, and `GET /statistics-categories` over REST — proving the read model still converges when the
 backend is the relational store.
 
 ## What this proves

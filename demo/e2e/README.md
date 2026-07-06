@@ -24,7 +24,7 @@ query, or vice-versa).
 | `create-persons.sh` | POSTs the three `create-*-command.json` commands to the command service. |
 | `delete-harry-osborn.sh` | DELETEs "Harry Osborn" via the command service. |
 | `query-persons.sh` | Reads the query read model: `GET /persons` (or `/persons/{id}`). |
-| `query-statistics.sh` | Reads the statistics read model: `GET /statistics` (or `/statistics/{name}`). |
+| `query-statistics.sh` | Reads both statistics read models: `GET /statistics-events` (per entity type) and `GET /statistics-categories` (per category). |
 | `create-*-command.json`, `delete-*-command.json` | The command payloads. |
 
 There are two ways to see this:
@@ -97,7 +97,7 @@ cd ddd-cqrs-4-java-example/demo/e2e
    (`POST :8081/persons/create`).
 4. **Project** — polls the query service until all three persons appear in the read model — this is the
    command → event store → query projection propagation happening live.
-5. **Query** — reads them back: `GET :8080/persons`, `GET :8080/persons/{id}`, `GET :8080/statistics`.
+5. **Query** — reads them back: `GET :8080/persons`, `GET :8080/persons/{id}`, `GET :8080/statistics-events`, `GET :8080/statistics-categories`.
 6. **Delete** — sends `delete-harry-osborn-command.json` (`DELETE :8081/persons/{id}`).
 7. **Project + verify** — polls the query service until "Harry Osborn" is gone
    (`GET :8080/persons/{id}` → `404`) and prints the final read model and statistics.
@@ -114,7 +114,7 @@ to see each half in isolation:
 cd ddd-cqrs-4-java-example/demo/e2e
 
 ./query-persons.sh                 # GET /persons        -> [] (empty)
-./query-statistics.sh              # GET /statistics     -> [] (empty)
+./query-statistics.sh              # both statistics     -> events [] / categories []
 
 ./create-persons.sh                # POST the 3 create commands to :8081
 
@@ -122,14 +122,17 @@ cd ddd-cqrs-4-java-example/demo/e2e
 
 ./query-persons.sh                 # GET /persons        -> Harry, Mary Jane, Peter
 ./query-persons.sh 84565d62-115e-4502-b7c9-38ad69c64b05   # GET /persons/{id} -> Peter Parker
-./query-statistics.sh              # GET /statistics     -> [ { "type": "person", "count": 3 } ]
+./query-statistics.sh              # events     -> [ { "type": "person", "count": 3 } ]
+                                   # categories -> [ { "category": "created", "count": 3 } ]
 
 ./delete-harry-osborn.sh           # DELETE :8081/persons/954177c4-...
 
 # ...watch the query service log project "PersonDeletedEvent"...
 
 ./query-persons.sh                 # GET /persons        -> Mary Jane, Peter (Harry gone)
-./query-statistics.sh              # GET /statistics     -> [ { "type": "person", "count": 2 } ]
+./query-statistics.sh              # events     -> [ { "type": "person", "count": 2 } ]
+                                   # categories -> [ { "category": "created", "count": 3 },
+                                   #                 { "category": "deleted", "count": 1 } ]
 ```
 
 ### A.4 Look behind the scenes
@@ -164,7 +167,7 @@ precisely *because* the two services share nothing but the event store:
 1. **Command side** — `repo.add(new Person(...))` appends a `PersonCreatedEvent` to the
    `PERSON-<id>` stream in the event store.
 2. **Query side** — `await()` until the query application's projection has consumed the event into the JPA
-   read model; then assert `GET /persons/{id}`, `GET /persons`, and `GET /statistics` over REST
+   read model; then assert `GET /persons/{id}`, `GET /persons`, `GET /statistics-events`, and `GET /statistics-categories` over REST
    (via RestAssured/MockMvc against the running Spring context).
 3. **Command side** — `person.delete(); repo.update(person)` appends a `PersonDeletedEvent`.
 4. **Query side** — `await()` until the read model drops it; assert `GET /persons/{id}` → `404`.

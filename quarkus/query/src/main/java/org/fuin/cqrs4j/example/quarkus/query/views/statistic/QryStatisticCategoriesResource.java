@@ -12,10 +12,10 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 /**
- * REST resource providing the statistics.
+ * REST resource providing the category based statistic ({@link StatisticViewCategories}).
  */
-@Path("/statistics")
-public class QryStatisticResource {
+@Path("/statistics-categories")
+public class QryStatisticCategoriesResource {
 
     @Inject
     EntityManager em;
@@ -23,18 +23,18 @@ public class QryStatisticResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
-        final List<Statistic> statistics = em.createNamedQuery(StatisticEntity.FIND_ALL, Statistic.class).getResultList();
+        final List<CategoryStatistic> statistics = em.createNamedQuery(StatisticCategoriesEntity.FIND_ALL, CategoryStatistic.class).getResultList();
         return Response.ok(statistics).build();
     }
 
     @GET
-    @Path("{name}")
+    @Path("{category}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getByName(@PathParam("name") String name) {
-        if (!EntityType.isValid(name)) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid entity type name").build();
+    public Response getByCategory(@PathParam("category") String category) {
+        if (category == null || category.isEmpty() || category.length() > StatisticCategoriesEntity.MAX_LENGTH) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid category name").build();
         }
-        final StatisticEntity entity = em.find(StatisticEntity.class, name);
+        final StatisticCategoriesEntity entity = em.find(StatisticCategoriesEntity.class, category);
         if (entity == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
