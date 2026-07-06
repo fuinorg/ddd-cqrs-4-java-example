@@ -27,13 +27,10 @@ import java.util.concurrent.Executor;
         "org.fuin.cqrs4j.example.spring.query.views"
 })
 @EnableConfigurationProperties(EventstoreConfig.class)
-@EntityScan({
-        "org.fuin.cqrs4j.example.spring.query.views",
-        // Backend-portability ("esc-jpa" profile): the relational event-store tables and the per-aggregate
-        // Person stream tables. Harmless (empty) under the default KurrentDB backend.
-        "org.fuin.esc.jpa",
-        "org.fuin.cqrs4j.example.spring.shared.jpa"
-})
+// The relational event-store entities (org.fuin.esc.jpa + shared.jpa) are scanned only under the
+// "esc-jpa" backend-portability profile - see EscJpaEntityScanConfig - so the read-model database stays
+// free of (unused) event-store tables under the default KurrentDB backend.
+@EntityScan("org.fuin.cqrs4j.example.spring.query.views")
 @EnableScheduling
 @EnableAsync
 public class QryApplication {
