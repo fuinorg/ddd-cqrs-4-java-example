@@ -39,6 +39,16 @@
 			<artifactId>quarkus-scheduler</artifactId>
 		</dependency>
 
+		<!-- Supplies the runtime SmallRye Fault Tolerance SPI that cqrs-4-java-quarkus-query only
+		     compiles against (via smallrye-fault-tolerance-api). Without it QuarkusViewManager's
+		     Guard.create() fails at runtime with "Could not find implementation of
+		     io.smallrye.faulttolerance.api.Spi". Provided by the application, exactly like
+		     quarkus-scheduler above. -->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-fault-tolerance</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-hibernate-orm</artifactId>
