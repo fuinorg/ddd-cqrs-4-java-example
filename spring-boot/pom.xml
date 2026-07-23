@@ -26,7 +26,7 @@
 		<objects4j.version>0.12.0-SNAPSHOT</objects4j.version>
 		<esc.version>0.10.0-SNAPSHOT</esc.version>
 		<utils4j.version>0.15.1-SNAPSHOT</utils4j.version>
-		<kurrentdb.version>26.1.0</kurrentdb.version>
+		<kurrentdb.version>26.1</kurrentdb.version>
 		<!-- Byte Buddy only supports the Java 25 class file format (major 69) from 1.17.5 on, while
 		     spring-boot-starter-parent 3.4.4 manages 1.15.11 - Hibernate proxies, EqualsVerifier and
 		     Mockito all fail on JDK 25 with it. The version org.fuin:bom aligns on cannot be used
