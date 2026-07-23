@@ -21,6 +21,7 @@
 		<esc.version>0.10.0-SNAPSHOT</esc.version>
 		<utils4j.version>0.15.1-SNAPSHOT</utils4j.version>
 		<jackson.version>2.18.2</jackson.version>
+		<byte-buddy.version>1.17.8</byte-buddy.version>
 	</properties>
 
 	<modules>
@@ -375,25 +376,12 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>3.5.3</version>
-					<configuration>
-						<!-- JDK 25: Byte Buddy (used by Hibernate proxies and EqualsVerifier/Objenesis)
-						     rejects class-file major 69 without this. Set here on the reactor parent so
-						     every quarkus module's forked test JVM gets it. -->
-						<systemPropertyVariables>
-							<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
-						</systemPropertyVariables>
-					</configuration>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>3.2.3</version>
-					<configuration>
-						<systemPropertyVariables>
-							<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
-						</systemPropertyVariables>
-					</configuration>
 				</plugin>
 
 				<plugin>

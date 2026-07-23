@@ -148,7 +148,6 @@
 				<configuration>
 					<systemProperties>
 						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-						<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
 					</systemProperties>
 				</configuration>
 			</plugin>
@@ -165,7 +164,6 @@
 						<configuration>
 							<systemProperties>
 								<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-								<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
 							</systemProperties>
 						</configuration>
 					</execution>

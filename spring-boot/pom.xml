@@ -27,6 +27,13 @@
 		<esc.version>0.10.0-SNAPSHOT</esc.version>
 		<utils4j.version>0.15.1-SNAPSHOT</utils4j.version>
 		<kurrentdb.version>26.1.0</kurrentdb.version>
+		<!-- Byte Buddy only supports the Java 25 class file format (major 69) from 1.17.5 on, while
+		     spring-boot-starter-parent 3.4.4 manages 1.15.11 - Hibernate proxies, EqualsVerifier and
+		     Mockito all fail on JDK 25 with it. The version org.fuin:bom aligns on cannot be used
+		     here: spring-boot-dependencies arrives through the parent POM, and an inherited entry
+		     outranks an imported BOM, so the property that spring-boot-dependencies itself uses has
+		     to be overridden instead. Keep in sync with org.fuin:bom. -->
+		<byte-buddy.version>1.17.8</byte-buddy.version>
 	</properties>
 	
 	<dependencyManagement>
@@ -147,30 +154,6 @@
 							</goals>
 						</execution>
 					</executions>
-				</plugin>
-
-				<!-- Byte Buddy 1.15.x (managed by spring-boot-starter-parent 3.4.4) rejects
-				     Java 25 (class file major 69) during test-time bytecode generation
-				     (Hibernate proxies, EqualsVerifier/Objenesis, Mockito). Allow it on the
-				     forked test JVMs until a Java-25-aware Byte Buddy is on the classpath. -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<configuration>
-						<systemPropertyVariables>
-							<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
-						</systemPropertyVariables>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-failsafe-plugin</artifactId>
-					<configuration>
-						<systemPropertyVariables>
-							<net.bytebuddy.experimental>true</net.bytebuddy.experimental>
-						</systemPropertyVariables>
-					</configuration>
 				</plugin>
 
 			</plugins>

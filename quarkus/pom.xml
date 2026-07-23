@@ -45,6 +45,24 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- Byte Buddy only supports the Java 25 class file format (major 69) from 1.17.5 on,
+                 while quarkus-bom manages 1.15.11, which aborts the build augmentation on JDK 25.
+                 org.fuin:bom already aligns on a Java-25-aware version, but it cannot be imported
+                 here: it is built against Quarkus 3.23.4 and would pull every io.quarkus artifact
+                 up to that version while the quarkus-maven-plugin stays at ${quarkus.version}.
+                 A direct entry overrides the imported BOM. Keep in sync with org.fuin:bom. -->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+
             <!-- The KurrentDB client (kurrentdb-client 1.2.0) generates its gRPC/protobuf stubs
                  against protobuf-java 4.28.2 (needs com.google.protobuf.RuntimeVersion). quarkus-bom
                  pins the older 3.25.x line, so the generated code fails at runtime with
