@@ -5,11 +5,39 @@ example applications, using **established patterns** — Circuit Breaker, Retry 
 Timeout, Fallback — implemented with **SmallRye Fault Tolerance** on Quarkus and **Resilience4j** on
 Spring Boot.
 
-> Per-project task lists live in each repo's `resilience-tasks.md`
-> ([event-store-commons](https://github.com/fuinorg/event-store-commons/blob/develop/resilience-tasks.md),
-> [ddd-4-java](https://github.com/fuinorg/ddd-4-java/blob/develop/resilience-tasks.md),
-> [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java/blob/develop/resilience-tasks.md)). This document is the shared design and the order
-> of work.
+> This document is the shared design and the order of work. **What each repository actually implements is
+> described in its own `resilience.md`**
+> ([event-store-commons](https://github.com/fuinorg/event-store-commons/blob/develop/resilience.md),
+> [ddd-4-java](https://github.com/fuinorg/ddd-4-java/blob/develop/resilience.md),
+> [cqrs-4-java](https://github.com/fuinorg/cqrs-4-java/blob/develop/resilience.md)), and the remaining open
+> points in its `resilience-tasks.md`.
+
+## Status
+
+The design below is implemented. Phases 0 to 6 are complete apart from the two items named under
+"Still open"; the descriptions in §5 and §6 are kept as the record of *why* each decision was made, and are
+written as they were planned rather than as they ended up.
+
+**Still open**
+
+- **Metrics and health** for the breakers and bulkheads (§5.6, Phase 6). Deferred so it can be done together
+  with the Micrometer instrumentation roadmap, which touches the same classes and owns the meter conventions.
+- **End-to-end token validation during a Keycloak outage.** The repository-level behaviour is covered against
+  a real Keycloak; putting a token through the security filter chain during an outage additionally needs
+  Keycloak and OIDC wired into a test application.
+
+**Corrections to the plan below, found while implementing**
+
+- The example's `RemoteEntityRoleService` named in Phase 1 **no longer exists** — it was deleted, and the
+  example has no command→query HTTP call left to guard. The recipe stays valid should one return.
+- Phase 2's "generalize `ViewSubscriptions` to exponential backoff + jitter" is done, and the reconnect also
+  exists as a store-agnostic decorator in event-store-commons.
+- §5.4's single `org.fuin.cqrs4j.resilience.<scenario>.<param>` namespace was **not** adopted. Configuration
+  ended up grouped by the thing being configured (`org.fuin.cqrs4j.projection.*`,
+  `org.fuin.cqrs4j.pm.cmdqueue.*`), which keeps a setting next to the feature it belongs to.
+- §5.2's classifier needed one correction that the plan did not anticipate: matching
+  `jakarta.persistence.*` / `java.sql.*` / `org.springframework.dao.*` by prefix also captures *answers about
+  the data* — optimistic-lock conflicts, constraint violations — which must never be treated as transient.
 
 ---
 
@@ -130,6 +158,10 @@ health/metrics.
 
 ## 6. Phased plan
 
+*All phases are implemented except where the Status section above says otherwise. Kept as written so the
+ordering and its rationale stay on record.*
+
+
 - **Phase 0 — Foundation (blocking).** §5 items 1–4 in `esc-api`/`esc-esgrpc`/`esc-jpa` + the shared
   classifier in `cqrs-4-java`. No behavior change beyond typed exceptions + timeouts. Everything else
   depends on this.
@@ -154,6 +186,12 @@ health/metrics.
   Toxiproxy) and assert graceful degradation + recovery.
 
 ## 7. Testing strategy
+
+*Implemented: fault injection covers an unreachable command endpoint on both frameworks, an event store
+outage with recovery, a Keycloak outage, a stalled database lock and a database that goes away. Where a
+container's mapped port would change on restart, a small in-process TCP proxy injects the outage instead, so
+the application keeps a stable address and recovery can be asserted.*
+
 
 - **Unit**: policy config (retry counts, backoff, breaker thresholds) and the transient-vs-business
   classifier.
