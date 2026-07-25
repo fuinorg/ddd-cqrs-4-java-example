@@ -12,6 +12,7 @@ import org.fuin.cqrs4j.jackson.Cqrs4JacksonModule;
 import org.fuin.ddd4j.core.EntityIdFactory;
 import org.fuin.ddd4j.core.JandexEntityIdFactory;
 import org.fuin.ddd4j.jackson.Ddd4JacksonModule;
+import org.fuin.ddd4j.jackson.JandexJacksonModule;
 import org.fuin.esc.api.EnhancedMimeType;
 import org.fuin.esc.api.ProjectionAdminEventStore;
 import org.fuin.esc.api.SerDeserializerRegistry;
@@ -55,10 +56,15 @@ public class SharedConfig {
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
                 .enable(SerializationFeature.INDENT_OUTPUT)
                 .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
-                .registerModule(new SharedJacksonModule(entityIdFactory))
                 .registerModule(new Cqrs4JacksonModule())
                 .registerModule(new Objects4JJacksonModule())
                 .registerModule(new Ddd4JacksonModule(entityIdFactory))
+                // Registers a (de)serializer for every value object of this example found in the
+                // Jandex index - PersonName, at the moment. The identifiers are not part of it:
+                // Ddd4JacksonModule above covers every class the entity id factory knows. Naming the
+                // package keeps the scan off the libraries, whose own modules are registered here too
+                // and would otherwise compete for the same types.
+                .registerModule(new JandexJacksonModule("org.fuin.cqrs4j.example.spring"))
         );
     }
 
